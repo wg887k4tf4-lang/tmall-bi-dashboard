@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PET500 天猫BI数据看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;--card:#111827;--card2:#1a2235;--border:#1e2a3f;
+  --text:#94a3b8;--text2:#cbd5e1;--white:#f1f5f9;
+  --blue:#3b82f6;--blue2:#60a5fa;--green:#10b981;--green2:#34d399;
+  --amber:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--cyan:#06b6d4;
+  --grad1:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%);
+  --grad2:linear-gradient(135deg,#10b981 0%,#06b6d4 100%);
+  --grad3:linear-gradient(135deg,#f59e0b 0%,#ef4444 100%);
+  --grad4:linear-gradient(135deg,#8b5cf6 0%,#ec4899 100%);
+  --shadow:0 4px 24px rgba(0,0,0,.3);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:var(--bg);color:var(--white);min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+/* ── Header ── */
+.header{padding:16px 0 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.header-left h1{font-size:20px;font-weight:700;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+                 background-clip:text;line-height:1.2}
+.header-left .sub{font-size:12px;color:var(--text);margin-top:4px}
+.header .badge{background:var(--card2);border:1px solid var(--border);color:var(--text2);
+               padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500}
+.date-selector{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);
+           padding:4px 10px;border-radius:20px;font-size:12px}
+.date-selector .daterange{color:var(--text2);margin-right:4px}
+.date-btn{background:transparent;border:none;color:var(--text);padding:4px 10px;border-radius:14px;
+            font-size:11px;cursor:pointer;transition:all .2s}
+.date-btn:hover{background:var(--card)}
+.date-btn.active{background:var(--accent);color:#fff}
+.header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.upload-btn{background:var(--grad1);border:none;color:#fff;padding:8px 16px;border-radius:8px;
+            font-size:13px;font-weight:500;cursor:pointer;transition:opacity .2s}
+.upload-btn:hover{opacity:.9}
+.upload-btn:active{transform:scale(.98)}
+.sku-selector{display:flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--border);
+              padding:6px 12px;border-radius:8px}
+.sku-label{font-size:12px;color:var(--text)}
+.sku-selector select{background:transparent;border:none;color:var(--text2);font-size:13px;font-weight:500;
+                     cursor:pointer;outline:none;padding:2px 4px}
+.sku-selector option{background:var(--card);color:var(--text2)}
+
+/* ── KPI Cards ── */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 0 12px}
+.kpi-row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 0 16px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;
+          position:relative;overflow:hidden;transition:transform .2s}
+.kpi-card:hover{transform:translateY(-2px)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.kpi-card.gmv::before{background:var(--grad1)}
+.kpi-card.net::before{background:var(--grad2)}
+.kpi-card.ad::before{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.kpi-card.roi::before{background:var(--grad2)}
+.kpi-card.refund::before{background:linear-gradient(90deg,#ef4444,#f87171)}
+
+.kpi-label{font-size:11px;color:var(--text);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;font-weight:500}
+.kpi-value{font-size:24px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.kpi-sub{font-size:12px;color:var(--text);line-height:1.5}
+.kpi-sub .hl{color:var(--text2);font-weight:600}
+.gmv .kpi-value{color:var(--blue2)}.net .kpi-value{color:var(--green2)}
+.ad .kpi-value{color:#fbbf24}.roi .kpi-value{color:var(--green2)}
+.refund .kpi-value{color:#f87171}
+
+/* ── Charts ── */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 0 16px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.chart-title{font-size:13px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px}
+.chart-title .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.chart-badge{font-size:11px;color:var(--text);background:var(--bg);padding:2px 10px;border-radius:10px}
+.chart{height:220px}
+.full{grid-column:1/-1}.full .chart{height:200px}
+
+/* ── Sparkline in KPI ── */
+.spark{width:100%;height:32px;margin-top:4px}
+    yAxis:[{...mkAxis(v=>v+"x","left"),min:(function(){var r=roi.filter(function(v){return v>0});return r.length?Math.floor(Math.min.apply(null,r))-1:0})()}],
+@media(max-width:900px){
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .kpi-row-2{grid-template-columns:repeat(2,1fr)}
+  .charts{grid-template-columns:1fr}
+}
+
+/* ── Step 4: 投放计划表格 ── */
+.table-section{margin-top:4px}
+.table-area-title{font-size:13px;font-weight:600;color:var(--text2);padding:10px 14px 6px;
+  border-bottom:1px solid var(--border);letter-spacing:.5px}
+.table-scroll{overflow-x:auto;overflow-y:hidden;width:100%;padding:0 0 8px}
+table{width:max-content;border-collapse:collapse;font-size:11.5px;white-space:nowrap}
+th,td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right}
+th{background:var(--card2);color:var(--text);font-weight:600;position:sticky;top:0;z-index:2}
+td{color:var(--text2)}
+tr:hover td{background:#1a2235}
+.tool-name{text-align:left!important;font-weight:600;color:var(--white)!important}
+.tool-row td{background:#141c2e!important}
+.wow-col{color:var(--amber)!important;font-weight:600!important}
+.wow-up{color:#f87171!important}
+.wow-down{color:#34d399!important}
+.wow-zero{color:var(--text)!important}
+th.tool-hdr{background:#0f1724;color:var(--blue2);position:sticky;top:0;z-index:3}
+th.plan-hdr{background:#0f1724;color:var(--purple);position:sticky;top:0;z-index:3}
+.wow-hdr{position:sticky;right:0;z-index:3;background:#0f1724!important;color:var(--amber)!important}
+td.wow-cell{position:sticky;right:0;background:inherit;z-index:1}
+tr:hover td.wow-cell{background:#1a2235!important}
+
+/* Tool tabs */
+.tool-tabs-wrap{padding:10px 14px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tool-tabs-wrap .section-label{font-size:11px;color:var(--text);white-space:nowrap}
+.tool-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tool-tab{padding:5px 14px;border-radius:6px 6px 0 0;border:1px solid var(--border);
+  border-bottom:none;background:var(--card2);color:var(--text);font-size:11.5px;
+  cursor:pointer;transition:all .15s;letter-spacing:.3px}
+.tool-tab:hover{background:var(--card);color:var(--text2)}
+.tool-tab.active{background:var(--purple);color:#fff;border-color:var(--purple);font-weight:600}
+.plan-tab{padding:4px 12px;border-radius:5px 5px 0 0;border:1px solid var(--border);
+  border-bottom:none;background:var(--card2);color:var(--text);font-size:11px;cursor:pointer;transition:all .15s}
+.plan-tab:hover{background:var(--card)}
+.plan-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:600}
+.plan-tabs-wrap{display:flex;gap:3px;flex-wrap:wrap;padding:8px 14px 0}
+.plan-tab-area{border-top:1px solid var(--border)}
+.plan-table-wrap{overflow-x:auto}
+.section-hint{font-size:10px;color:var(--text);padding:0 14px 8px;font-weight:400;opacity:.7}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div class="header-left">
+    <h1 id="pageTitle">🦐 天猫BI数据看板</h1>
+    <div class="sub">生意参谋 · 站内投放 · 流量来源 · 退款分析 — 四维融合</div>
+  </div>
+  <div class="header-right">
+    <div class="sku-selector">
+      <span class="sku-label">SKU:</span>
+      <select id="skuSelect" onchange="switchSKU(this.value)">
+        <option value="all">📊 全部汇总</option>
+        <option value="PET500" selected>PET500</option>
+        <option value="PET300">PET300</option>
+        <option value="滤芯套装">滤芯套装</option>
+      </select>
+    </div>
+    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 上传数据</button>
+    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFileUpload(this)">
+    <div class="date-selector" id="dateSelector">
+      <span class="daterange">📅 <span id="dateRangeLabel">04/23 — 05/06</span></span>
+      <button class="date-btn active" data-days="14" onclick="setDateFilter(14)">14天</button>
+      <button class="date-btn" data-days="7" onclick="setDateFilter(7)">7天</button>
+      <button class="date-btn" data-days="3" onclick="setDateFilter(3)">3天</button>
+      <button class="date-btn" data-days="1" onclick="setDateFilter(1)">1天</button>
+    </div>
+  </div>
+</div>
+
+<!-- KPI卡片：所有数值由 JS 动态渲染，不再硬编码 -->
+<div class="kpi-row">
+  <div class="kpi-card gmv">
+    <div class="kpi-label">💰 总GMV（含退款）</div>
+    <div class="kpi-value" id="kpi-gmv">—</div>
+    <div class="kpi-sub"><span class="hl">支付金额合计</span> · 14天累计</div>
+    <div class="spark" id="spark-gmv"></div>
+  </div>
+  <div class="kpi-card net">
+    <div class="kpi-label">✅ 净销售额（剔除退款）</div>
+    <div class="kpi-value" id="kpi-net">—</div>
+    <div class="kpi-sub" id="kpi-net-sub">—</div>
+    <div class="spark" id="spark-net"></div>
+  </div>
+  <div class="kpi-card ad">
+    <div class="kpi-label">📢 广告总花费</div>
+    <div class="kpi-value" id="kpi-ad">—</div>
+    <div class="kpi-sub" id="kpi-ad-sub">—</div>
+    <div class="spark" id="spark-ad"></div>
+  </div>
+</div>
+<div class="kpi-row-2">
+  <div class="kpi-card roi">
+    <div class="kpi-label">🎯 广告整体ROI</div>
+    <div class="kpi-value" id="kpi-roi">—</div>
+    <div class="kpi-sub" id="kpi-roi-sub">—</div>
+    <div class="spark" id="spark-roi"></div>
+  </div>
+  <div class="kpi-card refund">
+    <div class="kpi-label">⚠️ 均发货后退款率（t-1）</div>
+    <div class="kpi-value" id="kpi-refund">—</div>
+    <div class="kpi-sub" id="kpi-refund-sub">—</div>
+    <div class="spark" id="spark-refund"></div>
+  </div>
+</div>
+
+<div class="charts">
+  <!-- 1. GMV + 净销售额 -->
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--blue)"></span>每日GMV vs 净销售额</div>
+      <div class="chart-badge">万元</div>
+    </div>
+    <div class="chart" id="c1"></div>
+  </div>
+
+  <!-- 2. 广告花费 vs 成交（双Y轴） -->
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:#fbbf24"></span>广告花费 vs 总成交金额</div>
+      <div class="chart-badge">左轴:万元(花费) 右轴:万元(成交)</div>
+    </div>
+    <div class="chart" id="c2"></div>
+  </div>
+
+  <!-- 3. 直接/间接成交（双Y轴） -->
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--green)"></span>广告直接 vs 间接成交</div>
+      <div class="chart-badge">左轴:万元(直接) 右轴:万元(间接)</div>
+    </div>
+    <div class="chart" id="c3"></div>
+  </div>
+
+  <!-- 4. ROI趋势 -->
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--green)"></span>广告ROI趋势</div>
+      <div class="chart-badge">倍数</div>
+    </div>
+    <div class="chart" id="c4"></div>
+  </div>
+
+  <!-- 5. 流量来源堆叠面积图 (全宽) -->
+  <div class="chart-card full">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--purple)"></span>流量来源构成趋势</div>
+      <div class="chart-badge" id="c5-badge">访客数（千人）</div>
+    </div>
+    <div class="chart" id="c5"></div>
+  </div>
+
+  <!-- 6. 退款率 (全宽, t-1展示) -->
+  <div class="chart-card full">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--red)"></span>发货后退款率趋势（t-1展示）</div>
+      <div class="chart-badge">基准线 10%</div>
+    </div>
+    <div class="chart" id="c6"></div>
+  </div>
+</div>
+
+<!-- ══ Step 4: 投放计划分析 ══ -->
+<div class="table-section">
+  <!-- 区域A: 5种推广工具对比 -->
+  <div class="chart-card full">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--amber)"></span>推广工具维度对比（每日明细 + 环比）</div>
+      <div class="chart-badge">横向滚动查看每日 →</div>
+    </div>
+    <div class="table-scroll">
+      <table id="tool-comp-table">
+        <thead id="tool-comp-thead"></thead>
+        <tbody id="tool-comp-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 区域B: 各工具下计划明细 -->
+  <div class="chart-card full plan-tab-area">
+    <div class="chart-head">
+      <div class="chart-title"><span class="dot" style="background:var(--purple)"></span>各工具推广计划明细（Tab切换查看）</div>
+      <div class="chart-badge">← Tab 切换工具 →</div>
+    </div>
+    <div class="tool-tabs-wrap">
+      <span class="section-label">推广工具：</span>
+      <div class="tool-tabs" id="tool-tabs"></div>
+    </div>
+    <p class="section-hint">点击上方Tab切换不同推广工具，下方表格展示该工具下各计划的每日数据</p>
+    <div class="plan-tabs-wrap" id="plan-tabs-wrap"></div>
+    <div class="plan-table-wrap">
+      <table id="plan-comp-table">
+        <thead id="plan-comp-thead"></thead>
+        <tbody id="plan-comp-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- /.table-section -->
+
+</div><!-- /.container -->
+
+<script>
+// ══════════════════════════════════════════════════════════════════════
+//  STEP 4: 投放计划数据 + 渲染函数
+//  （全并入单一 script 块，不再有 orphaned code 问题）
+// ══════════════════════════════════════════════════════════════════════
+
+const TOOL_KEYS = ['keyword','crowd','merchandise','direct','shortvideo'];
+const TOOL_COLORS = {keyword:'#3b82f6',crowd:'#10b981',merchandise:'#8b5cf6',direct:'#f59e0b',shortvideo:'#ec4899'};
+
+const TOOL_DATA = {
+  keyword: {
+    name: '关键词推广',
+    plans: ['空气净化器_精准词不开智选_87348092968','空气净化器_只开智选_873480929689_客','空气净化器_竞品跟投合集_873480929689'],
+    spend: [
+      [2960.94,3478.65,3357.67,3500,3420.6,1998.77,1800,1777.79,1761.25,1766.11,1741.94,1776.33,1764.66,3866.9],
+      [2175.56,2280.66,2300,2300,2959.71,1498.15,1696.7,1700,1697.67,1698.89,1673.99,1678.75,1694.52,2479.16],
+      [1447.25,1000,1000,1000,1000,999.61,884.87,900,876.7,900,900,890.98,888.76,2473.88]
+    ],
+    gmv: [
+      [14569.91,25710.34,22677.33,20689.78,6729.21,8448.19,14077.96,4605.85,15896.23,14213.37,17568.91,29085.93,15497.94,40666.16],
+      [5928.26,14717.56,10388.03,15844.08,17673.17,2458.41,16615.03,8577.29,13478.41,8977.22,7474.3,7703.32,4006.78,10956.39],
+      [6424.88,0,2497.11,2672.07,11917.09,11141.73,9762.17,1289.54,1130.87,7126.35,4652.2,5178.51,1165.23,25499.86]
+    ],
+    direct: [
+      [14490.91,22818.22,18599.8,14546.13,6370.16,7964.29,8262.65,3793.85,13125.12,13290.6,15006.56,24444.76,14985.59,39300.28],
+      [5928.26,12256.97,10388.03,10264.05,14558.53,2198.82,16615.03,5897.29,11200.38,8977.22,7474.3,7703.32,3776.66,10554.54],
+      [4224.69,0,2380.61,0,3870.8,4081.55,0,0,0,5719.16,4438.2,3929.66,0,11735.87]
+    ],
+    indirect: [
+      [79,2892.12,4077.53,6143.65,359.05,483.9,5815.31,812,2771.11,922.77,2562.35,4641.17,512.35,1365.88],
+      [0,2460.59,0,5580.03,3114.64,259.59,0,2680,2278.03,0,0,0,230.12,401.85],
+      [2200.19,0,116.5,2672.07,8046.29,7060.18,9762.17,1289.54,1130.87,1407.19,214,1248.85,1165.23,13763.99]
+    ]
+  },
+  crowd: {
+    name: '人群推广',
+    plans: ['空气净化器_合集常客转化_873480929689','空气净化器_首购竞争_873480929689_客','空气净化器_首购_873480929689_客户'],
+    spend: [
+      [738.87,801,778.99,801,791.57,794.31,776.86,801,795.23,638.93,691.36,389.77,776.47,1158.67],
+      [704.31,792.9,739.01,756.37,793.39,478.71,471.6,485.91,476.49,479.51,477,497.25,467.01,949.67],
+      [473.75,500,458.61,500,491.52,497.87,487,494.97,451.72,493.91,438.36,484.4,485.75,948.28]
+    ],
+    gmv: [
+      [9645.34,6939.88,4042.91,3421.75,11909.83,2212.66,2900.6,3006.42,3574.63,4680.75,9172.94,2220.58,0,12960.35],
+      [2136.41,5518,4079.34,3983.88,2416.27,2329.84,6286.02,0,0,109,3738.74,1,5564.98,11197.37],
+      [2083.39,0,2038.19,0,2096.85,2198.82,2045.82,2717.41,1846.84,5597.24,0,1848.82,0,4375.57]
+    ],
+    direct: [
+      [5949.34,0,0,1943.85,2460.59,1946.85,0,2045.82,3574.63,0,1998.82,2220.58,0,4284.47],
+      [2136.41,1946.85,4079.34,3983.88,1946.85,1980.84,6286.02,0,0,0,3738.74,0,5564.98,2114.74],
+      [2083.39,0,2038.19,0,2096.85,2198.82,2045.82,0,1777.84,5597.24,0,1848.82,0,4140.87]
+    ],
+    indirect: [
+      [3696,6939.88,4042.91,1477.9,9449.24,265.81,2900.6,960.6,0,4680.75,7174.12,0,0,8675.88],
+      [0,3571.15,0,0,469.42,349,0,0,0,109,0,1,0,9082.63],
+      [0,0,0,0,0,0,0,2717.41,69,0,0,0,0,234.7]
+    ]
+  },
+  merchandise: {
+    name: '货品全站推广',
+    plans: ['空气净化器_全站_873480929689_客户','空气净化器_全站_801617527631_客户','空气净化器_全站_1001231224168_客户'],
+    spend: [
+      [9887,5872.17,5904.3,5846.38,5894.04,3961.93,3951.3,3996.95,3956.08,3962.21,3874.16,3945.48,3969.81,7865.22],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,6864.4],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,3829.08]
+    ],
+    gmv: [
+      [29271.42,38658.41,30706.69,54677.72,39429.47,13515.99,31700.09,37403.98,20302.87,30264.7,29121.78,25489.97,23604.07,32078.65],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,21730.71],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,18511.27]
+    ],
+    direct: [
+      [28758.42,36197.82,30706.69,52107.07,29283.16,8336.02,28713.28,37403.98,14881.77,28307.95,26567.66,24443.97,20600.53,28975.85],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,18608.23],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,17193.82]
+    ],
+    indirect: [
+      [513,2460.59,0,2570.65,10146.31,5179.97,2986.81,0,5421.1,1956.75,2554.12,1046,3003.54,3102.8],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,3122.48],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,1317.45]
+    ]
+  },
+  direct: {
+    name: '店铺直达',
+    plans: ['空气净化器_U8卡位_1032758801866_'],
+    spend: [[0,0,0,0,0,0,0,0,0,0,0,0,0,1500]],
+    gmv: [[0,0,0,0,0,0,0,0,0,0,0,0,0,11812.26]],
+    direct: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+    indirect: [[0,0,0,0,0,0,0,0,0,0,0,0,0,11812.26]]
+  },
+  shortvideo: {
+    name: '超级短视频',
+    plans: ['空气净化器_超短_873480929689_客户','空气净化器_超短_801617527631_客户','空气净化器_超短_1032758801866_客户'],
+    spend: [
+      [1000,997.65,964.33,981.66,1000,1990.66,2000,2000,1968.52,1992.99,2000,1986.47,1995.98,1999.87],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,1000],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,992.25]
+    ],
+    gmv: [
+      [4550.8,2208.04,8442.25,10500.2,8583.46,10777.67,19393.92,11598.9,11086.82,2813.05,11382.04,7690.37,4198.44,11181.32],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,2351.37],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,248.2]
+    ],
+    direct: [
+      [4233.81,0,4176.66,9897.17,8068.39,3985.66,10281.74,6021.54,1998.82,1930.84,0,7600.37,1775.32,10140.16],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ],
+    indirect: [
+      [316.99,2208.04,4265.59,603.03,515.07,6792.01,9112.18,5577.36,9088,882.21,11382.04,90,2423.12,1041.16],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,2351.37],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,248.2]
+    ]
+  }
+};
+
+function wow(val,prev){
+  if(!prev||prev===0) return {val:0,dir:'—'};
+  const pct=((val-prev)/prev*100).toFixed(1);
+  return {val:parseFloat(pct),dir:pct>0?'↑':pct<0?'↓':'—'};
+}
+
+function toolDayTotals(toolKey,dayIdx){
+  const t=TOOL_DATA[toolKey];
+  let spend=0,gmv=0,direct=0,indirect=0;
+  t.spend.forEach((_,pi)=>{
+    spend+=t.spend[pi][dayIdx]||0;
+    gmv+=t.gmv[pi][dayIdx]||0;
+    direct+=t.direct[pi][dayIdx]||0;
+    indirect+=t.indirect[pi][dayIdx]||0;
+  });
+  return{spend,gmv,direct,indirect};
+}
+
+function toolDayROI(toolKey,dayIdx){
+  const d=toolDayTotals(toolKey,dayIdx);
+  return d.spend>0?(d.gmv/d.spend).toFixed(2):'—';
+}
+
+// ── 区域A: 工具对比表 ──
+function renderToolComp(){
+  const n=DATES.length;
+  const METRICS=['花费(元)','GMV(元)','直接成交','间接成交','ROI'];
+  let h='<tr><th class="tool-hdr">推广工具</th><th class="tool-hdr">指标</th>';
+  for(let i=0;i<n;i++) h+=`<th class="tool-hdr">${DATES[i]}</th>`;
+  h+='<th class="tool-hdr wow-hdr">汇总</th><th class="tool-hdr wow-hdr">环比</th></tr>';
+  document.getElementById('tool-comp-thead').innerHTML=h;
+
+  let b='';
+  const metricKeys=['spend','gmv','direct','indirect'];
+  TOOL_KEYS.forEach(tk=>{
+    const t=TOOL_DATA[tk];
+    const color=TOOL_COLORS[tk];
+    const days=[];
+    for(let d=0;d<n;d++) days.push(toolDayTotals(tk,d));
+    const totS=days.reduce((s,v)=>s+v.spend,0);
+    const totG=days.reduce((s,v)=>s+v.gmv,0);
+    const totDir=days.reduce((s,v)=>s+v.direct,0);
+    const totInd=days.reduce((s,v)=>s+v.indirect,0);
+    const totROI=totS>0?(totG/totS).toFixed(2):'—';
+
+    METRICS.forEach((m,mi)=>{
+      const isFirst=mi===0;
+      b+='<tr class="tool-row">';
+      if(isFirst) b+=`<td class="tool-name" rowspan="${METRICS.length}" style="border-left:3px solid ${color}">${t.name}</td>`;
+      b+=`<td>${m}</td>`;
+      for(let d=0;d<n;d++){
+        const v=days[d];
+        const val=mi===0?v.spend:mi===1?v.gmv:mi===2?v.direct:mi===3?v.indirect:toolDayROI(tk,d);
+        const fmt=typeof val==='number'?(mi===0||mi===1?Math.round(val).toLocaleString():Math.round(val)):val;
+        const w=mi<4&&d>0?wow(val,days[d-1][metricKeys[mi-1]]):{dir:'—',val:0};
+        const cls=w.dir==='↑'?'wow-up':w.dir==='↓'?'wow-down':'wow-zero';
+        b+=`<td>${fmt}${d>0&&mi<4?`<span class="wow-cell ${cls}" style="display:block;font-size:10px">${w.dir}${Math.abs(w.val)}%</span>`:''}</td>`;
+      }
+      const totVal=mi===0?totS:mi===1?totG:mi===2?totDir:mi===3?totInd:totROI;
+      const totFmt=typeof totVal==='number'?Math.round(totVal).toLocaleString():totVal;
+      b+=`<td class="wow-cell" style="font-weight:700;color:${color}">${totFmt}</td>`;
+      if(isFirst){
+        const pre7=days.slice(0,7).reduce((s,v)=>s+v.spend,0);
+        const cur7=days.slice(7).reduce((s,v)=>s+v.spend,0);
+        const w7=wow(cur7,pre7);
+        const cls7=w7.dir==='↑'?'wow-up':w7.dir==='↓'?'wow-down':'wow-zero';
+        b+=`<td class="wow-cell ${cls7}" rowspan="${METRICS.length}">${w7.dir}${Math.abs(w7.val)}%</td>`;
+      }
+      b+='</tr>';
+    });
+  });
+  document.getElementById('tool-comp-tbody').innerHTML=b;
+}
+
+// ── 区域B: 工具Tab + 计划明细表 ──
+let activeTool='keyword';
+let activePlan={};
+
+function renderToolTabs(){
+  let html='';
+  TOOL_KEYS.forEach(tk=>{
+    const active=tk===activeTool?'active':'';
+    html+=`<div class="tool-tab ${active}" onclick="switchTool('${tk}')">${TOOL_DATA[tk].name}</div>`;
+  });
+  document.getElementById('tool-tabs').innerHTML=html;
+}
+
+function switchTool(toolKey){
+  activeTool=toolKey;
+  if(activePlan[toolKey]===undefined) activePlan[toolKey]=0;
+  renderToolTabs();
+  renderPlanTabs(toolKey);
+  renderPlanTable(toolKey,activePlan[toolKey]);
+}
+
+function renderPlanTabs(toolKey){
+  const plans=TOOL_DATA[toolKey].plans;
+  if(activePlan[toolKey]===undefined) activePlan[toolKey]=0;
+  let html=`<span class="section-label" style="margin-right:4px">计划：</span>`;
+  plans.forEach((p,i)=>{
+    const active=i===activePlan[toolKey]?'active':'';
+    html+=`<div class="plan-tab ${active}" onclick="switchPlan('${toolKey}',${i})">${p}</div>`;
+  });
+  document.getElementById('plan-tabs-wrap').innerHTML=html;
+}
+
+function switchPlan(toolKey,idx){
+  activePlan[toolKey]=idx;
+  renderPlanTabs(toolKey);
+  renderPlanTable(toolKey,idx);
+}
+
+function renderPlanTable(toolKey,planIdx){
+  const n=DATES.length;
+  const t=TOOL_DATA[toolKey];
+  const color=TOOL_COLORS[toolKey];
+  const sp=t.spend[planIdx]||[];
+  const gp=t.gmv[planIdx]||[];
+  const dp=t.direct[planIdx]||[];
+  const ip=t.indirect[planIdx]||[];
+
+  let h=`<tr><th class="plan-hdr">指标</th>`;
+  for(let i=0;i<n;i++) h+=`<th class="plan-hdr">${DATES[i]}</th>`;
+  h+=`<th class="plan-hdr wow-hdr">汇总</th><th class="plan-hdr wow-hdr">环比</th></tr>`;
+  document.getElementById('plan-comp-thead').innerHTML=h;
+
+  const METRICS=[
+    {k:'spend',l:'花费(元)',fmt:v=>Math.round(v).toLocaleString()},
+    {k:'gmv',l:'GMV(元)',fmt:v=>Math.round(v).toLocaleString()},
+    {k:'direct',l:'直接成交',fmt:v=>Math.round(v).toLocaleString()},
+    {k:'indirect',l:'间接成交',fmt:v=>Math.round(v).toLocaleString()},
+    {k:'roi',l:'ROI',fmt:v=>v}
+  ];
+
+  let b='';
+  METRICS.forEach(m=>{
+    b+=`<tr><td style="font-weight:600;color:${color}">${m.l}</td>`;
+    const vals=m.k==='spend'?sp:m.k==='gmv'?gp:m.k==='direct'?dp:m.k==='indirect'?ip:
+      sp.map((_,i)=>{const s=sp[i]||0,g=gp[i]||0;return s>0?(g/s).toFixed(2):'—';});
+    let total=0;
+    for(let i=0;i<n;i++){
+      const v=vals[i]||0;
+      const fmt=m.fmt(v);
+      const numV=typeof v==='number'?v:0;
+      if(m.k==='spend'||m.k==='gmv') total+=numV;
+      else if(m.k==='direct'||m.k==='indirect') total+=numV;
+      const w=i>0?wow(vals[i],vals[i-1]):{dir:'—',val:0};
+      const cls=w.dir==='↑'?'wow-up':w.dir==='↓'?'wow-down':'wow-zero';
+      b+=`<td>${fmt}${i>0&&m.k!=='roi'?`<span class="wow-cell ${cls}" style="display:block;font-size:10px">${w.dir}${Math.abs(w.val)}%</span>`:''}</td>`;
+    }
+    if(m.k==='roi'){
+      const totS=sp.reduce((a,b)=>a+b,0);
+      const totG=gp.reduce((a,b)=>a+b,0);
+      const totV=totS>0?(totG/totS).toFixed(2):'—';
+      b+=`<td class="wow-cell" style="font-weight:700;color:${color}">${totV}</td>`;
+    } else {
+      b+=`<td class="wow-cell" style="font-weight:700;color:${color}">${total.toLocaleString()}</td>`;
+    }
+    if(m.k==='spend'||m.k==='gmv'){
+      const pre=vals.slice(0,7).reduce((a,b)=>a+(b||0),0);
+      const cur=vals.slice(7).reduce((a,b)=>a+(b||0),0);
+      const w7=wow(cur,pre);
+      const cls7=w7.dir==='↑'?'wow-up':w7.dir==='↓'?'wow-down':'wow-zero';
+      b+=`<td class="wow-cell ${cls7}">${w7.dir}${Math.abs(w7.val)}%</td>`;
+    } else {
+      b+=`<td class="wow-cell">—</td>`;
+    }
+    b+='</tr>';
+  });
+  document.getElementById('plan-comp-tbody').innerHTML=b;
+}
+
+function initPlanComp(){
+  renderToolTabs();
+  switchTool('keyword');
+}
+
+
+// ══════════════════════════════════════════════════════════════════════
+//  主数据 + 图表逻辑
+// ══════════════════════════════════════════════════════════════════════
+
+// 日期标签（固定）
+const DATES=["04/23","04/24","04/25","04/26","04/27","04/28","04/29","04/30","05/01","05/02","05/03","05/04","05/05","05/06"];
+
+// ECharts 主题色常量
+const C={bg:'#111827',border:'#1e2a3f',text:'#64748b',axis:'#334155'};
+
+// ── SKU 数据（PET500 真实数据，其他 SKU 待补充）────────────────────
+// 注：流量数据(paidTraf/advTraf/revisit/inner)已换算为千人单位
+const SKU_DATA={
+  PET500:{
+    name:'PET500',
+    gmv:    [16.8,14.3,11.9,16.3,12.8,10.4,9.9,8.1,6.6,11.9,8.3,12.0,8.3,25.0],
+    net:    [10.3,8.4,7.0,9.2,9.5,5.2,7.7,5.8,6.0,9.8,6.2,10.6,7.5,16.6],
+    adSpend:[2.3,1.9,1.9,1.9,2.0,1.6,1.5,1.5,1.5,1.5,1.5,1.5,1.5,9.4],
+    adRev:  [8.4,10.4,9.7,12.5,12.2,5.8,10.8,8.3,7.2,9.6,9.0,10.1,5.9,50.2],
+    dir:    [7.0,8.2,7.4,9.9,7.5,3.5,7.2,6.5,5.0,8.1,6.5,9.1,5.0,33.5],
+    indir:  [1.4,2.2,2.2,2.6,4.7,2.3,3.5,1.7,2.2,1.5,2.5,1.0,0.8,16.7],
+    roi:    [3.71,5.4,4.99,6.48,6.1,3.71,7.09,5.43,4.87,6.39,6.16,6.9,3.92,5.35],
+    // 退款率：发货后退款率 ×100 转为百分比，0表示当日无退款记录（t-1展示时会有0值）
+    refund: [13.6,5.7,6.9,3.8,6.5,2.0,8.3,2.6,2.8,0,0,1.6,2.3,0],
+    // 流量（千人）：原始访客数÷1000
+    paidTraf:[39.9,42.2,39.3,42.4,36.6,48.5,43.2,45.3,46.0,46.1,44.9,44.9,48.3,64.2],
+    advTraf: [9.6,5.1,4.1,4.0,4.7,3.9,3.8,3.1,3.9,3.8,3.5,3.3,3.4,6.3],
+    revisit: [2.2,2.0,4.6,6.5,2.0,1.5,1.0,1.0,1.1,1.3,1.1,1.3,1.7,14.7],
+    inner:   [4.8,4.0,4.2,4.7,4.3,4.7,4.3,4.0,4.2,4.6,4.9,4.7,4.9,6.0]
+  }
+};
+
+// ── 当前选中的 SKU ──
+let currentSKU='PET500';
+let gmv,net,adSpend,adRev,dir,indir,roi,refund,paidTraf,advTraf,revisit,inner;
+
+// ── 计算全部 SKU 汇总 ──
+function calcSummary(){
+  const skus=Object.keys(SKU_DATA);
+  const n=DATES.length;
+  const sum={gmv:[],net:[],adSpend:[],adRev:[],dir:[],indir:[],roi:[],refund:[],
+             paidTraf:[],advTraf:[],revisit:[],inner:[]};
+  for(let i=0;i<n;i++){
+    sum.gmv[i]=sum.net[i]=sum.adSpend[i]=sum.adRev[i]=sum.dir[i]=sum.indir[i]=sum.refund[i]=
+    sum.paidTraf[i]=sum.advTraf[i]=sum.revisit[i]=sum.inner[i]=0;
+    skus.forEach(sku=>{
+      const d=SKU_DATA[sku];
+      if(!d) return;
+      sum.gmv[i]+=d.gmv[i]||0;
+      sum.net[i]+=d.net[i]||0;
+      sum.adSpend[i]+=d.adSpend[i]||0;
+      sum.adRev[i]+=d.adRev[i]||0;
+      sum.dir[i]+=d.dir[i]||0;
+      sum.indir[i]+=d.indir[i]||0;
+      sum.refund[i]+=(d.refund[i]||0);
+      sum.paidTraf[i]+=d.paidTraf[i]||0;
+      sum.advTraf[i]+=d.advTraf[i]||0;
+      sum.revisit[i]+=d.revisit[i]||0;
+      sum.inner[i]+=d.inner[i]||0;
+    });
+  }
+  // 汇总退款率 = 14天退款金额合计 / 14天GMV合计（简单平均）
+  const avgRefund=sum.refund.reduce((a,b)=>a+b,0)/n;
+  sum.refund=Array(n).fill(parseFloat(avgRefund.toFixed(1)));
+  sum.roi=sum.gmv.map((g,i)=>parseFloat((sum.adSpend[i]>0?(g/sum.adSpend[i]):0).toFixed(2)));
+  return sum;
+}
+
+// ── P0-1: 动态渲染 KPI 卡片（切换SKU时调用）─────────────────────
+function renderKPI(data){
+  const totalGMV=data.gmv.reduce((a,b)=>a+b,0);
+  const totalNet=data.net.reduce((a,b)=>a+b,0);
+  const totalAdSpend=data.adSpend.reduce((a,b)=>a+b,0);
+  const totalAdRev=data.adRev.reduce((a,b)=>a+b,0);
+  const avgDailyAdSpend=totalAdSpend/DATES.length;
+  const overallROI=totalAdSpend>0?(totalAdRev/totalAdSpend).toFixed(2):'—';
+
+  // 退款：t-1展示，取前一天退款率。4/23无前值，显示"—"
+  const refundDisplay=data.refund[0]; // t-1基准（4/23无前值→显示"—"）
+  const refundAvg=data.refund.reduce((a,b)=>a+b,0)/DATES.length;
+  const refundTarget=10;
+
+  document.getElementById('kpi-gmv').innerHTML=`¥${totalGMV.toFixed(1)}<span style="font-size:14px">万</span>`;
+  document.getElementById('kpi-net').innerHTML=`¥${totalNet.toFixed(1)}<span style="font-size:14px">万</span>`;
+
+  // 净销售额副文本：退款金额 + 退款占比（非发货后退款率）
+  const refundAmt=totalGMV-totalNet;
+  const refundShare=((refundAmt/totalGMV)*100).toFixed(1);
+  document.getElementById('kpi-net-sub').innerHTML=
+    `退款 <span class="hl" style="color:var(--red)">¥${refundAmt.toFixed(1)}万</span> · 退款占比 <span class="hl" style="color:var(--amber)">${refundShare}%</span>`;
+
+  document.getElementById('kpi-ad').innerHTML=`¥${totalAdSpend.toFixed(1)}<span style="font-size:14px">万</span>`;
+  document.getElementById('kpi-ad-sub').innerHTML=
+    `<span class="hl">14天累计投放</span> · 日均 ¥${avgDailyAdSpend.toFixed(1)}万`;
+
+  document.getElementById('kpi-roi').innerHTML=`${overallROI}<span style="font-size:14px">x</span>`;
+  document.getElementById('kpi-roi-sub').innerHTML=
+    `总成交 <span class="hl">¥${totalAdRev.toFixed(1)}万</span> · 花费产出比优秀 ✨`;
+
+  // 退款率：当前选中时间段内最后7天的平均发货后退货率，与10%阈值比较
+  const refund7=data.refund.slice(-7);
+  const refund7Avg=refund7.length>0?refund7.reduce((a,b)=>a+b,0)/refund7.length:0;
+  const refundBadge=refund7Avg>0?`${refund7Avg.toFixed(1)}%`:'—';
+  const statusColor=refund7Avg<=10?'var(--green)':'var(--red)';
+  const statusText=refund7Avg<=10?'达标 ✓':'超标 ✗';
+  document.getElementById('kpi-refund').innerHTML=`${refundBadge}<span style="font-size:14px">%</span>`;
+  document.getElementById('kpi-refund-sub').innerHTML=
+    `近7日均值 · 目标≤10% · <span class="hl" style="color:${statusColor}">${statusText}</span>`;
+}
+
+// ── 切换 SKU ──
+function switchSKU(sku){
+  currentSKU=sku;
+  const data=sku==='all'?calcSummary():SKU_DATA[sku];
+  if(!data){alert('该SKU暂无数据');return;}
+  gmv=data.gmv; net=data.net; adSpend=data.adSpend; adRev=data.adRev;
+  dir=data.dir; indir=data.indir; roi=data.roi; refund=data.refund;
+  paidTraf=data.paidTraf; advTraf=data.advTraf; revisit=data.revisit; inner=data.inner;
+
+  // 更新页面标题
+  const titleEl=document.getElementById('pageTitle');
+  if(sku==='all'){
+    titleEl.innerHTML='🦐 天猫BI数据看板 <span style="font-size:14px;color:var(--text)">(全部SKU汇总)</span>';
+  } else {
+    titleEl.innerHTML=`🦐 ${sku} 数据看板`;
+  }
+
+  // 渲染 KPI（修复 P0-1）
+  renderKPI(data);
+
+  // 刷新图表
+  refreshAllCharts();
+}
+
+// ── 日期筛选器（P2-3）────
+let currentDays = 14;
+let rawGMV,rawNet,rawAdSpend,rawAdRev,rawDir,rawInd,rawRoi,rawRefund,rawPaidTraf,rawAdvTraf,rawRevisit,rawInner;
+function setDateFilter(days){
+  currentDays = days;
+  // 首次调用时保存原始数据
+  if(!rawGMV){
+    rawGMV = [...gmv]; rawNet = [...net]; rawAdSpend = [...adSpend];
+    rawAdRev = [...adRev]; rawDir = [...dir]; rawInd = [...ind];
+    rawRoi = [...roi]; rawRefund = [...refund];
+    rawPaidTraf = [...paidTraf]; rawAdvTraf = [...advTraf];
+    rawRevisit = [...revisit]; rawInner = [...inner];
+  }
+  const n = DATES.length;
+  const start = n - days;
+  const slice = (arr) => arr.slice(start, n);
+  gmv = slice(rawGMV); net = slice(rawNet); adSpend = slice(rawAdSpend);
+  adRev = slice(rawAdRev); dir = slice(rawDir); ind = slice(rawInd); roi = slice(rawRoi);
+  refund = slice(rawRefund); paidTraf = slice(rawPaidTraf); advTraf = slice(rawAdvTraf);
+  revisit = slice(rawRevisit); inner = slice(rawInner);
+  
+  // 更新按钮状态
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.date-btn[data-days="'+days+'"]').classList.add('active');
+  
+  // 更新日期标签
+  const startD = DATES[start]; const endD = DATES[n-1];
+  document.getElementById('dateRangeLabel').textContent = startD + ' — ' + endD;
+  
+  refreshAllCharts();
+}
+
+// ── 刷新所有图表（销毁旧实例再重建）─────────────────────────────
+function refreshAllCharts(){
+  document.querySelectorAll('.chart,.spark').forEach(el=>{
+    const inst=echarts.getInstanceByDom(el);
+    if(inst) inst.dispose();
+  });
+  initAll();
+}
+
+// ══════════════════════════════════════════════════════════════════════
+//  ECharts 通用配置函数
+// ══════════════════════════════════════════════════════════════════════
+
+function baseTooltip(){
+  return{trigger:'axis',backgroundColor:C.bg,borderColor:C.border,
+    textStyle:{color:'#e2e8f0',fontSize:12},
+    axisPointer:{type:'shadow',shadowStyle:{color:'rgba(0,0,0,.2)'}}};
+}
+function baseGrid(){return{top:36,left:48,right:12,bottom:24}}
+function baseXAxis(){
+  return{type:'category',data:DATES,
+    axisLine:{lineStyle:{color:C.axis}},
+    axisTick:{show:false},
+    axisLabel:{color:C.text,fontSize:11},
+    splitLine:{show:false}};
+}
+function baseLegend(){return{textStyle:{color:C.text,fontSize:11},top:0,right:0,itemWidth:12,itemHeight:8};}
+
+function mkBar(name,data,color){
+  return{name,type:'bar',data,
+    itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[
+      {offset:0,color:color},{offset:1,color:color+'66'}])},
+    barMaxWidth:22,barGap:'10%'};
+}
+function mkLine(name,data,color,area){
+  return{name,type:'line',data,smooth:true,symbol:'circle',symbolSize:5,
+    lineStyle:{color,width:2.5},itemStyle:{color},
+    areaStyle:area?{color:new echarts.graphic.LinearGradient(0,0,0,1,[
+      {offset:0,color:color+'40'},{offset:1,color:color+'08'}])}:undefined};
+}
+function mkDash(name,data,color){
+  return{name,type:'line',data,symbol:'none',
+    lineStyle:{color,type:'dashed',width:1.5},
+    tooltip:{show:false}};
+}
+function mkAxis(fmt,pos){return{type:'value',name:'',nameTextStyle:{show:false},
+  axisLine:{show:false},axisTick:{show:false},
+  splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}},
+  axisLabel:{color:C.text,fontSize:11,formatter:fmt},position:pos};}
+
+// ── 迷你折线图 ──
+function mkSpark(id,data,color){
+  const c=echarts.init(document.getElementById(id));
+  c.setOption({
+    grid:{top:2,left:0,right:0,bottom:2},
+    xAxis:{show:false,type:'category',data:DATES},
+    yAxis:{show:false,type:'value'},
+    series:[{type:'line',data,smooth:0.3,symbol:'none',
+      lineStyle:{color,linewidth:2},
+      areaStyle:{color:color+'15'}}],
+    tooltip:{show:false}
+  });
+  return c;
+}
+
+// ── 初始化所有图表（页面加载时调用一次，后续由 refreshAllCharts 重建）──
+function initAll(){
+  // 迷你图
+  mkSpark('spark-gmv',gmv,'#3b82f6');
+  mkSpark('spark-net',net,'#10b981');
+  mkSpark('spark-ad',adSpend,'#f59e0b');
+  mkSpark('spark-roi',roi,'#10b981');
+  mkSpark('spark-refund',refund,'#ef4444');
+
+  // 图1: GMV vs 净销售额（单Y轴，量级接近）
+  echarts.init(document.getElementById('c1')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[mkAxis(v=>v+'万','left')],
+    series:[mkBar('GMV',gmv,'#3b82f6'),mkBar('净销售额',net,'#10b981')]
+  });
+
+  // 图2: 广告花费 vs 总成交（双Y轴：花费≈1.5~9.4万，成交≈5.8~50.2万，差5倍）
+  echarts.init(document.getElementById('c2')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[
+      mkAxis(v=>v+'万','left'),   // 左Y轴：花费
+      mkAxis(v=>v+'万','right')   // 右Y轴：成交
+    ],
+    series:[
+      {...mkBar('广告花费(万)',adSpend,'#f59e0b'),yAxisIndex:0},
+      {...mkBar('总成交(万)',adRev,'#8b5cf6'),yAxisIndex:1}
+    ]
+  });
+
+  // 图3: 直接/间接成交（双Y轴：直接≈3.5~33.5万，间接≈0.8~16.7万，差约2倍）
+  echarts.init(document.getElementById('c3')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[
+      mkAxis(v=>v+'万','left'),   // 左Y轴：直接
+      mkAxis(v=>v+'万','right')    // 右Y轴：间接
+    ],
+    series:[
+      {...mkBar('直接成交(万)',dir,'#10b981'),yAxisIndex:0},
+      {...mkBar('间接成交(万)',indir,'#60a5fa'),yAxisIndex:1}
+    ]
+  });
+
+  // 图4: ROI趋势（P2-2修复：Y轴不从0开始，显示数据波动）
+  echarts.init(document.getElementById('c4')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>`<b>${p[0].name}</b><br/>ROI: <b style="color:#34d399">${p[0].value}x</b>`},
+    grid:{top:20,left:44,right:12,bottom:24},xAxis:baseXAxis(),
+    yAxis:[{...mkAxis(v=>v+"x","left"),min:(function(){var r=roi.filter(function(v){return v>0});return r.length?Math.floor(Math.min.apply(null,r))-1:0})()}],
+    series:[mkLine('ROI',roi,'#10b981',true)]
+  });
+
+  // 图5: 流量来源堆叠面积图（P0-2已修复：y轴加“千”单位）
+  echarts.init(document.getElementById('c5')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>{
+      let s=`<b>${p[0].axisValue}</b>`;
+      p.forEach(i=>{if(i.seriesName!=='基准')s+=`<br/>${i.marker}${i.seriesName}: <b>${i.value}</b>千`;});
+      return s;
+    }},
+    legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[{type:'value',name:'单位: 千人',nameTextStyle:{color:C.text,fontSize:10},
+      axisLine:{show:false},axisTick:{show:false},
+      splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}},
+      axisLabel:{color:C.text,fontSize:11,formatter:v=>v+' 千'},position:'left'}],
+    series:[
+      {name:'付费推广',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#3b82f6',width:2},
+        areaStyle:{color:'#3b82f640'},
+        itemStyle:{color:'#3b82f6'},data:paidTraf},
+      {name:'经营优势',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#10b981',width:2},
+        areaStyle:{color:'#10b98140'},
+        itemStyle:{color:'#10b981'},data:advTraf},
+      {name:'主动回访',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#8b5cf6',width:2},
+        areaStyle:{color:'#8b5cf640'},
+        itemStyle:{color:'#8b5cf6'},data:revisit},
+      {name:'店内流转',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#f59e0b',width:2},
+        areaStyle:{color:'#f59e0b40'},
+        itemStyle:{color:'#f59e0b'},data:inner}
+    ]
+  });
+
+  // 图6: 退款率 t-1 展示（修复P1-4：shift偏移一位，4/23无前值显示"—"）
+  // refund数组：index0=4/23退货率(无前值→null), index1=4/24退货率(4/23的), ..., index13=5/6退货率(5/5的)
+  const refundT1=[null,...refund.slice(0,-1)]; // [null, 4/23率, 4/24率, ..., 5/5率]
+  echarts.init(document.getElementById('c6')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>{
+      if(!p||!p[0]||p[0].seriesName==='基准线10%') return '';
+      const v=p[0].value;
+      if(v===null||v===undefined) return `<b>${p[0].axisValue}</b><br/><span style="color:${C.text}">暂无前一日数据</span>`;
+      return`<b>${p[0].axisValue}</b><br/>${p[0].marker}退货率: <b style="color:${v>10?'#ef4444':'#34d399'}">${v}%</b><br/><span style="color:${C.text};font-size:10px">* t-1 展示，前一天退款率</span>`;
+    }},
+    grid:{top:20,left:44,right:12,bottom:24},xAxis:baseXAxis(),
+    yAxis:[{type:'value',max:16,
+      axisLabel:{color:C.text,fontSize:11,formatter:v=>v+'%'},
+      splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}}}],
+    series:[
+      mkLine('退货率(t-1)',refundT1,'#ef4444',true),
+      mkDash('基准线10%',DATES.map(()=>10),'#f59e0b')
+    ]
+  });
+}
+
+// ── 文件上传（P1-3已修复：解析后替换数据并刷新图表）───────────────
+function handleFileUpload(input){
+  const file=input.files[0];
+  if(!file) return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      let parsed;
+      if(ext==='csv'){
+        parsed=Papa.parse(e.target.result,{header:true,skipEmptyLines:true});
+        parsed=parsed.data;
+      }else{
+        const wb=XLSX.read(e.target.result,{type:'binary'});
+        const sheet=wb.Sheets[wb.SheetNames[0]];
+        parsed=XLSX.utils.sheet_to_json(sheet);
+      }
+      // 尝试将上传数据映射为tmall_bi_data格式
+      try{
+        const mapped=mapUploadedData(parsed);
+        Object.assign(SUMMARY,mapped.summary||{});
+        if(mapped.daily&&mapped.daily.length){DATES=mapped.daily.map(d=>d.date);GMV=mapped.daily.map(d=>d.gmv||0);ORDERS=mapped.daily.map(d=>d.orders||0);REFUND_AMT=mapped.daily.map(d=>d.refundAmt||0);REFUND_RATE=mapped.daily.map(d=>d.refundRate||0);COST=mapped.daily.map(d=>d.cost||0);ROI=mapped.daily.map(d=>d.roi||0);PAID_TRAF=mapped.daily.map(d=>d.paidTraf||0);ADV_TRAF=mapped.daily.map(d=>d.advTraf||0);REVISIT=mapped.daily.map(d=>d.revisit||0);INNER=mapped.daily.map(d=>d.inner||0);}
+        refreshAllCharts();
+        switchSKU(currentSKU||'PET500');
+        alert(`✅ 数据已加载！${parsed.length} 行\n文件: ${file.name}`);
+      }catch(mapErr){
+        console.log('自动映射失败，原始数据:',parsed.slice(0,5));
+        alert(`⚠️ 读取 ${parsed.length} 行，格式不匹配自动映射\n文件: ${file.name}\n请用 F12 查看控制台原始数据`);
+      }
+    }catch(err){
+      alert('❌ 解析失败: '+err.message);
+    }
+  };
+  if(ext==='csv') reader.readAsText(file);
+  else reader.readAsBinaryString(file);
+}
+// 将上传的行数据映射为仪表盘格式（支持标准生意参谋导出字段名）
+function mapUploadedData(rows){
+  const summary={};const daily=[];
+  const fieldMap={'日期':'date','统计日期':'date','日期.1':'date','GMV':'gmv','支付金额':'gmv','成交金额':'gmv','支付金额.1':'gmv','订单数':'orders','支付订单数':'orders','支付子订单数':'orders','退款金额':'refundAmt','退款金额.1':'refundAmt','退款率':'refundRate','退货率':'refundRate','花费':'cost','消耗':'cost','广告费':'cost','广告花费':'cost','投入产出比':'roi','ROI':'roi','投产比':'roi','付费推广访客数':'paidTraf','付费流量':'paidTraf','经营优势访客数':'advTraf','经营优势流量':'advTraf','主动回访访客数':'revisit','回访访客数':'revisit','店内流转访客数':'inner','店内流转流量':'inner'}
+  const keys=rows.length?Object.keys(rows[0]):[];const map={};keys.forEach(k=>{const fk=k.trim();if(fieldMap[fk])map[fieldMap[fk]]=k;});
+  rows.forEach(r=>{const d={};if(map.date)d.date=r[map.date];if(map.gmv)d.gmv=+r[map.gmv]||0;if(map.orders)d.orders=+r[map.orders]||0;if(map.refundAmt)d.refundAmt=+r[map.refundAmt]||0;if(map.refundRate)d.refundRate=+r[map.refundRate]||0;if(map.cost)d.cost=+r[map.cost]||0;if(map.roi)d.roi=+r[map.roi]||0;if(map.paidTraf)d.paidTraf=(+r[map.paidTraf]||0)/1000;if(map.advTraf)d.advTraf=(+r[map.advTraf]||0)/1000;if(map.revisit)d.revisit=(+r[map.revisit]||0)/1000;if(map.inner)d.inner=(+r[map.inner]||0)/1000;if(Object.keys(d).length>1)daily.push(d);});
+  if(daily.length){summary.gmv=daily.reduce((s,d)=>s+(d.gmv||0),0);summary.orders=daily.reduce((s,d)=>s+(d.orders||0),0);summary.refundAmt=daily.reduce((s,d)=>s+(d.refundAmt||0),0);summary.cost=daily.reduce((s,d)=>s+(d.cost||0),0);summary.roi=summary.cost?summary.gmv/summary.cost:0;summary.refundRate=summary.gmv?summary.refundAmt/summary.gmv*100:0;}
+  return{summary,daily};
+}
+
+// ── 统一页面加载入口（只注册一次，解决P0-3双重load问题）──────────
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    switchSKU('PET500');  // 初始化 KPI + 图表
+    initPlanComp();       // 初始化 Step4 表格（区域B：计划明细）
+    renderToolComp();     // 渲染区域A：5种工具横向对比表
+  },300);
+});
+
+// ── 统一 resize 监听（只注册一次，解决双重resize问题）────────────
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.chart,.spark').forEach(el=>{
+    const inst=echarts.getInstanceByDom(el);
+    if(inst) inst.resize();
+  });
+});
+</script>
+</body>
+</html>
