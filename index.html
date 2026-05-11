@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PET500 天猫BI数据看板</title>
+<title>美的空净 天猫BI数据看板</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -143,9 +143,13 @@ tr:hover td.wow-cell{background:#1a2235!important}
       <span class="sku-label">SKU:</span>
       <select id="skuSelect" onchange="switchSKU(this.value)">
         <option value="all">📊 全部汇总</option>
-        <option value="PET500" selected>PET500</option>
-        <option value="PET300">PET300</option>
-        <option value="滤芯套装">滤芯套装</option>
+        <option value="RX600_PRO">RX600 PRO (KJ650G)</option>
+        <option value="PET500" selected>PET500 (KJ500G)</option>
+        <option value="PET600">PET600 (KJ600G)</option>
+        <option value="RX600P">RX600P (KJ600G)</option>
+        <option value="RX600_PROH">RX600 PROH</option>
+        <option value="RX400_Pro">RX400 Pro (KJ400G)</option>
+        <option value="U8">U8 (KJ1500G)</option>
       </select>
     </div>
     <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 上传数据</button>
@@ -598,6 +602,9 @@ const C={bg:'#111827',border:'#1e2a3f',text:'#64748b',axis:'#334155'};
 // ── SKU 数据（PET500 真实数据，其他 SKU 待补充）────────────────────
 // 注：流量数据(paidTraf/advTraf/revisit/inner)已换算为千人单位
 const SKU_DATA={
+  RX600_PRO:{
+    name:'RX600 PRO',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  },
   PET500:{
     name:'PET500',
     gmv:    [12.8,10.42,9.91,8.09,6.55,11.95,8.28,11.97,8.25,25.02,21.25,22.52,20.59,22.14],
@@ -607,13 +614,26 @@ const SKU_DATA={
     dir:    [7.49,3.47,7.22,6.55,5.04,8.08,6.49,9.1,5.04,26.79,21.69,17.43,8.62,8.03],
     indir:  [4.7,2.28,3.54,1.7,2.2,1.47,2.52,0.97,0.84,10.83,9.71,6.38,4.8,1.74],
     roi:    [6.1,3.71,7.09,5.43,4.87,6.39,6.16,6.9,3.92,6.99,6.42,5.35,5.97,4.34],
-    // 退款率：发货后退款率，0表示当日无退款记录
     refund: [7.9,4.2,10.1,5.1,10.5,1.5,2.1,3.2,2.4,1.6,1.9,0.0,100.0,0.0],
-    // 流量（千人）
     paidTraf:[8.1,7.3,8.0,7.9,8.8,8.6,7.4,7.6,8.1,12.6,12.8,12.7,12.1,13.7],
     advTraf: [8.1,7.3,8.0,7.9,8.9,8.6,7.4,7.6,8.1,12.7,12.8,12.7,12.1,13.7],
     revisit: [1.0,0.8,0.7,0.8,1.1,1.0,0.9,0.9,0.9,1.8,2.0,1.6,3.7,20.5],
     inner:   [1.7,1.4,1.5,1.2,1.4,1.5,1.3,1.3,1.3,2.2,2.3,2.0,2.3,2.8]
+  },
+  PET600:{
+    name:'PET600',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  },
+  RX600P:{
+    name:'RX600P',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  },
+  RX600_PROH:{
+    name:'RX600 PROH',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  },
+  RX400_Pro:{
+    name:'RX400 Pro',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  },
+  U8:{
+    name:'U8',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   }
 };
 // ── 当前选中的 SKU ──
@@ -793,7 +813,7 @@ function mkLine(name,data,color,area){
 function mkDash(name,data,color){
   return{name,type:'line',data,symbol:'none',
     lineStyle:{color,type:'dashed',width:1.5},
-    tooltip:{show:false}};
+    tooltip:baseTooltip()};
 }
 function mkAxis(fmt,pos){return{type:'value',name:'',nameTextStyle:{show:false},
   axisLine:{show:false},axisTick:{show:false},
@@ -810,7 +830,7 @@ function mkSpark(id,data,color){
     series:[{type:'line',data,smooth:0.3,symbol:'none',
       lineStyle:{color,linewidth:2},
       areaStyle:{color:color+'15'}}],
-    tooltip:{show:false}
+    tooltip:baseTooltip()
   });
   return c;
 }
