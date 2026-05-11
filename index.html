@@ -135,7 +135,7 @@ tr:hover td.wow-cell{background:#1a2235!important}
 <div class="container">
 <div class="header">
   <div class="header-left">
-    <h1 id="pageTitle">🦐 天猫BI数据看板</h1>
+    <h1 id="pageTitle">美的空气净化器数据看板</h1>
     <div class="sub">生意参谋 · 站内投放 · 流量来源 · 退款分析 — 四维融合</div>
   </div>
   <div class="header-right">
@@ -726,7 +726,7 @@ function switchSKU(sku){
   // 更新页面标题
   const titleEl=document.getElementById('pageTitle');
   if(sku==='all'){
-    titleEl.innerHTML='🦐 天猫BI数据看板 <span style="font-size:14px;color:var(--text)">(全部SKU汇总)</span>';
+    titleEl.innerHTML='美的空气净化器数据看板 <span style="font-size:14px;color:var(--text)">(全部SKU汇总)</span>';
   } else {
     titleEl.innerHTML=`🦐 ${sku} 数据看板`;
   }
@@ -740,13 +740,13 @@ function switchSKU(sku){
 
 // ── 日期筛选器（P2-3）────
 let currentDays = 14;
-let rawGMV,rawNet,rawAdSpend,rawAdRev,rawDir,rawInd,rawRoi,rawRefund,rawPaidTraf,rawAdvTraf,rawRevisit,rawInner;
+let rawGMV,rawNet,rawAdSpend,rawAdRev,rawDir,rawIndir,rawRoi,rawRefund,rawPaidTraf,rawAdvTraf,rawRevisit,rawInner;
 function setDateFilter(days){
   currentDays = days;
   // 首次调用时保存原始数据
   if(!rawGMV){
     rawGMV = [...gmv]; rawNet = [...net]; rawAdSpend = [...adSpend];
-    rawAdRev = [...adRev]; rawDir = [...dir]; rawInd = [...ind];
+    rawAdRev = [...adRev]; rawDir = [...dir]; rawIndir = [...indir];
     rawRoi = [...roi]; rawRefund = [...refund];
     rawPaidTraf = [...paidTraf]; rawAdvTraf = [...advTraf];
     rawRevisit = [...revisit]; rawInner = [...inner];
@@ -755,7 +755,7 @@ function setDateFilter(days){
   const start = n - days;
   const slice = (arr) => arr.slice(start, n);
   gmv = slice(rawGMV); net = slice(rawNet); adSpend = slice(rawAdSpend);
-  adRev = slice(rawAdRev); dir = slice(rawDir); ind = slice(rawInd); roi = slice(rawRoi);
+  adRev = slice(rawAdRev); dir = slice(rawDir); indir = slice(rawIndir); roi = slice(rawRoi);
   refund = slice(rawRefund); paidTraf = slice(rawPaidTraf); advTraf = slice(rawAdvTraf);
   revisit = slice(rawRevisit); inner = slice(rawInner);
   
