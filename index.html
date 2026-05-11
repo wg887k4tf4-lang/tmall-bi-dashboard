@@ -600,20 +600,369 @@ const C={bg:'#111827',border:'#1e2a3f',text:'#64748b',axis:'#334155'};
 const SKU_DATA={
   PET500:{
     name:'PET500',
-    gmv:    [12.8, 10.42, 9.91, 8.09, 6.55, 11.95, 8.28, 11.97, 8.25, 25.02, 21.25, 22.52, 20.59, 22.14],
-    net:    [9.27, 4.96, 7.48, 5.58, 5.31, 9.59, 5.99, 10.42, 7.33, 16.16, 13.63, 9.88, 9.82, 8.68],
-    adSpend:[2.0, 1.55, 1.52, 1.52, 1.49, 1.5, 0.38, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    roi:    [6.1, 3.71, 7.09, 5.43, 4.87, 6.39, 5.91, 0, 0, 0, 0, 0, 0, 0],
-    refund: [27.5, 52.4, 24.5, 31.0, 19.0, 19.7, 27.7, 12.9, 11.2, 35.4, 35.9, 56.1, 52.3, 60.8],
-    visitors:[15054, 18575, 16590, 16890, 17580, 17676, 16980, 17009, 18277, 28872, 26304, 26083, 26641, 43673],
-    orders: [62, 36, 46, 39, 33, 60, 42, 62, 41, 114, 98, 102, 98, 99],
-    dates:  ['04/27', '04/28', '04/29', '04/30', '05/01', '05/02', '05/03', '05/04', '05/05', '05/06', '05/07', '05/08', '05/09', '05/10'],
-    directGMV: [7.49, 3.47, 7.22, 6.55, 5.04, 8.08, 1.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    indirectGMV: [4.7, 2.28, 3.54, 1.7, 2.2, 1.47, 0.87, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-  },
+    gmv:    [16.8,14.3,11.9,16.3,12.8,10.4,9.9,8.1,6.6,11.9,8.3,12.0,8.3,25.0],
+    net:    [10.3,8.4,7.0,9.2,9.5,5.2,7.7,5.8,6.0,9.8,6.2,10.6,7.5,16.6],
+    adSpend:[2.3,1.9,1.9,1.9,2.0,1.6,1.5,1.5,1.5,1.5,1.5,1.5,1.5,9.4],
+    adRev:  [8.4,10.4,9.7,12.5,12.2,5.8,10.8,8.3,7.2,9.6,9.0,10.1,5.9,50.2],
+    dir:    [7.0,8.2,7.4,9.9,7.5,3.5,7.2,6.5,5.0,8.1,6.5,9.1,5.0,33.5],
+    indir:  [1.4,2.2,2.2,2.6,4.7,2.3,3.5,1.7,2.2,1.5,2.5,1.0,0.8,16.7],
+    roi:    [3.71,5.4,4.99,6.48,6.1,3.71,7.09,5.43,4.87,6.39,6.16,6.9,3.92,5.35],
+    // 退款率：发货后退款率 ×100 转为百分比，0表示当日无退款记录（t-1展示时会有0值）
+    refund: [13.6,5.7,6.9,3.8,6.5,2.0,8.3,2.6,2.8,0,0,1.6,2.3,0],
+    // 流量（千人）：原始访客数÷1000
+    paidTraf:[39.9,42.2,39.3,42.4,36.6,48.5,43.2,45.3,46.0,46.1,44.9,44.9,48.3,64.2],
+    advTraf: [9.6,5.1,4.1,4.0,4.7,3.9,3.8,3.1,3.9,3.8,3.5,3.3,3.4,6.3],
+    revisit: [2.2,2.0,4.6,6.5,2.0,1.5,1.0,1.0,1.1,1.3,1.1,1.3,1.7,14.7],
+    inner:   [4.8,4.0,4.2,4.7,4.3,4.7,4.3,4.0,4.2,4.6,4.9,4.7,4.9,6.0]
+  }
 };
 
+// ── 当前选中的 SKU ──
+let currentSKU='PET500';
+let gmv,net,adSpend,adRev,dir,indir,roi,refund,paidTraf,advTraf,revisit,inner;
 
+// ── 计算全部 SKU 汇总 ──
+function calcSummary(){
+  const skus=Object.keys(SKU_DATA);
+  const n=DATES.length;
+  const sum={gmv:[],net:[],adSpend:[],adRev:[],dir:[],indir:[],roi:[],refund:[],
+             paidTraf:[],advTraf:[],revisit:[],inner:[]};
+  for(let i=0;i<n;i++){
+    sum.gmv[i]=sum.net[i]=sum.adSpend[i]=sum.adRev[i]=sum.dir[i]=sum.indir[i]=sum.refund[i]=
+    sum.paidTraf[i]=sum.advTraf[i]=sum.revisit[i]=sum.inner[i]=0;
+    skus.forEach(sku=>{
+      const d=SKU_DATA[sku];
+      if(!d) return;
+      sum.gmv[i]+=d.gmv[i]||0;
+      sum.net[i]+=d.net[i]||0;
+      sum.adSpend[i]+=d.adSpend[i]||0;
+      sum.adRev[i]+=d.adRev[i]||0;
+      sum.dir[i]+=d.dir[i]||0;
+      sum.indir[i]+=d.indir[i]||0;
+      sum.refund[i]+=(d.refund[i]||0);
+      sum.paidTraf[i]+=d.paidTraf[i]||0;
+      sum.advTraf[i]+=d.advTraf[i]||0;
+      sum.revisit[i]+=d.revisit[i]||0;
+      sum.inner[i]+=d.inner[i]||0;
+    });
+  }
+  // 汇总退款率 = 14天退款金额合计 / 14天GMV合计（简单平均）
+  const avgRefund=sum.refund.reduce((a,b)=>a+b,0)/n;
+  sum.refund=Array(n).fill(parseFloat(avgRefund.toFixed(1)));
+  sum.roi=sum.gmv.map((g,i)=>parseFloat((sum.adSpend[i]>0?(g/sum.adSpend[i]):0).toFixed(2)));
+  return sum;
+}
+
+// ── P0-1: 动态渲染 KPI 卡片（切换SKU时调用）─────────────────────
+function renderKPI(data){
+  const totalGMV=data.gmv.reduce((a,b)=>a+b,0);
+  const totalNet=data.net.reduce((a,b)=>a+b,0);
+  const totalAdSpend=data.adSpend.reduce((a,b)=>a+b,0);
+  const totalAdRev=data.adRev.reduce((a,b)=>a+b,0);
+  const avgDailyAdSpend=totalAdSpend/DATES.length;
+  const overallROI=totalAdSpend>0?(totalAdRev/totalAdSpend).toFixed(2):'—';
+
+  // 退款：t-1展示，取前一天退款率。4/23无前值，显示"—"
+  const refundDisplay=data.refund[0]; // t-1基准（4/23无前值→显示"—"）
+  const refundAvg=data.refund.reduce((a,b)=>a+b,0)/DATES.length;
+  const refundTarget=10;
+
+  document.getElementById('kpi-gmv').innerHTML=`¥${totalGMV.toFixed(1)}<span style="font-size:14px">万</span>`;
+  document.getElementById('kpi-net').innerHTML=`¥${totalNet.toFixed(1)}<span style="font-size:14px">万</span>`;
+
+  // 净销售额副文本：退款金额 + 退款占比（非发货后退款率）
+  const refundAmt=totalGMV-totalNet;
+  const refundShare=((refundAmt/totalGMV)*100).toFixed(1);
+  document.getElementById('kpi-net-sub').innerHTML=
+    `退款 <span class="hl" style="color:var(--red)">¥${refundAmt.toFixed(1)}万</span> · 退款占比 <span class="hl" style="color:var(--amber)">${refundShare}%</span>`;
+
+  document.getElementById('kpi-ad').innerHTML=`¥${totalAdSpend.toFixed(1)}<span style="font-size:14px">万</span>`;
+  document.getElementById('kpi-ad-sub').innerHTML=
+    `<span class="hl">14天累计投放</span> · 日均 ¥${avgDailyAdSpend.toFixed(1)}万`;
+
+  document.getElementById('kpi-roi').innerHTML=`${overallROI}<span style="font-size:14px">x</span>`;
+  document.getElementById('kpi-roi-sub').innerHTML=
+    `总成交 <span class="hl">¥${totalAdRev.toFixed(1)}万</span> · 花费产出比优秀 ✨`;
+
+  // 退款率：当前选中时间段内最后7天的平均发货后退货率，与10%阈值比较
+  const refund7=data.refund.slice(-7);
+  const refund7Avg=refund7.length>0?refund7.reduce((a,b)=>a+b,0)/refund7.length:0;
+  const refundBadge=refund7Avg>0?`${refund7Avg.toFixed(1)}%`:'—';
+  const statusColor=refund7Avg<=10?'var(--green)':'var(--red)';
+  const statusText=refund7Avg<=10?'达标 ✓':'超标 ✗';
+  document.getElementById('kpi-refund').innerHTML=`${refundBadge}<span style="font-size:14px">%</span>`;
+  document.getElementById('kpi-refund-sub').innerHTML=
+    `近7日均值 · 目标≤10% · <span class="hl" style="color:${statusColor}">${statusText}</span>`;
+}
+
+// ── 切换 SKU ──
+function switchSKU(sku){
+  currentSKU=sku;
+  const data=sku==='all'?calcSummary():SKU_DATA[sku];
+  if(!data){alert('该SKU暂无数据');return;}
+  gmv=data.gmv; net=data.net; adSpend=data.adSpend; adRev=data.adRev;
+  dir=data.dir; indir=data.indir; roi=data.roi; refund=data.refund;
+  paidTraf=data.paidTraf; advTraf=data.advTraf; revisit=data.revisit; inner=data.inner;
+
+  // 更新页面标题
+  const titleEl=document.getElementById('pageTitle');
+  if(sku==='all'){
+    titleEl.innerHTML='🦐 天猫BI数据看板 <span style="font-size:14px;color:var(--text)">(全部SKU汇总)</span>';
+  } else {
+    titleEl.innerHTML=`🦐 ${sku} 数据看板`;
+  }
+
+  // 渲染 KPI（修复 P0-1）
+  renderKPI(data);
+
+  // 刷新图表
+  refreshAllCharts();
+}
+
+// ── 日期筛选器（P2-3）────
+let currentDays = 14;
+let rawGMV,rawNet,rawAdSpend,rawAdRev,rawDir,rawInd,rawRoi,rawRefund,rawPaidTraf,rawAdvTraf,rawRevisit,rawInner;
+function setDateFilter(days){
+  currentDays = days;
+  // 首次调用时保存原始数据
+  if(!rawGMV){
+    rawGMV = [...gmv]; rawNet = [...net]; rawAdSpend = [...adSpend];
+    rawAdRev = [...adRev]; rawDir = [...dir]; rawInd = [...ind];
+    rawRoi = [...roi]; rawRefund = [...refund];
+    rawPaidTraf = [...paidTraf]; rawAdvTraf = [...advTraf];
+    rawRevisit = [...revisit]; rawInner = [...inner];
+  }
+  const n = DATES.length;
+  const start = n - days;
+  const slice = (arr) => arr.slice(start, n);
+  gmv = slice(rawGMV); net = slice(rawNet); adSpend = slice(rawAdSpend);
+  adRev = slice(rawAdRev); dir = slice(rawDir); ind = slice(rawInd); roi = slice(rawRoi);
+  refund = slice(rawRefund); paidTraf = slice(rawPaidTraf); advTraf = slice(rawAdvTraf);
+  revisit = slice(rawRevisit); inner = slice(rawInner);
+  
+  // 更新按钮状态
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.date-btn[data-days="'+days+'"]').classList.add('active');
+  
+  // 更新日期标签
+  const startD = DATES[start]; const endD = DATES[n-1];
+  document.getElementById('dateRangeLabel').textContent = startD + ' — ' + endD;
+  
+  refreshAllCharts();
+}
+
+// ── 刷新所有图表（销毁旧实例再重建）─────────────────────────────
+function refreshAllCharts(){
+  document.querySelectorAll('.chart,.spark').forEach(el=>{
+    const inst=echarts.getInstanceByDom(el);
+    if(inst) inst.dispose();
+  });
+  initAll();
+}
+
+// ══════════════════════════════════════════════════════════════════════
+//  ECharts 通用配置函数
+// ══════════════════════════════════════════════════════════════════════
+
+function baseTooltip(){
+  return{trigger:'axis',backgroundColor:C.bg,borderColor:C.border,
+    textStyle:{color:'#e2e8f0',fontSize:12},
+    axisPointer:{type:'shadow',shadowStyle:{color:'rgba(0,0,0,.2)'}}};
+}
+function baseGrid(){return{top:36,left:48,right:12,bottom:24}}
+function baseXAxis(){
+  return{type:'category',data:DATES,
+    axisLine:{lineStyle:{color:C.axis}},
+    axisTick:{show:false},
+    axisLabel:{color:C.text,fontSize:11},
+    splitLine:{show:false}};
+}
+function baseLegend(){return{textStyle:{color:C.text,fontSize:11},top:0,right:0,itemWidth:12,itemHeight:8};}
+
+function mkBar(name,data,color){
+  return{name,type:'bar',data,
+    itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[
+      {offset:0,color:color},{offset:1,color:color+'66'}])},
+    barMaxWidth:22,barGap:'10%'};
+}
+function mkLine(name,data,color,area){
+  return{name,type:'line',data,smooth:true,symbol:'circle',symbolSize:5,
+    lineStyle:{color,width:2.5},itemStyle:{color},
+    areaStyle:area?{color:new echarts.graphic.LinearGradient(0,0,0,1,[
+      {offset:0,color:color+'40'},{offset:1,color:color+'08'}])}:undefined};
+}
+function mkDash(name,data,color){
+  return{name,type:'line',data,symbol:'none',
+    lineStyle:{color,type:'dashed',width:1.5},
+    tooltip:{show:false}};
+}
+function mkAxis(fmt,pos){return{type:'value',name:'',nameTextStyle:{show:false},
+  axisLine:{show:false},axisTick:{show:false},
+  splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}},
+  axisLabel:{color:C.text,fontSize:11,formatter:fmt},position:pos};}
+
+// ── 迷你折线图 ──
+function mkSpark(id,data,color){
+  const c=echarts.init(document.getElementById(id));
+  c.setOption({
+    grid:{top:2,left:0,right:0,bottom:2},
+    xAxis:{show:false,type:'category',data:DATES},
+    yAxis:{show:false,type:'value'},
+    series:[{type:'line',data,smooth:0.3,symbol:'none',
+      lineStyle:{color,linewidth:2},
+      areaStyle:{color:color+'15'}}],
+    tooltip:{show:false}
+  });
+  return c;
+}
+
+// ── 初始化所有图表（页面加载时调用一次，后续由 refreshAllCharts 重建）──
+function initAll(){
+  // 迷你图
+  mkSpark('spark-gmv',gmv,'#3b82f6');
+  mkSpark('spark-net',net,'#10b981');
+  mkSpark('spark-ad',adSpend,'#f59e0b');
+  mkSpark('spark-roi',roi,'#10b981');
+  mkSpark('spark-refund',refund,'#ef4444');
+
+  // 图1: GMV vs 净销售额（单Y轴，量级接近）
+  echarts.init(document.getElementById('c1')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[mkAxis(v=>v+'万','left')],
+    series:[mkBar('GMV',gmv,'#3b82f6'),mkBar('净销售额',net,'#10b981')]
+  });
+
+  // 图2: 广告花费 vs 总成交（双Y轴：花费≈1.5~9.4万，成交≈5.8~50.2万，差5倍）
+  echarts.init(document.getElementById('c2')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[
+      mkAxis(v=>v+'万','left'),   // 左Y轴：花费
+      mkAxis(v=>v+'万','right')   // 右Y轴：成交
+    ],
+    series:[
+      {...mkBar('广告花费(万)',adSpend,'#f59e0b'),yAxisIndex:0},
+      {...mkBar('总成交(万)',adRev,'#8b5cf6'),yAxisIndex:1}
+    ]
+  });
+
+  // 图3: 直接/间接成交（双Y轴：直接≈3.5~33.5万，间接≈0.8~16.7万，差约2倍）
+  echarts.init(document.getElementById('c3')).setOption({
+    tooltip:baseTooltip(),legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[
+      mkAxis(v=>v+'万','left'),   // 左Y轴：直接
+      mkAxis(v=>v+'万','right')    // 右Y轴：间接
+    ],
+    series:[
+      {...mkBar('直接成交(万)',dir,'#10b981'),yAxisIndex:0},
+      {...mkBar('间接成交(万)',indir,'#60a5fa'),yAxisIndex:1}
+    ]
+  });
+
+  // 图4: ROI趋势（P2-2修复：Y轴不从0开始，显示数据波动）
+  echarts.init(document.getElementById('c4')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>`<b>${p[0].name}</b><br/>ROI: <b style="color:#34d399">${p[0].value}x</b>`},
+    grid:{top:20,left:44,right:12,bottom:24},xAxis:baseXAxis(),
+    yAxis:[{...mkAxis(v=>v+"x","left"),min:(function(){var r=roi.filter(function(v){return v>0});return r.length?Math.floor(Math.min.apply(null,r))-1:0})()}],
+    series:[mkLine('ROI',roi,'#10b981',true)]
+  });
+
+  // 图5: 流量来源堆叠面积图（P0-2已修复：y轴加“千”单位）
+  echarts.init(document.getElementById('c5')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>{
+      let s=`<b>${p[0].axisValue}</b>`;
+      p.forEach(i=>{if(i.seriesName!=='基准')s+=`<br/>${i.marker}${i.seriesName}: <b>${i.value}</b>千`;});
+      return s;
+    }},
+    legend:baseLegend(),grid:baseGrid(),xAxis:baseXAxis(),
+    yAxis:[{type:'value',name:'单位: 千人',nameTextStyle:{color:C.text,fontSize:10},
+      axisLine:{show:false},axisTick:{show:false},
+      splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}},
+      axisLabel:{color:C.text,fontSize:11,formatter:v=>v+' 千'},position:'left'}],
+    series:[
+      {name:'付费推广',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#3b82f6',width:2},
+        areaStyle:{color:'#3b82f640'},
+        itemStyle:{color:'#3b82f6'},data:paidTraf},
+      {name:'经营优势',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#10b981',width:2},
+        areaStyle:{color:'#10b98140'},
+        itemStyle:{color:'#10b981'},data:advTraf},
+      {name:'主动回访',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#8b5cf6',width:2},
+        areaStyle:{color:'#8b5cf640'},
+        itemStyle:{color:'#8b5cf6'},data:revisit},
+      {name:'店内流转',type:'line',stack:'total',smooth:true,symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#f59e0b',width:2},
+        areaStyle:{color:'#f59e0b40'},
+        itemStyle:{color:'#f59e0b'},data:inner}
+    ]
+  });
+
+  // 图6: 退款率 t-1 展示（修复P1-4：shift偏移一位，4/23无前值显示"—"）
+  // refund数组：index0=4/23退货率(无前值→null), index1=4/24退货率(4/23的), ..., index13=5/6退货率(5/5的)
+  const refundT1=[null,...refund.slice(0,-1)]; // [null, 4/23率, 4/24率, ..., 5/5率]
+  echarts.init(document.getElementById('c6')).setOption({
+    tooltip:{...baseTooltip(),formatter:p=>{
+      if(!p||!p[0]||p[0].seriesName==='基准线10%') return '';
+      const v=p[0].value;
+      if(v===null||v===undefined) return `<b>${p[0].axisValue}</b><br/><span style="color:${C.text}">暂无前一日数据</span>`;
+      return`<b>${p[0].axisValue}</b><br/>${p[0].marker}退货率: <b style="color:${v>10?'#ef4444':'#34d399'}">${v}%</b><br/><span style="color:${C.text};font-size:10px">* t-1 展示，前一天退款率</span>`;
+    }},
+    grid:{top:20,left:44,right:12,bottom:24},xAxis:baseXAxis(),
+    yAxis:[{type:'value',max:16,
+      axisLabel:{color:C.text,fontSize:11,formatter:v=>v+'%'},
+      splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}}}],
+    series:[
+      mkLine('退货率(t-1)',refundT1,'#ef4444',true),
+      mkDash('基准线10%',DATES.map(()=>10),'#f59e0b')
+    ]
+  });
+}
+
+// ── 文件上传（P1-3已修复：解析后替换数据并刷新图表）───────────────
+function handleFileUpload(input){
+  const file=input.files[0];
+  if(!file) return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      let parsed;
+      if(ext==='csv'){
+        parsed=Papa.parse(e.target.result,{header:true,skipEmptyLines:true});
+        parsed=parsed.data;
+      }else{
+        const wb=XLSX.read(e.target.result,{type:'binary'});
+        const sheet=wb.Sheets[wb.SheetNames[0]];
+        parsed=XLSX.utils.sheet_to_json(sheet);
+      }
+      // 尝试将上传数据映射为tmall_bi_data格式
+      try{
+        const mapped=mapUploadedData(parsed);
+        Object.assign(SUMMARY,mapped.summary||{});
+        if(mapped.daily&&mapped.daily.length){DATES=mapped.daily.map(d=>d.date);GMV=mapped.daily.map(d=>d.gmv||0);ORDERS=mapped.daily.map(d=>d.orders||0);REFUND_AMT=mapped.daily.map(d=>d.refundAmt||0);REFUND_RATE=mapped.daily.map(d=>d.refundRate||0);COST=mapped.daily.map(d=>d.cost||0);ROI=mapped.daily.map(d=>d.roi||0);PAID_TRAF=mapped.daily.map(d=>d.paidTraf||0);ADV_TRAF=mapped.daily.map(d=>d.advTraf||0);REVISIT=mapped.daily.map(d=>d.revisit||0);INNER=mapped.daily.map(d=>d.inner||0);}
+        refreshAllCharts();
+        switchSKU(currentSKU||'PET500');
+        alert(`✅ 数据已加载！${parsed.length} 行\n文件: ${file.name}`);
+      }catch(mapErr){
+        console.log('自动映射失败，原始数据:',parsed.slice(0,5));
+        alert(`⚠️ 读取 ${parsed.length} 行，格式不匹配自动映射\n文件: ${file.name}\n请用 F12 查看控制台原始数据`);
+      }
+    }catch(err){
+      alert('❌ 解析失败: '+err.message);
+    }
+  };
+  if(ext==='csv') reader.readAsText(file);
+  else reader.readAsBinaryString(file);
+}
+// 将上传的行数据映射为仪表盘格式（支持标准生意参谋导出字段名）
+function mapUploadedData(rows){
+  const summary={};const daily=[];
+  const fieldMap={'日期':'date','统计日期':'date','日期.1':'date','GMV':'gmv','支付金额':'gmv','成交金额':'gmv','支付金额.1':'gmv','订单数':'orders','支付订单数':'orders','支付子订单数':'orders','退款金额':'refundAmt','退款金额.1':'refundAmt','退款率':'refundRate','退货率':'refundRate','花费':'cost','消耗':'cost','广告费':'cost','广告花费':'cost','投入产出比':'roi','ROI':'roi','投产比':'roi','付费推广访客数':'paidTraf','付费流量':'paidTraf','经营优势访客数':'advTraf','经营优势流量':'advTraf','主动回访访客数':'revisit','回访访客数':'revisit','店内流转访客数':'inner','店内流转流量':'inner'}
+  const keys=rows.length?Object.keys(rows[0]):[];const map={};keys.forEach(k=>{const fk=k.trim();if(fieldMap[fk])map[fieldMap[fk]]=k;});
+  rows.forEach(r=>{const d={};if(map.date)d.date=r[map.date];if(map.gmv)d.gmv=+r[map.gmv]||0;if(map.orders)d.orders=+r[map.orders]||0;if(map.refundAmt)d.refundAmt=+r[map.refundAmt]||0;if(map.refundRate)d.refundRate=+r[map.refundRate]||0;if(map.cost)d.cost=+r[map.cost]||0;if(map.roi)d.roi=+r[map.roi]||0;if(map.paidTraf)d.paidTraf=(+r[map.paidTraf]||0)/1000;if(map.advTraf)d.advTraf=(+r[map.advTraf]||0)/1000;if(map.revisit)d.revisit=(+r[map.revisit]||0)/1000;if(map.inner)d.inner=(+r[map.inner]||0)/1000;if(Object.keys(d).length>1)daily.push(d);});
+  if(daily.length){summary.gmv=daily.reduce((s,d)=>s+(d.gmv||0),0);summary.orders=daily.reduce((s,d)=>s+(d.orders||0),0);summary.refundAmt=daily.reduce((s,d)=>s+(d.refundAmt||0),0);summary.cost=daily.reduce((s,d)=>s+(d.cost||0),0);summary.roi=summary.cost?summary.gmv/summary.cost:0;summary.refundRate=summary.gmv?summary.refundAmt/summary.gmv*100:0;}
+  return{summary,daily};
 }
 
 // ── 统一页面加载入口（只注册一次，解决P0-3双重load问题）──────────
