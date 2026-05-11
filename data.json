@@ -1,7 +1,7 @@
 {
   "sku_name": "KJ500G-PET500",
   "sku_id": "873480929689",
-  "updated_at": "2026-05-11 15:30",
+  "updated_at": "2026-05-11 19:35",
   "source": "腾讯文档-运营上传",
   "date_range": {
     "start": "2026-04-27",
@@ -23,10 +23,10 @@
         "uv_value": 8.5
       },
       "ads": {
-        "cost": 19980.260000000002,
+        "cost": 19980.26,
         "direct_gmv": 74851.79,
         "indirect_gmv": 46970.6,
-        "total_gmv": 121822.39000000001,
+        "total_gmv": 121822.39,
         "roi": 6.1
       },
       "refund": {
@@ -320,7 +320,7 @@
       "ads": {
         "cost": 15513.53,
         "direct_gmv": 34741.67,
-        "indirect_gmv": 22847.530000000002,
+        "indirect_gmv": 22847.53,
         "total_gmv": 57589.2,
         "roi": 3.71
       },
@@ -608,9 +608,9 @@
         "uv_value": 5.97
       },
       "ads": {
-        "cost": 15172.710000000001,
+        "cost": 15172.71,
         "direct_gmv": 72204.54,
-        "indirect_gmv": 35374.04000000001,
+        "indirect_gmv": 35374.04,
         "total_gmv": 107578.58,
         "roi": 7.09
       },
@@ -899,7 +899,7 @@
       },
       "ads": {
         "cost": 15206.32,
-        "direct_gmv": 65482.600000000006,
+        "direct_gmv": 65482.6,
         "indirect_gmv": 17025.78,
         "total_gmv": 82508.38,
         "roi": 5.43
@@ -1178,7 +1178,7 @@
         "uv_value": 3.73
       },
       "ads": {
-        "cost": 14886.160000000002,
+        "cost": 14886.16,
         "direct_gmv": 50406.2,
         "indirect_gmv": 22030.02,
         "total_gmv": 72436.22,
@@ -1460,7 +1460,7 @@
       "ads": {
         "cost": 14950.31,
         "direct_gmv": 80805.96,
-        "indirect_gmv": 14709.100000000002,
+        "indirect_gmv": 14709.1,
         "total_gmv": 95515.06,
         "roi": 6.39
       },
@@ -1733,11 +1733,11 @@
         "uv_value": 4.88
       },
       "ads": {
-        "cost": 14631.630000000001,
-        "direct_gmv": 64905.07,
-        "indirect_gmv": 25167.14,
-        "total_gmv": 90072.21000000002,
-        "roi": 6.16
+        "cost": 3841.16,
+        "direct_gmv": 14020.4,
+        "indirect_gmv": 8668.63,
+        "total_gmv": 22689.03,
+        "roi": 5.91
       },
       "refund": {
         "sales_amount": 59900.12,
@@ -2003,11 +2003,11 @@
         "uv_value": 7.03
       },
       "ads": {
-        "cost": 14608.279999999999,
-        "direct_gmv": 91035.75,
-        "indirect_gmv": 9743.09,
-        "total_gmv": 100778.84,
-        "roi": 6.9
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 104175.07,
@@ -2293,11 +2293,11 @@
         "uv_value": 4.51
       },
       "ads": {
-        "cost": 15013.78,
-        "direct_gmv": 50400.719999999994,
-        "indirect_gmv": 8421.9,
-        "total_gmv": 58822.62,
-        "roi": 3.92
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 75041.83,
@@ -2573,11 +2573,11 @@
         "uv_value": 8.67
       },
       "ads": {
-        "cost": 53849.54,
-        "direct_gmv": 267926.31,
-        "indirect_gmv": 108261.62000000002,
-        "total_gmv": 376187.93,
-        "roi": 6.99
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 161635.35,
@@ -2878,11 +2878,11 @@
         "uv_value": 8.08
       },
       "ads": {
-        "cost": 48907.98,
-        "direct_gmv": 216861.91000000003,
-        "indirect_gmv": 97137.04,
-        "total_gmv": 313998.95000000007,
-        "roi": 6.42
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 136279.94,
@@ -3188,11 +3188,11 @@
         "uv_value": 8.64
       },
       "ads": {
-        "cost": 44481.17999999999,
-        "direct_gmv": 174259.77,
-        "indirect_gmv": 63809.43,
-        "total_gmv": 238069.19999999998,
-        "roi": 5.35
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 98800.98,
@@ -3493,11 +3493,11 @@
         "uv_value": 7.73
       },
       "ads": {
-        "cost": 22451.7,
-        "direct_gmv": 86183.39000000001,
-        "indirect_gmv": 47955.62000000001,
-        "total_gmv": 134139.01,
-        "roi": 5.97
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 98178.94,
@@ -3793,11 +3793,11 @@
         "uv_value": 5.07
       },
       "ads": {
-        "cost": 22556.439999999995,
-        "direct_gmv": 80338.84999999999,
-        "indirect_gmv": 17446.850000000002,
-        "total_gmv": 97785.7,
-        "roi": 4.34
+        "cost": 0,
+        "direct_gmv": 0,
+        "indirect_gmv": 0,
+        "total_gmv": 0,
+        "roi": 0
       },
       "refund": {
         "sales_amount": 86773.98,
@@ -4081,8 +4081,8 @@
   ],
   "summary": {
     "total_gmv": 1997348.24,
-    "total_ad_cost": 332209.82,
-    "overall_roi": 6.01,
+    "total_ad_cost": 99550.45,
+    "overall_roi": 20.06,
     "days": 14
   }
 }
