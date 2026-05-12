@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""天猫BI仪表盘数据更新脚本 v5.0 - 彻底重写，确保数据正确"""
+"""天猫BI仪表盘数据更新脚本 v6.0 - 修复广告数据汇总"""
 import os, json, re, csv
 from datetime import datetime
 from collections import defaultdict
@@ -7,7 +7,7 @@ import openpyxl
 from qcloud_cos import CosConfig, CosS3Client
 
 print("="*50)
-print("🦐 天猫BI数据解析 v5.0")
+print("🦐 天猫BI数据解析 v6.0")
 print(datetime.now().strftime("⏰ %Y-%m-%d %H:%M:%S"))
 print("="*50)
 
@@ -68,7 +68,7 @@ def guess_ctype(fname, subdir):
         return 'refund'
     if '流量' in fname_up or '流量' in subdir_up:
         return 'traffic'
-    if '投放' in subdir_up or '推广' in fname_up or '广告' in subdir_up:
+    if '投放' in subdir_up or '推广' in fname_up:
         return 'ads'
     return 'sales'
 
@@ -100,20 +100,23 @@ for sku_name, js_key in SKU_MAP.items():
             
             for key in files:
                 fname = os.path.basename(key)
+                if fname == '.gitkeep':
+                    continue
+                
                 lpath = f'cos-downloads/{fname}'
                 
-                # 下载
+                # 下载（流式读取）
                 try:
                     r = client.get_object(Bucket=bucket, Key=key)
-                    # 流式读取完整文件
                     data = b''
                     chunk = r['Body'].read(8192)
                     while chunk:
                         data += chunk
                         chunk = r['Body'].read(8192)
+                    
                     with open(lpath, 'wb') as f:
                         f.write(data)
-                    print(f'      ✅ 下载 {fname} ({len(data)} bytes)')
+                    
                 except Exception as e:
                     print(f"  ❌ 下载失败 {fname}: {e}")
                     continue
@@ -137,6 +140,7 @@ for sku_name, js_key in SKU_MAP.items():
                                     header_idx = i
                                     break
                             if header_idx is None:
+                                print(f"      ⚠️ 没找到表头")
                                 continue
                             
                             headers = [str(c).strip() if c else '' for c in rows[header_idx]]
@@ -158,23 +162,17 @@ for sku_name, js_key in SKU_MAP.items():
                                 # 存入all_data
                                 if ct == 'ads':
                                     if dt not in all_data[sku_name][ct]:
-                                        all_data[sku_name][ct][dt] = {}
-                                    existing = all_data[sku_name][ct][dt]
-                                    for h in headers:
-                                        val = pnum(rd.get(h, 0))
-                                        if h in existing:
-                                            try:
-                                                existing[h] = round(existing[h] + val, 2)
-                                            except:
-                                                pass
-                                        else:
-                                            existing[h] = val
+                                        all_data[sku_name][ct][dt] = {'花费': 0, '直接成交金额': 0, '间接成交金额': 0, '总成交金额': 0}
+                                    # 累加每天所有计划的花费
+                                    all_data[sku_name][ct][dt]['花费'] += pnum(rd.get('花费', 0))
+                                    all_data[sku_name][ct][dt]['直接成交金额'] += pnum(rd.get('直接成交金额', 0))
+                                    all_data[sku_name][ct][dt]['间接成交金额'] += pnum(rd.get('间接成交金额', 0))
+                                    all_data[sku_name][ct][dt]['总成交金额'] += pnum(rd.get('总成交金额', 0))
                                 else:
                                     all_data[sku_name][ct][dt] = rd
                                 
                                 all_dates.add(dt)
-                                print(f"    ✅ {ct} {dt} 已添加")
-                                
+                        
                     except Exception as e:
                         print(f"  ❌ 解析错误 {fname}: {e}")
                         
@@ -193,7 +191,6 @@ for sku_name, js_key in SKU_MAP.items():
                                         if dt and dt != 'nan':
                                             all_data[sku_name]['sales'][dt] = row
                                             all_dates.add(dt)
-                                            print(f"    ✅ sales {dt} 已添加")
                                 break
                             except:
                                 continue
