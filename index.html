@@ -635,63 +635,14 @@ function initPlanComp(){
 //  主数据 + 图表逻辑
 // ══════════════════════════════════════════════════════════════════════
 
-// 日期标签（固定）
-const DATES=["2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10"];
+// 日期标签（由 data.json 动态加载）
+let DATES=[];
 
 // ECharts 主题色常量
 const C={bg:'#111827',border:'#1e2a3f',text:'#64748b',axis:'#334155'};
 
-// ── SKU 数据（PET500 真实数据，其他 SKU 待补充）────────────────────
-// 注：流量数据(paidTraf/advTraf/revisit/inner)已换算为千人单位
-const SKU_DATA={
-  <!-- SKU_START:RX600_PRO -->
-  RX600_PRO:{
-    name:'RX600 PRO',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  },
-  <!-- SKU_END:RX600_PRO -->
-  <!-- SKU_START:PET500 -->
-  PET500:{
-    name:'PET500',
-    gmv:    [12.8, 10.42, 9.91, 8.09, 6.55, 11.95, 8.28, 11.97, 8.25, 25.02, 21.25, 22.52, 20.59, 22.14],
-    net:    [9.27, 4.96, 7.48, 5.58, 5.26, 9.59, 5.99, 10.42, 7.3, 16.16, 13.63, 9.88, 9.82, 8.68],
-    adSpend:[2.0, 1.55, 1.52, 1.52, 1.49, 1.5, 1.46, 1.46, 1.5, 5.38, 4.89, 4.45, 2.25, 2.26],
-    adRev:  [12.18, 5.76, 10.76, 8.25, 7.24, 9.55, 9.01, 10.08, 5.88, 37.62, 31.4, 23.81, 13.41, 9.78],
-    dir:    [7.49, 3.47, 7.22, 6.55, 5.04, 8.08, 6.49, 9.1, 5.04, 26.79, 21.69, 17.43, 8.62, 8.03],
-    indir:  [4.7, 2.28, 3.54, 1.7, 2.2, 1.47, 2.52, 0.97, 0.84, 10.83, 9.71, 6.38, 4.8, 1.74],
-    roi:    [6.1, 3.71, 7.09, 5.43, 4.87, 6.39, 6.16, 6.9, 3.92, 6.99, 6.42, 5.35, 5.97, 4.34],
-    refund: [27.54, 52.35, 24.5, 31.0, 18.99, 19.69, 27.66, 12.94, 11.2, 35.4, 35.87, 56.13, 52.31, 60.81],
-    paidTraf:[15.1, 18.6, 16.6, 16.9, 17.6, 17.7, 17.0, 17.0, 18.3, 28.9, 26.3, 26.1, 26.6, 43.7],
-    advTraf: [15.1, 18.6, 16.6, 16.9, 17.6, 17.7, 17.0, 17.0, 18.3, 28.9, 26.3, 26.1, 26.6, 43.7],
-    revisit: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-    inner:  [4.7, 5.8, 5.2, 5.3, 5.5, 5.6, 5.4, 5.4, 5.8, 8.5, 8.3, 8.2, 8.1, 10.8]
-  },
-  <!-- SKU_END:PET500 -->
-  <!-- SKU_START:PET600 -->
-  PET600:{
-    name:'PET600',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  },
-  <!-- SKU_END:PET600 -->
-  <!-- SKU_START:RX600P -->
-  RX600P:{
-    name:'RX600P',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  },
-  <!-- SKU_END:RX600P -->
-  <!-- SKU_START:RX600_PROH -->
-  RX600_PROH:{
-    name:'RX600 PROH',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  },
-  <!-- SKU_END:RX600_PROH -->
-  <!-- SKU_START:RX400_Pro -->
-  RX400_Pro:{
-    name:'RX400 Pro',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  },
-  <!-- SKU_END:RX400_Pro -->
-  <!-- SKU_START:U8 -->
-  U8:{
-    name:'U8',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  }
-  <!-- SKU_END:U8 -->
-};
+// ── SKU 数据（由 data.json 动态加载）────────────────────────
+let SKU_DATA={};
 // ── 当前选中的 SKU ──
 let currentSKU='PET500';
 let gmv,net,adSpend,adRev,dir,indir,roi,refund,paidTraf,advTraf,revisit,inner;
@@ -947,6 +898,11 @@ function baseXAxis(){
 }
 function baseLegend(){return{textStyle:{color:C.text,fontSize:11},top:0,right:0,itemWidth:12,itemHeight:8};}
 
+function mkBar(name,data,color){
+  return{name,type:'bar',data,barMaxWidth:28,
+    itemStyle:{color,borderRadius:[3,3,0,0]},
+    tooltip:baseTooltip()};
+}
 // P0-③: 添加极值标注（GMV最高/最低点，ROI盈亏平衡线）
 function mkBarMP(name,data,color){
   const maxVal=Math.max(...data.filter(v=>v>0||v===0));
@@ -1173,13 +1129,134 @@ function mapUploadedData(rows){
   return{summary,daily};
 }
 
-// ── 统一页面加载入口（只注册一次，解决P0-3双重load问题）──────────
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    switchSKU('PET500');  // 初始化 KPI + 图表
-    initPlanComp();       // 初始化 Step4 表格（区域B：计划明细）
-    renderToolComp();     // 渲染区域A：5种工具横向对比表
-  },300);
+// ══════════════════════════════════════════════════════════════════════
+//  动态加载 data.json
+// ══════════════════════════════════════════════════════════════════════
+
+function loadDataJSON(json){
+  // 从 data.json 填充 DATES + SKU_DATA
+  if(json.dates && json.dates.length > 0){
+    DATES = json.dates;
+  } else if(json.daily_data && json.daily_data.length > 0){
+    DATES = json.daily_data.map(function(d){ return d.date; });
+  }
+
+  // SKU_DATA 格式: json.skus["PET500"] = { name, gmv, net, adSpend, ... }
+  if(json.skus){
+    SKU_DATA = json.skus;
+    return;
+  }
+
+  // 兼容旧格式: 单个SKU的 data.json
+  // 旧格式: { sku_name: "KJ500G-PET500", daily_data: [...] }
+  var skuKey = '';
+  if(json.sku_name){
+    var m = json.sku_name.match(/([A-Za-z0-9]+(?:_Pro|_PRO|_PROH|P)?)/);
+    if(m) skuKey = m[1];
+  }
+  if(!skuKey) skuKey = 'PET500';
+
+  var n = DATES.length || (json.daily_data ? json.daily_data.length : 14);
+  var gmv=[], net=[], adSpend=[], adRev=[], dir_=[], indir=[], roi=[], refund=[];
+  var paidTraf=[], advTraf=[], revisit=[], inner=[];
+
+  if(json.daily_data){
+    json.daily_data.forEach(function(d){
+      var s = d.sales || {};
+      var a = d.ads || {};
+      var r = d.refund || {};
+      var t = d.traffic || {};
+
+      gmv.push((+s.pay_amount || 0) / 10000);
+      var refundAmt = (+s.refund_amount || 0) / 10000;
+      net.push(((+s.pay_amount || 0) / 10000) - refundAmt);
+      adSpend.push((+a.cost || 0) / 10000);
+      adRev.push((+a.total_gmv || 0) / 10000);
+      dir_.push((+a.direct_gmv || 0) / 10000);
+      indir.push((+a.indirect_gmv || 0) / 10000);
+      roi.push((+a.cost > 0) ? (+a.total_gmv / +a.cost).toFixed(2) * 1 : 0);
+      var rr = +r.post_refund_rate || 0;
+      refund.push(rr > 1 ? rr : rr * 100);
+
+      // 流量: 从 traffic 对象汇总
+      var ptot=0, atot=0, rtot=0, itot=0;
+      Object.keys(t).forEach(function(k){
+        var v = (+t[k].visitors || 0) / 1000; // 千人
+        if(k.indexOf('付费')>=0 || k.indexOf('效果')>=0) ptot += v;
+        if(k.indexOf('经营')>=0 || k.indexOf('优势')>=0) atot += v;
+        if(k.indexOf('回访')>=0) rtot += v;
+        if(k.indexOf('店内')>=0 || k.indexOf('流转')>=0) itot += v;
+      });
+      paidTraf.push(+ptot.toFixed(1));
+      advTraf.push(+atot.toFixed(1));
+      revisit.push(+rtot.toFixed(1));
+      inner.push(+itot.toFixed(1));
+    });
+  }
+
+  SKU_DATA[skuKey] = {
+    name: skuKey,
+    gmv: gmv, net: net, adSpend: adSpend, adRev: adRev,
+    dir: dir_, indir: indir, roi: roi, refund: refund,
+    paidTraf: paidTraf, advTraf: advTraf, revisit: revisit, inner: inner
+  };
+
+  // 补零给其他SKU
+  var allSKUs = ['RX600_PRO','PET500','PET600','RX600P','RX600_PROH','RX400_Pro','U8'];
+  allSKUs.forEach(function(k){
+    if(!SKU_DATA[k]){
+      SKU_DATA[k] = {
+        name:k, gmv:Array(n).fill(0), net:Array(n).fill(0), adSpend:Array(n).fill(0),
+        adRev:Array(n).fill(0), dir:Array(n).fill(0), indir:Array(n).fill(0),
+        roi:Array(n).fill(0), refund:Array(n).fill(0),
+        paidTraf:Array(n).fill(0), advTraf:Array(n).fill(0),
+        revisit:Array(n).fill(0), inner:Array(n).fill(0)
+      };
+    }
+  });
+}
+
+// ── 统一页面加载入口 ──────────────────────────────────────────
+window.addEventListener('load', function(){
+  // 动态加载 data.json
+  fetch('data.json?t=' + Date.now())  // 缓存破坏，确保拿到最新数据
+    .then(function(r){ return r.json(); })
+    .then(function(json){
+      loadDataJSON(json);
+      // 找到第一个有数据的SKU作为默认
+      var defaultSKU = 'PET500';
+      var skus = Object.keys(SKU_DATA);
+      for(var i=0; i<skus.length; i++){
+        var s = SKU_DATA[skus[i]];
+        if(s.gmv && s.gmv.reduce(function(a,b){return a+b;},0) > 0){
+          defaultSKU = skus[i];
+          break;
+        }
+      }
+      // 更新SKU下拉框选项
+      var sel = document.getElementById('skuSelect');
+      if(sel){
+        sel.innerHTML = '<option value="all">📊 全部汇总</option>';
+        skus.forEach(function(k){
+          var label = SKU_DATA[k].name || k;
+          var opt = document.createElement('option');
+          opt.value = k; opt.textContent = label;
+          if(k === defaultSKU) opt.selected = true;
+          sel.appendChild(opt);
+        });
+      }
+      switchSKU(defaultSKU);
+      initPlanComp();
+      renderToolComp();
+    })
+    .catch(function(err){
+      console.error('❌ 加载 data.json 失败:', err);
+      // 降级: 用空数据初始化
+      DATES = ['—'];
+      SKU_DATA = { PET500: { name:'PET500', gmv:[0], net:[0], adSpend:[0], adRev:[0], dir:[0], indir:[0], roi:[0], refund:[0], paidTraf:[0], advTraf:[0], revisit:[0], inner:[0] } };
+      document.getElementById('kpi-gmv').textContent = '数据加载失败';
+      document.getElementById('kpi-gmv').style.color = '#ef4444';
+    });
 });
 
 // ── 统一 resize 监听（只注册一次，解决双重resize问题）────────────
