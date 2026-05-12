@@ -23,15 +23,16 @@ config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
 client = CosS3Client(config)
 
 # ── SKU 映射 ──────────────────────────────
-SKU_JS_KEYS = {
-    'PET500':      'PET500',
-    'PET600':      'PET600',
-    'RX400_Pro':  'RX400_Pro',
-    'U8':          'U8',
-    'RX600_PRO':   'RX600_PRO',
-    'RX600P':      'RX600P',
-    'RX600_PROH':  'RX600_PROH',
-    '东芝微烤-7232Pro': '7232Pro',
+# 格式: {'COS文件夹名': 'JS对象key'}
+SKU_MAP = {
+    'PET500_873480929689': 'PET500',
+    'PET600_1001231224168': 'PET600',
+    'RX400_Pro_1003020312991': 'RX400_Pro',
+    'U8_1032758801866': 'U8',
+    'RX600_PRO_1003337570123': 'RX600_PRO',
+    'RX600P_1003456789012': 'RX600P',
+    'RX600_PROH_1003567890123': 'RX600_PROH',
+    '东芝微烤-7232Pro_898077474925': '7232Pro',
 }
 
 def norm_date(s):
@@ -70,7 +71,7 @@ os.makedirs('cos-downloads', exist_ok=True)
 all_data = {}   # {sku: {sales:{dt:{...}}, ads:{dt:{...}}, refund:{dt:{...}}, traffic:{dt:{...}}}}
 all_dates = set()
 
-for sku_name, js_key in SKU_JS_KEYS.items():
+for sku_name, js_key in SKU_MAP.items():
     all_data[sku_name] = {'sales':{}, 'ads':{}, 'refund':{}, 'traffic':{}}
     prefix = f'data/{sku_name}_{js_key}/'
     
@@ -191,7 +192,7 @@ print(f"\n📅 范围: {dates_sorted[0]} ~ {dates_sorted[-1]} | 使用 {len(rece
 # ── 生成 data.json ───────────────────────
 skus_output = {}
 
-for sku_name, js_key in SKU_JS_KEYS.items():
+for sku_name, js_key in SKU_MAP.items():
     sku_info = all_data.get(sku_name, {})
     
     gmv, net, adSpend, adRev = [], [], [], []
