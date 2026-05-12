@@ -73,7 +73,7 @@ all_dates = set()
 
 for sku_name, js_key in SKU_MAP.items():
     all_data[sku_name] = {'sales':{}, 'ads':{}, 'refund':{}, 'traffic':{}}
-    prefix = f'data/{sku_name}_{js_key}/'
+    prefix = f'data/{sku_name}/'
     
     try:
         resp = client.list_objects(Bucket=bucket, Prefix=prefix, MaxKeys=100)
