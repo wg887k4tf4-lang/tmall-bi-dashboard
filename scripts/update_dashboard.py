@@ -81,10 +81,20 @@ def pnum(s):
     except: return 0.0
 
 def norm_date(s):
+    """兼容字符串、datetime对象、带时间的日期格式"""
+    from datetime import datetime as dt
+    # datetime对象直接格式化
+    if isinstance(s, dt):
+        return s.strftime('%Y-%m-%d')
     s = str(s).strip()
-    for pat in [r'(\d{4})/(\d{1,2})/(\d{1,2})', r'(\d{4})-(\d{1,2})-(\d{1,2})']:
-        m = re.match(pat, s)
-        if m: return f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    # 带时间: 2026-04-28 00:00:00
+    m = re.match(r'(\d{4})-(\d{1,2})-(\d{1,2})', s)
+    if m:
+        return f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    # 斜线格式
+    m = re.match(r'(\d{4})/(\d{1,2})/(\d{1,2})', s)
+    if m:
+        return f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
     return s
 
 SKU_JS_KEYS = {
@@ -158,7 +168,24 @@ for fpath in downloaded:
                     if not dc: continue
                     dt = norm_date(rd.get(dc, ''))
                     if not dt or dt == 'nan': continue
-                    all_data[sku][ct][dt] = rd
+                    # 广告数据需要按日期聚合（多行=多个计划/关键词）
+                    if ct == 'ads':
+                        if dt not in all_data[sku][ct]:
+                            # 初始化聚合字典
+                            all_data[sku][ct][dt] = {}
+                        existing = all_data[sku][ct][dt]
+                        for h in headers:
+                            val = pnum(rd.get(h, 0))
+                            if h in existing:
+                                # 数值列累加，非数值列保留第一个值
+                                try:
+                                    existing[h] = round(existing[h] + val, 2)
+                                except (TypeError, ValueError):
+                                    pass
+                            else:
+                                existing[h] = val
+                    else:
+                        all_data[sku][ct][dt] = rd
                     all_dates.add(dt)
 
         elif fname.endswith('.csv'):
