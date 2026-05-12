@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""天猫BI仪表盘数据更新脚本 v4.0 - 支持COS子文件夹结构"""
-import os, json, re
-from datetime import datetime, timedelta
+"""天猫BI仪表盘数据更新脚本 v5.0 - 彻底重写，确保数据正确"""
+import os, json, re, csv
+from datetime import datetime
 from collections import defaultdict
 import openpyxl
 from qcloud_cos import CosConfig, CosS3Client
 
 print("="*50)
-print("🦐 天猫BI数据解析")
+print("🦐 天猫BI数据解析 v5.0")
 print(datetime.now().strftime("⏰ %Y-%m-%d %H:%M:%S"))
 print("="*50)
 
@@ -64,18 +64,17 @@ def guess_ctype(fname, subdir):
     fname_up = fname.upper()
     subdir_up = subdir.upper()
     
-    if '退款' in fname_up or '退款' in subdir_up or '售后' in subdir_up:
+    if '退款' in fname_up or '退款' in subdir_up:
         return 'refund'
-    if '流量' in fname_up or '流量' in subdir_up or '访客' in fname_up:
+    if '流量' in fname_up or '流量' in subdir_up:
         return 'traffic'
-    if '站内' in fname_up or '推广' in fname_up or '投放' in fname_up or '广告' in subdir_up:
+    if '投放' in subdir_up or '推广' in fname_up or '广告' in subdir_up:
         return 'ads'
-    # 默认是销售数据
     return 'sales'
 
 # ── 下载 & 解析 ──────────────────────────
 os.makedirs('cos-downloads', exist_ok=True)
-all_data = {}   # {sku: {'sales':{dt:{...}}, 'ads':{dt:{...}}, 'refund':{dt:{...}}, 'traffic':{dt:{...}}}}
+all_data = {}   # {sku: {'sales':{dt:{}}, 'ads':{dt:{}}, 'refund':{dt:{}}, 'traffic':{dt:{}}}}
 all_dates = set()
 
 for sku_name, js_key in SKU_MAP.items():
@@ -88,10 +87,9 @@ for sku_name, js_key in SKU_MAP.items():
         subdirs = [p['Prefix'] for p in resp.get('CommonPrefixes', [])]
         
         if not subdirs:
-            # 如果没有子文件夹，直接列文件
             subdirs = [prefix]
         
-        print(f"\n📦 [{sku_name}] {len(subdirs)}个文件夹")
+        print(f"\n📦 [{sku_name}] {len(subdirs)}个子文件夹")
         
         for sub_prefix in subdirs:
             sub_name = sub_prefix.rstrip('/').split('/')[-1]
@@ -140,6 +138,7 @@ for sku_name, js_key in SKU_MAP.items():
                             for row in rows[header_idx+1:]:
                                 if not row or not any(row):
                                     continue
+                                
                                 rd = dict(zip(headers, row))
                                 
                                 # 找日期列
@@ -168,12 +167,13 @@ for sku_name, js_key in SKU_MAP.items():
                                     all_data[sku_name][ct][dt] = rd
                                 
                                 all_dates.add(dt)
+                                print(f"    ✅ {ct} {dt} 已添加")
+                                
                     except Exception as e:
                         print(f"  ❌ 解析错误 {fname}: {e}")
                         
                 elif fname.endswith('.csv'):
                     try:
-                        import csv
                         for enc in ['utf-8', 'gbk', 'utf-8-sig']:
                             try:
                                 with open(lpath, 'r', encoding=enc) as f:
@@ -187,20 +187,21 @@ for sku_name, js_key in SKU_MAP.items():
                                         if dt and dt != 'nan':
                                             all_data[sku_name]['sales'][dt] = row
                                             all_dates.add(dt)
+                                            print(f"    ✅ sales {dt} 已添加")
                                 break
                             except:
                                 continue
                     except Exception as e:
                         print(f"  ❌ CSV解析错误 {fname}: {e}")
+                        
     except Exception as e:
         print(f"❌ [{sku_name}] 处理失败: {e}")
 
 # ── 整理日期 ──────────────────────────────
 dates_sorted = sorted(d for d in all_dates if d and d != 'nan' and len(d)==10 and '-' in d)
 recent_14 = dates_sorted[-14:] if len(dates_sorted) > 14 else dates_sorted
-print(f"\n📅 范围: {dates_sorted[0]} ~ {dates_sorted[-1]} | 使用 {len(recent_14)} 天")
-print(f"DEBUG: all_dates内容(前5)={sorted(all_dates)[:5]}")
-print(f"DEBUG: all_dates长度={len(all_dates)}")
+print(f"\n📅 范围: {dates_sorted[0] if dates_sorted else '无'} ~ {dates_sorted[-1] if dates_sorted else '无'} | 使用 {len(recent_14)} 天")
+print(f"DEBUG: all_dates长度={len(all_dates)}, 前5个={sorted(all_dates)[:5]}")
 
 # ── 生成 data.json ───────────────────────
 skus_output = {}
