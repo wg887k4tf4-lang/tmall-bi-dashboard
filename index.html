@@ -917,22 +917,35 @@ function initAll(){
     ]
   });
 
-  // 图6: 退款率 t-1 展示（修复P1-4：shift偏移一位，4/23无前值显示"—"）
-  // refund数组：index0=4/23退货率(无前值→null), index1=4/24退货率(4/23的), ..., index13=5/6退货率(5/5的)
-  const refundT1=[null,...refund.slice(0,-1)]; // [null, 4/23率, 4/24率, ..., 5/5率]
+  // 图6: 退款率趋势（平滑处理 + t-1展示）
+  // 平滑策略：用3点移动平均抑制异常尖峰，同时保留趋势形态
+  const rawRefund=[null,...refund.slice(0,-1)]; // t-1偏移
+  const refundSmooth=rawRefund.map((v,i)=>{
+    if(v===null||v===undefined) return null;
+    // 3点移动平均：取前后各1个点的均值
+    const prev=rawRefund[i-1];
+    const next=rawRefund[i+1];
+    let sum=v, cnt=1;
+    if(prev!==null&&prev!==undefined){sum+=prev;cnt++;}
+    if(next!==null&&next!==undefined){sum+=next;cnt++;}
+    return parseFloat((sum/cnt).toFixed(1));
+  });
+  // 动态Y轴上限：平滑后最大值的1.2倍，最低16%
+  const validVals=refundSmooth.filter(v=>v!==null&&v!==undefined);
+  const yMax=Math.max(16, Math.ceil(Math.max(...validVals)*1.2/5)*5);
   echarts.init(document.getElementById('c6')).setOption({
     tooltip:{...baseTooltip(),formatter:p=>{
       if(!p||!p[0]||p[0].seriesName==='基准线10%') return '';
       const v=p[0].value;
       if(v===null||v===undefined) return `<b>${p[0].axisValue}</b><br/><span style="color:${C.text}">暂无前一日数据</span>`;
-      return`<b>${p[0].axisValue}</b><br/>${p[0].marker}退货率: <b style="color:${v>10?'#ef4444':'#34d399'}">${v}%</b><br/><span style="color:${C.text};font-size:10px">* t-1 展示，前一天退款率</span>`;
+      return`<b>${p[0].axisValue}</b><br/>${p[0].marker}发货后退款率: <b style="color:${v>10?'#ef4444':'#34d399'}">${v}%</b><br/><span style="color:${C.text};font-size:10px">* 已做3点平滑处理 · t-1展示</span>`;
     }},
     grid:{top:20,left:44,right:12,bottom:24},xAxis:baseXAxis(),
-    yAxis:[{type:'value',max:16,
+    yAxis:[{type:'value',max:yMax,
       axisLabel:{color:C.text,fontSize:11,formatter:v=>v+'%'},
       splitLine:{lineStyle:{color:'rgba(51,65,85,.5)',type:'dashed'}}}],
     series:[
-      mkLine('退货率(t-1)',refundT1,'#ef4444',true),
+      mkLine('发货后退款率(平滑)',refundSmooth,'#ef4444',true),
       mkDash('基准线10%',DATES.map(()=>10),'#f59e0b')
     ]
   });
