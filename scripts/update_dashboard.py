@@ -199,21 +199,23 @@ for sku_name, js_key in SKU_JS_KEYS.items():
             rr = 0
         refund.append(round(rr * 100, 2))
 
-    new_block = f"""{js_key}:{{
-name:'{js_key}',
-gmv:    {json.dumps(gmv)},
-net:    {json.dumps(net)},
-adSpend:{json.dumps(adSpend)},
-adRev:  {json.dumps(adRev)},
-dir:    {json.dumps(dir_)},
-indir:  {json.dumps(indir)},
-roi:    {json.dumps(roi)},
-refund: {json.dumps(refund)},
-paidTraf:{json.dumps(paidTraf)},
-advTraf: {json.dumps(advTraf)},
-revisit: {json.dumps(revisit)},
-inner:  {json.dumps(inner)}}
-}}"""
+    # 用字符串拼接避免f-string中花括号转义问题
+    new_block = (
+        js_key + ":{\n" +
+        "name:'" + js_key + "',\n" +
+        "gmv:    " + json.dumps(gmv) + ",\n" +
+        "net:    " + json.dumps(net) + ",\n" +
+        "adSpend:" + json.dumps(adSpend) + ",\n" +
+        "adRev:  " + json.dumps(adRev) + ",\n" +
+        "dir:    " + json.dumps(dir_) + ",\n" +
+        "indir:  " + json.dumps(indir) + ",\n" +
+        "roi:    " + json.dumps(roi) + ",\n" +
+        "refund: " + json.dumps(refund) + ",\n" +
+        "paidTraf:" + json.dumps(paidTraf) + ",\n" +
+        "advTraf: " + json.dumps(advTraf) + ",\n" +
+        "revisit: " + json.dumps(revisit) + ",\n" +
+        "inner:  " + json.dumps(inner) + "\n  }"
+    )
 
     pat = rf'({js_key}:\{{.*?\n  \}}),'
     if re.search(pat, html, flags=re.DOTALL):
