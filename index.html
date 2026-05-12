@@ -1253,7 +1253,7 @@ window.addEventListener('load', function(){
       console.error('❌ 加载 data.json 失败:', err);
       // 降级: 用空数据初始化
       DATES = ['—'];
-      SKU_DATA = { PET500: { name:'PET500', gmv:[0], net:[0], adSpend:[0], adRev:[0], dir:[0], indir:[0], roi:[0], refund:[0], paidTraf:[0], advTraf:[0], revisit:[0], inner:[0] } };
+      SKU_DATA = {/* SKU_START:FALLBACK */ PET500: { name:'PET500', gmv:[0], net:[0], adSpend:[0], adRev:[0], dir:[0], indir:[0], roi:[0], refund:[0], paidTraf:[0], advTraf:[0], revisit:[0], inner:[0] } /* SKU_END:FALLBACK */};
       document.getElementById('kpi-gmv').textContent = '数据加载失败';
       document.getElementById('kpi-gmv').style.color = '#ef4444';
     });
