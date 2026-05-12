@@ -38,6 +38,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
             font-size:11px;cursor:pointer;transition:all .2s}
 .date-btn:hover{background:var(--card)}
 .date-btn.active{background:var(--blue);color:#fff}
+.daterange{cursor:pointer;transition:opacity .2s}
+.daterange:hover{opacity:.8}
+/* ── Date Picker Popup ── */
+.date-picker-popup{position:absolute;top:100%;right:0;margin-top:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;z-index:100;box-shadow:var(--shadow);display:none;min-width:280px}
+.date-picker-popup.show{display:block}
+.date-picker-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.date-picker-row label{font-size:11px;color:var(--text);min-width:40px}
+.date-picker-row input[type="date"]{background:var(--card2);border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:6px;font-size:12px;outline:none}
+.date-picker-row input[type="date"]:focus{border-color:var(--blue)}
+.date-picker-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.date-picker-btn{padding:6px 14px;border-radius:6px;font-size:11px;cursor:pointer;border:none;transition:all .2s}
+.date-picker-btn.cancel{background:transparent;color:var(--text)}
+.date-picker-btn.cancel:hover{color:var(--text2)}
+.date-picker-btn.apply{background:var(--blue);color:#fff}
+.date-picker-btn.apply:hover{background:var(--blue2)}
 .header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .upload-btn{background:var(--grad1);border:none;color:#fff;padding:8px 16px;border-radius:8px;
             font-size:13px;font-weight:500;cursor:pointer;transition:opacity .2s}
@@ -153,12 +168,27 @@ tr:hover td.wow-cell{background:#1a2235!important}
     </div>
     <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 上传数据</button>
     <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFileUpload(this)">
-    <div class="date-selector" id="dateSelector">
-      <span class="daterange">📅 <span id="dateRangeLabel">04/23 — 05/06</span></span>
+    <div class="date-selector" id="dateSelector" style="position:relative">
+      <span class="daterange" onclick="toggleDatePicker()">📅 <span id="dateRangeLabel">04/23 — 05/06</span></span>
       <button class="date-btn active" data-days="14" onclick="setDateFilter(14)">14天</button>
       <button class="date-btn" data-days="7" onclick="setDateFilter(7)">7天</button>
       <button class="date-btn" data-days="3" onclick="setDateFilter(3)">3天</button>
       <button class="date-btn" data-days="1" onclick="setDateFilter(1)">1天</button>
+      <!-- Date Picker Popup -->
+      <div class="date-picker-popup" id="datePickerPopup">
+        <div class="date-picker-row">
+          <label>开始</label>
+          <input type="date" id="startDateInput">
+        </div>
+        <div class="date-picker-row">
+          <label>结束</label>
+          <input type="date" id="endDateInput">
+        </div>
+        <div class="date-picker-btns">
+          <button class="date-picker-btn cancel" onclick="closeDatePicker()">取消</button>
+          <button class="date-picker-btn apply" onclick="applyDateRange()">确定</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -756,6 +786,7 @@ let currentDays = 14;
 let rawGMV,rawNet,rawAdSpend,rawAdRev,rawDir,rawIndir,rawRoi,rawRefund,rawPaidTraf,rawAdvTraf,rawRevisit,rawInner;
 function setDateFilter(days){
   currentDays = days;
+  customStartIdx = null; customEndIdx = null; // 清除自定义范围
   // 首次调用时保存原始数据
   if(!rawGMV){
     rawGMV = [...gmv]; rawNet = [...net]; rawAdSpend = [...adSpend];
@@ -782,6 +813,68 @@ function setDateFilter(days){
   
   refreshAllCharts();
 }
+
+// ── 日期选择器功能 ─────────────────────────────────────────────
+let customStartIdx = null, customEndIdx = null;
+
+function toggleDatePicker(){
+  const popup = document.getElementById('datePickerPopup');
+  const isOpen = popup.classList.contains('show');
+  if(isOpen){
+    closeDatePicker();
+  } else {
+    // 初始化日期输入框为当前范围
+    const n = DATES.length;
+    const startIdx = customStartIdx !== null ? customStartIdx : n - currentDays;
+    const endIdx = customEndIdx !== null ? customEndIdx : n - 1;
+    document.getElementById('startDateInput').value = DATES[startIdx];
+    document.getElementById('endDateInput').value = DATES[endIdx];
+    popup.classList.add('show');
+  }
+}
+
+function closeDatePicker(){
+  document.getElementById('datePickerPopup').classList.remove('show');
+}
+
+function applyDateRange(){
+  const startVal = document.getElementById('startDateInput').value;
+  const endVal = document.getElementById('endDateInput').value;
+  if(!startVal || !endVal){
+    closeDatePicker();
+    return;
+  }
+  // 找到对应索引
+  const startIdx = DATES.indexOf(startVal);
+  const endIdx = DATES.indexOf(endVal);
+  if(startIdx === -1 || endIdx === -1 || startIdx > endIdx){
+    alert('选择的日期范围无效');
+    return;
+  }
+  customStartIdx = startIdx;
+  customEndIdx = endIdx;
+  // 应用自定义范围
+  const slice = (arr) => arr.slice(startIdx, endIdx + 1);
+  gmv = slice(rawGMV); net = slice(rawNet); adSpend = slice(rawAdSpend);
+  adRev = slice(rawAdRev); dir = slice(rawDir); indir = slice(rawIndir); roi = slice(rawRoi);
+  refund = slice(rawRefund); paidTraf = slice(rawPaidTraf); advTraf = slice(rawAdvTraf);
+  revisit = slice(rawRevisit); inner = slice(rawInner);
+  // 更新日期标签
+  document.getElementById('dateRangeLabel').textContent = startVal + ' — ' + endVal;
+  // 清除按钮active状态（自定义范围）
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+  closeDatePicker();
+  refreshAllCharts();
+}
+
+// 点击外部关闭日期选择器
+document.addEventListener('click', function(e){
+  const popup = document.getElementById('datePickerPopup');
+  const daterange = document.querySelector('.daterange');
+  if(popup.classList.contains('show') && !popup.contains(e.target) && !daterange.contains(e.target)){
+    closeDatePicker();
+  }
+});
 
 // ── 刷新所有图表（销毁旧实例再重建）─────────────────────────────
 function refreshAllCharts(){
