@@ -195,7 +195,10 @@ for sku_name, js_key in SKU_MAP.items():
                                     for row in reader:
                                         dt = norm_date(row.get(dc, ''))
                                         if dt and dt != 'nan':
-                                            all_data[sku_name]['sales'][dt] = row
+                                            if ct == 'refund':
+                                                all_data[sku_name]['refund'][dt] = row
+                                            else:
+                                                all_data[sku_name]['sales'][dt] = row
                                             all_dates.add(dt)
                                     print(f'      ✅ CSV解析成功 ({enc})')
                                 break
