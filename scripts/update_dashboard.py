@@ -199,6 +199,8 @@ for sku_name, js_key in SKU_MAP.items():
 dates_sorted = sorted(d for d in all_dates if d and d != 'nan' and len(d)==10 and '-' in d)
 recent_14 = dates_sorted[-14:] if len(dates_sorted) > 14 else dates_sorted
 print(f"\n📅 范围: {dates_sorted[0]} ~ {dates_sorted[-1]} | 使用 {len(recent_14)} 天")
+print(f"DEBUG: all_dates内容(前5)={sorted(all_dates)[:5]}")
+print(f"DEBUG: all_dates长度={len(all_dates)}")
 
 # ── 生成 data.json ───────────────────────
 skus_output = {}
