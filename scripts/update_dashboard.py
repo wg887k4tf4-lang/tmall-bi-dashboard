@@ -50,6 +50,10 @@ def norm_date(s):
     m = re.match(r'(\d{4})-(\d{1,2})-(\d{1,2})', s)
     if m:
         return f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    # YYYYMMDD格式: 20260428
+    m2 = re.match(r'(\d{4})(\d{2})(\d{2})', s)
+    if m2:
+        return f"{m2.group(1)}-{m2.group(2)}-{m2.group(3)}"
     return None
 
 def pnum(s):
@@ -103,7 +107,8 @@ for sku_name, js_key in SKU_MAP.items():
                 if fname == '.gitkeep':
                     continue
                 
-                lpath = f'cos-downloads/{fname}'
+                lpath = f'cos-downloads/{sku_name}/{fname}'
+                os.makedirs(os.path.dirname(lpath), exist_ok=True)
                 
                 # 下载（流式读取）
                 try:
@@ -152,8 +157,9 @@ for sku_name, js_key in SKU_MAP.items():
                                 rd = dict(zip(headers, row))
                                 
                                 # 找日期列
-                                dc = next((h for h in headers if '日期' in h), None)
+                                dc = next((h for h in headers if '日期' in h or '时间' in h or 'date' in h.lower()), None)
                                 if not dc:
+                                    print(f"      ⚠️ 没找到日期列，表头={headers[:5]}")
                                     continue
                                 dt = norm_date(rd.get(dc, ''))
                                 if not dt:
@@ -178,7 +184,7 @@ for sku_name, js_key in SKU_MAP.items():
                         
                 elif fname.endswith('.csv'):
                     try:
-                        for enc in ['utf-8', 'gbk', 'utf-8-sig']:
+                        for enc in ['utf-8-sig', 'gbk', 'utf-8']:
                             try:
                                 with open(lpath, 'r', encoding=enc) as f:
                                     reader = csv.DictReader(f)
@@ -191,6 +197,7 @@ for sku_name, js_key in SKU_MAP.items():
                                         if dt and dt != 'nan':
                                             all_data[sku_name]['sales'][dt] = row
                                             all_dates.add(dt)
+                                    print(f'      ✅ CSV解析成功 ({enc})')
                                 break
                             except:
                                 continue
