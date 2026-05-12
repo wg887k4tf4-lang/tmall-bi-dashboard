@@ -158,9 +158,16 @@ for fpath in downloaded:
                 headers = [str(c).strip() if c else '' for c in rows[header_idx]]
 
                 ct = 'sales'
+                # 先看表头判断
                 if any('花费' in h or '广告' in h or '投放' in h for h in headers): ct = 'ads'
                 elif any('退款' in h or '售后' in h for h in headers): ct = 'refund'
                 elif any('流量' in h or '访客' in h for h in headers): ct = 'traffic'
+                # 表头无法判断时，看文件名（兼容"PET500站内.xlsx"格式）
+                if ct == 'sales':
+                    fname_up = fname.upper()
+                    if '站内' in fname_up or '投放' in fname_up or '推广' in fname_up: ct = 'ads'
+                    elif '流量' in fname_up or '访客' in fname_up: ct = 'traffic'
+                    elif '退款' in fname_up: ct = 'refund'
 
                 print(f"  [{sheet_name}] {ct}, {len(rows)-header_idx-1}行")
                 for row in rows[header_idx+1:]:
