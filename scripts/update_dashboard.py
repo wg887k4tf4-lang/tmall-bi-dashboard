@@ -102,6 +102,7 @@ SKU_JS_KEYS = {
     'RX400_Pro': 'RX400_Pro', 'U8': 'U8',
     'RX600_PRO': 'RX600_PRO', 'RX600P': 'RX600P',
     'RX600_PROH': 'RX600_PROH',
+    '7232Pro': '7232Pro',
 }
 
 def detect_sku(filepath):
@@ -121,6 +122,7 @@ def detect_sku(filepath):
     if 'PET600' in f: return 'PET600'
     if 'PET500' in f: return 'PET500'
     if 'U8' in f: return 'U8'
+    if '7232PRO' in f or '7232PRO' in f or '东芝' in f: return '7232Pro'
     return None
 
 # ── 解析所有下载文件 ──────────────────────
