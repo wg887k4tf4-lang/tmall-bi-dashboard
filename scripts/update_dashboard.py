@@ -255,6 +255,14 @@ for sku_name, js_key in SKU_JS_KEYS.items():
             rr = 0
         refund.append(round(rr * 100, 2))
 
+    # DEBUG: 检查广告数据
+    ad_dates = list(sku_info.get('ads', {}).keys())
+    if ad_dates:
+        first_ad = sku_info['ads'][ad_dates[0]]
+        print(f"  🔍 广告数据: {len(ad_dates)}天, 首日花费={first_ad.get('花费', 'N/A')}")
+    else:
+        print(f"  ⚠️ 无广告日期数据!")
+
     valid_roi = [x for x in roi if x > 0]
     if gmv and sum(gmv) > 0:
         print(f"✅ {js_key}: GMV={sum(gmv):.1f}万 | ROI均值={sum(valid_roi)/len(valid_roi):.2f}" if valid_roi else f"✅ {js_key}: GMV={sum(gmv):.1f}万 | 无广告数据")
