@@ -4,7 +4,6 @@
 import os, json, re, glob
 from datetime import datetime
 from collections import defaultdict
-import pandas as pd
 import openpyxl
 from qcloud_cos import CosConfig, CosS3Client
 
@@ -81,12 +80,24 @@ def pnum(s):
     except: return 0.0
 
 def norm_date(s):
-    """兼容字符串、datetime对象、带时间的日期格式"""
-    from datetime import datetime as dt
+    """兼容字符串、datetime对象、带时间的日期格式、Excel数字日期"""
+    from datetime import datetime as dt, timedelta
+    
     # datetime对象直接格式化
     if isinstance(s, dt):
         return s.strftime('%Y-%m-%d')
+    
     s = str(s).strip()
+    
+    # Excel数字日期 (如 45678)
+    try:
+        n = float(s)
+        if 40000 < n < 50000:  # 合理日期范围
+            base = dt(1899, 12, 30)  # Excel base date
+            return (base + timedelta(days=n)).strftime('%Y-%m-%d')
+    except ValueError:
+        pass
+    
     # 带时间: 2026-04-28 00:00:00
     m = re.match(r'(\d{4})-(\d{1,2})-(\d{1,2})', s)
     if m:
@@ -173,7 +184,10 @@ for fpath in downloaded:
                 for row in rows[header_idx+1:]:
                     if not row: continue
                     rd = dict(zip(headers, row))
-                    dc = next((h for h in headers if '日期' in h), None)
+                    dc = next((h for h in headers if '日期' in str(h)), None)
+                    if not dc:
+                        # 备用：找第一个看起来像日期的列
+                        dc = next((h for h in headers if str(h).strip() in ['日期', '统计日期', 'data']), None)
                     if not dc: continue
                     dt = norm_date(rd.get(dc, ''))
                     if not dt or dt == 'nan': continue
@@ -197,21 +211,28 @@ for fpath in downloaded:
                         all_data[sku][ct][dt] = rd
                     all_dates.add(dt)
 
+        # DEBUG: 打印广告数据示例
+        if sku in all_data and 'ads' in all_data[sku]:
+            ads_sample = list(all_data[sku]['ads'].items())[:2]
+            if ads_sample:
+                print(f'  🔍 [{sku}] 广告数据示例: {ads_sample}')
+
         elif fname.endswith('.csv'):
+            import csv
             for enc in ['utf-8', 'gbk', 'utf-8-sig']:
                 try:
-                    df = pd.read_csv(fpath, encoding=enc)
+                    with open(fpath, 'r', encoding=enc) as csvf:
+                        reader = csv.DictReader(csvf)
+                        headers = reader.fieldnames
+                        dc = next((h for h in headers if '日期' in h), None)
+                        if not dc: continue
+                        for row in reader:
+                            dt = norm_date(row.get(dc, ''))
+                            if dt and dt != 'nan':
+                                all_data[sku]['sales'][dt] = row
+                                all_dates.add(dt)
                     break
                 except: continue
-            headers = list(df.columns)
-            dc = next((h for h in headers if '日期' in h), None)
-            if not dc: continue
-            df['dt'] = df[dc].apply(norm_date)
-            for _, row in df.iterrows():
-                dt = row['dt']
-                if dt and dt != 'nan':
-                    all_data[sku]['sales'][dt] = row.to_dict()
-                    all_dates.add(dt)
     except Exception as e:
         print(f"  ❌ 解析错误: {e}")
         import traceback; traceback.print_exc()
@@ -221,9 +242,10 @@ if not all_dates:
     open('.skip', 'w').close()
     exit(0)
 
-dates_sorted = sorted(d for d in all_dates if d and d != 'nan')
+dates_sorted = sorted(d for d in all_dates if d and d != 'nan' and isinstance(d, str) and len(d)==10 and d.count('-')==2)
 recent_14 = dates_sorted[-14:] if len(dates_sorted) > 14 else dates_sorted
 print(f"\n📅 范围: {dates_sorted[0]} ~ {dates_sorted[-1]} | 取最近14天: {recent_14[0]} ~ {recent_14[-1] if recent_14 else 'None'}")
+print(f"DEBUG recent_14类型检查: {[(d, type(d)) for d in recent_14[:3]]}")
 
 # ── 生成 data.json ───────────────────────
 skus_output = {}
@@ -240,6 +262,14 @@ for sku_name, js_key in SKU_JS_KEYS.items():
         sd = sku_info.get('sales', {}).get(dt, {})
         ad = sku_info.get('ads', {}).get(dt, {})
         rd = sku_info.get('refund', {}).get(dt, {})
+        
+        # DEBUG: 打印广告数据
+        if dt == recent_14[0]:  # 只打印第一天
+            print(f'  🔍 [{js_key}] 销售数据keys={list(sd.keys())[:5]}...')
+            print(f'  🔍 [{js_key}] 广告数据完整内容={ad}')
+            print(f'  🔍 [{js_key}] 广告数据所有日期={list(sku_info.get("ads", {}).keys())[:5]}')
+            print(f'  🔍 [{js_key}] 正在查找日期={dt}')
+            print(f'  🔍 [{js_key}] 退款数据keys={list(rd.keys())[:5]}...')
 
         g = pnum(sd.get('支付金额', sd.get('销售额', 0))) / 10000
         r = pnum(sd.get('退款额', 0)) / 10000
