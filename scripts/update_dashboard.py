@@ -105,9 +105,15 @@ for sku_name, js_key in SKU_MAP.items():
                 # 下载
                 try:
                     r = client.get_object(Bucket=bucket, Key=key)
-                    data = r['Body'].read()
+                    # 流式读取完整文件
+                    data = b''
+                    chunk = r['Body'].read(8192)
+                    while chunk:
+                        data += chunk
+                        chunk = r['Body'].read(8192)
                     with open(lpath, 'wb') as f:
                         f.write(data)
+                    print(f'      ✅ 下载 {fname} ({len(data)} bytes)')
                 except Exception as e:
                     print(f"  ❌ 下载失败 {fname}: {e}")
                     continue
