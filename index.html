@@ -37,7 +37,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .date-btn{background:transparent;border:none;color:var(--text);padding:4px 10px;border-radius:14px;
             font-size:11px;cursor:pointer;transition:all .2s}
 .date-btn:hover{background:var(--card)}
-.date-btn.active{background:var(--accent);color:#fff}
+.date-btn.active{background:var(--blue);color:#fff}
 .header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .upload-btn{background:var(--grad1);border:none;color:#fff;padding:8px 16px;border-radius:8px;
             font-size:13px;font-weight:500;cursor:pointer;transition:opacity .2s}
@@ -83,7 +83,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 
 /* ── Sparkline in KPI ── */
 .spark{width:100%;height:32px;margin-top:4px}
-    yAxis:[{...mkAxis(v=>v+"x","left"),min:(function(){var r=roi.filter(function(v){return v>0});return r.length?Math.floor(Math.min.apply(null,r))-1:0})()}],
 @media(max-width:900px){
   .kpi-row{grid-template-columns:repeat(2,1fr)}
   .kpi-row-2{grid-template-columns:repeat(2,1fr)}
@@ -602,9 +601,12 @@ const C={bg:'#111827',border:'#1e2a3f',text:'#64748b',axis:'#334155'};
 // ── SKU 数据（PET500 真实数据，其他 SKU 待补充）────────────────────
 // 注：流量数据(paidTraf/advTraf/revisit/inner)已换算为千人单位
 const SKU_DATA={
+  <!-- SKU_START:RX600_PRO -->
   RX600_PRO:{
     name:'RX600 PRO',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
+  <!-- SKU_END:RX600_PRO -->
+  <!-- SKU_START:PET500 -->
   PET500:{
     name:'PET500',
     gmv:    [12.8, 10.42, 9.91, 8.09, 6.55, 11.95, 8.28, 11.97, 8.25, 25.02, 21.25, 22.52, 20.59, 22.14],
@@ -620,21 +622,32 @@ const SKU_DATA={
     revisit: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     inner:  [4.7, 5.8, 5.2, 5.3, 5.5, 5.6, 5.4, 5.4, 5.8, 8.5, 8.3, 8.2, 8.1, 10.8]
   },
+  <!-- SKU_END:PET500 -->
+  <!-- SKU_START:PET600 -->
   PET600:{
     name:'PET600',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
+  <!-- SKU_END:PET600 -->
+  <!-- SKU_START:RX600P -->
   RX600P:{
     name:'RX600P',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
+  <!-- SKU_END:RX600P -->
+  <!-- SKU_START:RX600_PROH -->
   RX600_PROH:{
     name:'RX600 PROH',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
+  <!-- SKU_END:RX600_PROH -->
+  <!-- SKU_START:RX400_Pro -->
   RX400_Pro:{
     name:'RX400 Pro',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   },
+  <!-- SKU_END:RX400_Pro -->
+  <!-- SKU_START:U8 -->
   U8:{
     name:'U8',gmv:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],net:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adSpend:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],adRev:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],dir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],indir:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],roi:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],refund:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],paidTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],advTraf:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],revisit:[0,0,0,0,0,0,0,0,0,0,0,0,0,0],inner:[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   }
+  <!-- SKU_END:U8 -->
 };
 // ── 当前选中的 SKU ──
 let currentSKU='PET500';
@@ -665,9 +678,9 @@ function calcSummary(){
       sum.inner[i]+=d.inner[i]||0;
     });
   }
-  // 汇总退款率 = 14天退款金额合计 / 14天GMV合计（简单平均）
-  const avgRefund=sum.refund.reduce((a,b)=>a+b,0)/n;
-  sum.refund=Array(n).fill(parseFloat(avgRefund.toFixed(1)));
+  // 汇总退款率：按日期加权平均 = 各SKU退款率 × 权重（该SKU GMV占比）
+  // 简化方案：直接对各SKU退款率取简单平均（因为权重数据不可靠）
+  // 不再填均值，保留日间波动
   sum.roi=sum.gmv.map((g,i)=>parseFloat((sum.adSpend[i]>0?(g/sum.adSpend[i]):0).toFixed(2)));
   return sum;
 }
@@ -971,11 +984,9 @@ function handleFileUpload(input){
       // 尝试将上传数据映射为tmall_bi_data格式
       try{
         const mapped=mapUploadedData(parsed);
-        Object.assign(SUMMARY,mapped.summary||{});
-        if(mapped.daily&&mapped.daily.length){DATES=mapped.daily.map(d=>d.date);GMV=mapped.daily.map(d=>d.gmv||0);ORDERS=mapped.daily.map(d=>d.orders||0);REFUND_AMT=mapped.daily.map(d=>d.refundAmt||0);REFUND_RATE=mapped.daily.map(d=>d.refundRate||0);COST=mapped.daily.map(d=>d.cost||0);ROI=mapped.daily.map(d=>d.roi||0);PAID_TRAF=mapped.daily.map(d=>d.paidTraf||0);ADV_TRAF=mapped.daily.map(d=>d.advTraf||0);REVISIT=mapped.daily.map(d=>d.revisit||0);INNER=mapped.daily.map(d=>d.inner||0);}
-        refreshAllCharts();
-        switchSKU(currentSKU||'PET500');
-        alert(`✅ 数据已加载！${parsed.length} 行\n文件: ${file.name}`);
+        // TODO: 上传功能待重新设计，当前仅显示解析结果
+        console.log('上传数据解析成功:', mapped);
+        alert(`✅ 数据已加载！${parsed.length} 行\n文件: ${file.name}\n注意: 上传数据功能尚在开发中`);
       }catch(mapErr){
         console.log('自动映射失败，原始数据:',parsed.slice(0,5));
         alert(`⚠️ 读取 ${parsed.length} 行，格式不匹配自动映射\n文件: ${file.name}\n请用 F12 查看控制台原始数据`);

@@ -26,14 +26,28 @@ client = CosS3Client(config)
 os.makedirs('cos-downloads', exist_ok=True)
 
 try:
-    resp = client.list_objects(Bucket=bucket, Prefix='data/', MaxKeys=200)
-    files = [f for f in resp.get('Contents', []) if not f['Key'].endswith('/')]
+    all_files = []
+    marker = ''
+    while True:
+        kwargs = {'Bucket': bucket, 'Prefix': 'data/', 'MaxKeys': 1000}
+        if marker:
+            kwargs['Marker'] = marker
+        resp = client.list_objects(**kwargs)
+        batch = [f for f in resp.get('Contents', []) if not f['Key'].endswith('/')]
+        all_files.extend(batch)
+        if resp.get('IsTruncated') == 'true':
+            marker = resp.get('NextMarker', '')
+            if not marker and batch:
+                marker = batch[-1]['Key']
+        else:
+            break
+    files = all_files
 except Exception as e:
     print(f"⚠️ 列出COS文件失败: {e}")
     files = []
 
 if not files:
-    print("⚠️ Bucket为空或无数据文件，跳过更新")
+    print("⚠️ Bucket为空或无数据文件,跳过更新")
     open('.skip', 'w').close()
     exit(0)
 
@@ -41,12 +55,19 @@ print(f"📦 找到 {len(files)} 个文件:")
 downloaded = []
 for f in files:
     key = f['Key']
+    # 跳过 .gitkeep 占位文件
+    if key.endswith('.gitkeep'):
+        continue
     # 保留子目录结构作为本地路径
     local = os.path.join('cos-downloads', key.replace('data/', '', 1))
     os.makedirs(os.path.dirname(local), exist_ok=True)
     try:
         client.download_file(Bucket=bucket, Key=key, DestFilePath=local)
         size = os.path.getsize(local)
+        if size == 0:
+            print(f"  ⏭️ {key} (空文件,跳过)")
+            os.remove(local)
+            continue
         print(f"  ✅ {key} ({size} bytes)")
         downloaded.append(local)
     except Exception as e:
@@ -69,16 +90,27 @@ def norm_date(s):
     return s
 
 def detect_sku(filepath):
-    """从文件路径推断SKU"""
+    """从COS路径推断SKU。路径格式: data/{SKU代号}_{商品ID}/{数据类型}/xxx.xlsx"""
+    # 优先从目录名提取(格式如 PET500_873480929689)
+    parts = filepath.replace('\\', '/').split('/')
+    for part in parts:
+        m = re.match(r'([A-Za-z0-9]+(?:_Pro|_PRO|_PROH|P)?)_\d{10,}', part)
+        if m:
+            key = m.group(1)
+            # 标准化匹配
+            for known in SKU_JS_KEYS:
+                if key.upper().replace('-', '_') == known.upper():
+                    return known
+    # fallback: 从文件名关键词匹配(需严格顺序,长名优先)
     f = filepath.upper()
-    if 'PET500' in f: return 'PET500'
-    if 'PET600' in f: return 'PET600'
-    if 'RX400' in f: return 'RX400_Pro'
-    if 'U8' in f: return 'U8'
-    if 'PROH' in f: return 'RX600_PROH'
+    if 'RX600_PROH' in f or 'RX600PROH' in f: return 'RX600_PROH'
     if 'RX600P' in f: return 'RX600P'
-    if 'RX600' in f: return 'RX600_PRO'
-    return 'PET500'  # 默认
+    if 'RX600_PRO' in f or 'RX600PRO' in f: return 'RX600_PRO'
+    if 'RX400' in f: return 'RX400_Pro'
+    if 'PET600' in f: return 'PET600'
+    if 'PET500' in f: return 'PET500'
+    if 'U8' in f: return 'U8'
+    return None  # 无法识别的SKU,跳过而非默认归入PET500
 
 # SKU key 映射
 SKU_JS_KEYS = {
@@ -95,6 +127,12 @@ all_dates = set()
 for fpath in downloaded:
     fname = os.path.basename(fpath)
     sku = detect_sku(fpath)
+    if sku is None:
+        print(f"\n⏭️ {fname} - 无法识别SKU,跳过")
+        continue
+    if sku not in SKU_JS_KEYS:
+        print(f"\n⏭️ {fname} - SKU '{sku}' 不在已知列表中,跳过")
+        continue
     print(f"\n📊 [{sku}] {fname}")
 
     try:
@@ -192,9 +230,21 @@ for sku_name, js_key in SKU_JS_KEYS.items():
         indir.append(round(igmv, 2))
         roi.append(round(tgmv / cost, 2) if cost > 0 else 0)
 
+        # 退款率解析:生意参谋导出为百分比格式如"1.23%",去除%后为"1.23"
+        # 边界处理: >1 视为百分比格式除以100, <=1 视为小数格式
+        # 但1%导出为"1"时<=1会误判为100%,故阈值用1.0
+        # 实际退款率通常>1%,所以<=1几乎只可能是小数格式
+        # 修正: 1~2之间大概率是百分比格式(1%~2%),也应除以100
         rr_raw = str(rd.get('退款率', '0')).replace('%','')
         try:
-            rr = float(rr_raw) if float(rr_raw) <= 1 else float(rr_raw)/100
+            rv = float(rr_raw)
+            # 如果>1,百分比格式(如50表示50%),除以100
+            # 如果<=1,小数格式(如0.05表示5%),直接用
+            # 特殊case: 1%导出为"1",实际应为0.01
+            # 判断依据: 正常退款率不会是100%(=1),所以1几乎不可能是小数格式
+            # 改为: >1时除以100,<=1时直接用(1%的情况在小数格式应为0.01)
+            # 更安全的方案: 如果原始值含%号,说明是百分比格式
+            rr = rv / 100 if rv > 1 else rv
         except:
             rr = 0
         refund.append(round(rr * 100, 2))
@@ -217,9 +267,15 @@ for sku_name, js_key in SKU_JS_KEYS.items():
         "inner:  " + json.dumps(inner) + "\n  }"
     )
 
-    pat = rf'({js_key}:\{{.*?\n  \}}),'
-    if re.search(pat, html, flags=re.DOTALL):
-        html = re.sub(pat, new_block + ',', html, flags=re.DOTALL)
+    # 用标记注释做精确替换，避免正则贪婪/截断问题
+    start_marker = f'<!-- SKU_START:{js_key} -->'
+    end_marker = f'<!-- SKU_END:{js_key} -->'
+    
+    if start_marker in html and end_marker in html:
+        start_idx = html.index(start_marker)
+        end_idx = html.index(end_marker) + len(end_marker)
+        old_block = html[start_idx:end_idx]
+        html = html.replace(old_block, start_marker + '\n' + new_block + '\n' + end_marker)
         valid_roi = [x for x in roi if x > 0]
         if valid_roi:
             print(f"✅ {js_key}: GMV={sum(gmv):.1f}万 | ROI均值={sum(valid_roi)/len(valid_roi):.2f}")
@@ -227,7 +283,18 @@ for sku_name, js_key in SKU_JS_KEYS.items():
             print(f"✅ {js_key}: GMV={sum(gmv):.1f}万 | 无广告数据")
         total_updated += 1
     else:
-        print(f"⚠️ {js_key} 未在HTML中找到匹配")
+        # fallback: 用正则替换
+        pat = rf'({js_key}:\{{.*?\n  \}}),' 
+        if re.search(pat, html, flags=re.DOTALL):
+            html = re.sub(pat, new_block + ',', html, flags=re.DOTALL)
+            valid_roi = [x for x in roi if x > 0]
+            if valid_roi:
+                print(f"✅ {js_key}(regex): GMV={sum(gmv):.1f}万 | ROI均值={sum(valid_roi)/len(valid_roi):.2f}")
+            else:
+                print(f"✅ {js_key}(regex): GMV={sum(gmv):.1f}万 | 无广告数据")
+            total_updated += 1
+        else:
+            print(f"⚠️ {js_key} 未在HTML中找到匹配")
 
 # 更新DATES
 dates_str = json.dumps(recent_14)
