@@ -1,13 +1,9 @@
 name: 🔄 BI仪表盘自动更新
 
 on:
-
-  # 手动触发：运营上传文件后在 GitHub Actions 页面点「Run workflow」
   workflow_dispatch:
-
-  # 定时触发：每天北京时间 9:00
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 4 * * *"  # 北京时间 12:00
 
 env:
   TZ: Asia/Shanghai
@@ -21,7 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ── Python 环境 ──────────────────────────────
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -30,96 +25,15 @@ jobs:
       - name: Install dependencies
         run: pip install -q cos-python-sdk-v5 openpyxl pandas python-dateutil
 
-      # ── 列出 COS 文件 ──────────────────────────
-      - name: 列出COS中的数据文件
-        id: list-cos
-        run: |
-          python3 << 'PYEOF'
-          import os
-          from qcloud_cos import CosConfig, CosService
-
-          secret_id  = os.environ['TENCENT_SECRET_ID']
-          secret_key = os.environ['TENCENT_SECRET_KEY']
-          bucket     = os.environ['TENCENT_COS_BUCKET']
-          region     = os.environ.get('TENCENT_COS_REGION', 'ap-guangzhou')
-
-          config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
-          client = CosService(config)
-
-          try:
-              resp = client.list_objects(Bucket=bucket, Prefix='data/', MaxKeys=100)
-              files = resp.get('Contents', [])
-          except Exception as e:
-              print(f"data/ 前缀失败 ({e})，尝试根目录...")
-              resp = client.list_objects(Bucket=bucket, MaxKeys=100)
-              files = resp.get('Contents', [])
-
-          print(f"Bucket: {bucket} | Region: {region}")
-          print(f"找到 {len(files)} 个文件:")
-          for f in files:
-              print(f"  {f['Key']}  ({f.get('Size',0)} bytes)")
-
-          with open(os.environ['GITHUB_ENV'], 'a') as envf:
-              envf.write(f"FILE_COUNT={len(files)}\n")
-              for i, f in enumerate(files):
-                  key = f['Key']
-                  if key.endswith('/'):
-                      continue
-                  envf.write(f"FILE_{i}={key}\n")
-          PYEOF
+      - name: 解析COS数据并更新仪表盘
+        run: python3 scripts/update_dashboard.py
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           TENCENT_COS_BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
           TENCENT_COS_REGION: ${{ secrets.TENCENT_COS_REGION }}
 
-      # ── 下载 COS 文件 ──────────────────────────
-      - name: 下载数据文件
-        run: |
-          python3 << 'PYEOF'
-          import os
-          from qcloud_cos import CosConfig, CosService
-
-          secret_id  = os.environ['TENCENT_SECRET_ID']
-          secret_key = os.environ['TENCENT_SECRET_KEY']
-          bucket     = os.environ['TENCENT_COS_BUCKET']
-          region     = os.environ.get('TENCENT_COS_REGION', 'ap-guangzhou')
-
-          config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
-          client = CosService(config)
-
-          resp = client.list_objects(Bucket=bucket, MaxKeys=100)
-          files = [f for f in resp.get('Contents', []) if not f['Key'].endswith('/')]
-
-          if not files:
-              print("⚠️ Bucket为空，跳过")
-              exit(0)
-
-          os.makedirs('cos-downloads', exist_ok=True)
-          for f in files:
-              key = f['Key']
-              local = os.path.join('cos-downloads', os.path.basename(key))
-              print(f"⬇️  {key} -> {local}")
-              try:
-                  client.download_file(Bucket=bucket, Key=key, LocalFilePath=local)
-              except Exception as e:
-                  print(f"❌ 下载失败 {key}: {e}")
-          print(f"\n✅ 共下载 {len(files)} 个文件到 cos-downloads/")
-          PYEOF
-        env:
-          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
-          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
-          TENCENT_COS_BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
-          TENCENT_COS_REGION: ${{ secrets.TENCENT_COS_REGION }}
-
-      # ── 解析数据 + 更新仪表盘（外部脚本，避免YAML转义问题）──
-      - name: 解析数据并更新仪表盘
-        run: |
-          python3 scripts/update_dashboard.py
-
-      # ── Git 提交推送 ──────────────────────────
       - name: 提交并推送
-        if: success() && !env.SKIP
         run: |
           if [ -f .skip ]; then
             echo "⚠️ 无数据更新，跳过推送"
