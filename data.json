@@ -1,4088 +1,1581 @@
 {
-  "sku_name": "KJ500G-PET500",
-  "sku_id": "873480929689",
-  "updated_at": "2026-05-12 09:46",
-  "source": "腾讯文档-运营上传",
-  "date_range": {
-    "start": "2026-04-27",
-    "end": "2026-05-10"
-  },
-  "daily_data": [
-    {
-      "date": "2026-04-27",
-      "sales": {
-        "visitors": 15054,
-        "pageviews": 25821,
-        "cart_add_users": 390,
-        "fav_users": 102,
-        "order_buyers": 73,
-        "order_amount": 171344.25,
-        "pay_buyers": 62,
-        "pay_units": 62,
-        "pay_amount": 127984.05,
-        "uv_value": 8.5
-      },
-      "ads": {
-        "cost": 19980.26,
-        "direct_gmv": 74851.79,
-        "indirect_gmv": 46970.6,
-        "total_gmv": 121822.39,
-        "roi": 6.1
-      },
-      "refund": {
-        "sales_amount": 92739.81,
-        "refund_amount": 35244.24,
-        "refund_rate": 27.54,
-        "post_refund_rate": 7.88
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 8056.0,
-          "orders": 26.0,
-          "gmv": 41187.28
-        },
-        "效果广告-人群推广": {
-          "visitors": 5752.0,
-          "orders": 5.0,
-          "gmv": 10113.32
-        },
-        "内容广告": {
-          "visitors": 4783.0,
-          "orders": 7.0,
-          "gmv": 12064.06
-        },
-        "内容广告-超级短视频": {
-          "visitors": 4747.0,
-          "orders": 6.0,
-          "gmv": 10015.24
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2337.0,
-          "orders": 23.0,
-          "gmv": 34910.77
-        },
-        "手淘推荐": {
-          "visitors": 872.0,
-          "orders": 13.0,
-          "gmv": 21002.86
-        },
-        "手淘搜索": {
-          "visitors": 826.0,
-          "orders": 27.0,
-          "gmv": 49380.09
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 817.0,
-          "orders": 27.0,
-          "gmv": 49380.09
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 632.0,
-          "orders": 6.0,
-          "gmv": 8534.05
-        },
-        "淘内待分类": {
-          "visitors": 525.0,
-          "orders": 22.0,
-          "gmv": 40387.0
-        },
-        "淘外网站": {
-          "visitors": 265.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "购物车": {
-          "visitors": 229.0,
-          "orders": 35.0,
-          "gmv": 71974.22
-        },
-        "淘宝直播": {
-          "visitors": 216.0,
-          "orders": 8.0,
-          "gmv": 16253.78
-        },
-        "站外广告": {
-          "visitors": 213.0,
-          "orders": 5.0,
-          "gmv": 10021.94
-        },
-        "站外广告-淘宝客": {
-          "visitors": 213.0,
-          "orders": 5.0,
-          "gmv": 10021.94
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 173.0,
-          "orders": 10.0,
-          "gmv": 16760.33
-        },
-        "芭芭农场": {
-          "visitors": 142.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "我的淘宝": {
-          "visitors": 129.0,
-          "orders": 11.0,
-          "gmv": 16422.43
-        },
-        "天猫榜单": {
-          "visitors": 115.0,
-          "orders": 9.0,
-          "gmv": 14147.83
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 107.0,
-          "orders": 1.0,
-          "gmv": 2198.6
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 66.0,
-          "orders": 7.0,
-          "gmv": 12263.14
-        },
-        "一淘": {
-          "visitors": 62.0,
-          "orders": 2.0,
-          "gmv": 4206.55
-        },
-        "淘金币及相关场域": {
-          "visitors": 58.0,
-          "orders": 4.0,
-          "gmv": 7958.52
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 46.0,
-          "orders": 2.0,
-          "gmv": 1884.69
-        },
-        "手淘旺信": {
-          "visitors": 39.0,
-          "orders": 3.0,
-          "gmv": 5999.86
-        },
-        "内容广告-超级直播": {
-          "visitors": 36.0,
-          "orders": 1.0,
-          "gmv": 2048.82
-        },
-        "手淘问大家": {
-          "visitors": 30.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 15.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 14.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 13.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 13.0,
-          "orders": 2.0,
-          "gmv": 3995.67
-        },
-        "88VIP频道": {
-          "visitors": 12.0,
-          "orders": 2.0,
-          "gmv": 4179.66
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 6.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 5.0,
-          "orders": 1.0,
-          "gmv": 2048.82
-        },
-        "日常营销活动": {
-          "visitors": 5.0,
-          "orders": 2.0,
-          "gmv": 3967.69
-        },
-        "手淘其他店铺": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 2048.82
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-超级全域通": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "直接访问": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "百亿补贴频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-04-28",
-      "sales": {
-        "visitors": 18575,
-        "pageviews": 29805,
-        "cart_add_users": 296,
-        "fav_users": 67,
-        "order_buyers": 47,
-        "order_amount": 153705.22,
-        "pay_buyers": 36,
-        "pay_units": 50,
-        "pay_amount": 104194.79,
-        "uv_value": 5.61
-      },
-      "ads": {
-        "cost": 15513.53,
-        "direct_gmv": 34741.67,
-        "indirect_gmv": 22847.53,
-        "total_gmv": 57589.2,
-        "roi": 3.71
-      },
-      "refund": {
-        "sales_amount": 49648.91,
-        "refund_amount": 54545.88,
-        "refund_rate": 52.35,
-        "post_refund_rate": 4.21
-      },
-      "traffic": {
-        "内容广告": {
-          "visitors": 9683.0,
-          "orders": 4.0,
-          "gmv": 6024.8
-        },
-        "内容广告-超级短视频": {
-          "visitors": 9634.0,
-          "orders": 4.0,
-          "gmv": 6024.8
-        },
-        "效果广告": {
-          "visitors": 7251.0,
-          "orders": 20.0,
-          "gmv": 30967.68
-        },
-        "效果广告-人群推广": {
-          "visitors": 4860.0,
-          "orders": 3.0,
-          "gmv": 6191.49
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2418.0,
-          "orders": 17.0,
-          "gmv": 24782.5
-        },
-        "手淘推荐": {
-          "visitors": 825.0,
-          "orders": 8.0,
-          "gmv": 14559.15
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 645.0,
-          "orders": 4.0,
-          "gmv": 8183.37
-        },
-        "手淘搜索": {
-          "visitors": 598.0,
-          "orders": 13.0,
-          "gmv": 22736.45
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 593.0,
-          "orders": 13.0,
-          "gmv": 22736.45
-        },
-        "淘内待分类": {
-          "visitors": 386.0,
-          "orders": 8.0,
-          "gmv": 14432.57
-        },
-        "淘宝直播": {
-          "visitors": 251.0,
-          "orders": 5.0,
-          "gmv": 5987.55
-        },
-        "站外广告": {
-          "visitors": 246.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-淘宝客": {
-          "visitors": 245.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "购物车": {
-          "visitors": 189.0,
-          "orders": 13.0,
-          "gmv": 54222.58
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 153.0,
-          "orders": 5.0,
-          "gmv": 8472.63
-        },
-        "淘外网站": {
-          "visitors": 146.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "我的淘宝": {
-          "visitors": 133.0,
-          "orders": 6.0,
-          "gmv": 22811.45
-        },
-        "芭芭农场": {
-          "visitors": 132.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 83.0,
-          "orders": 4.0,
-          "gmv": 6123.81
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 57.0,
-          "orders": 3.0,
-          "gmv": 3992.97
-        },
-        "内容广告-超级直播": {
-          "visitors": 52.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘金币及相关场域": {
-          "visitors": 46.0,
-          "orders": 3.0,
-          "gmv": 5987.55
-        },
-        "一淘": {
-          "visitors": 45.0,
-          "orders": 1.0,
-          "gmv": 1943.85
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 40.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘旺信": {
-          "visitors": 34.0,
-          "orders": 8.0,
-          "gmv": 16619.12
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 24.0,
-          "orders": 1.0,
-          "gmv": 2130.84
-        },
-        "手淘问大家": {
-          "visitors": 22.0,
-          "orders": 3.0,
-          "gmv": 6066.68
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 19.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 13.0,
-          "orders": 3.0,
-          "gmv": 6267.28
-        },
-        "闲鱼": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 9.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 8.0,
-          "orders": 1.0,
-          "gmv": 2192.51
-        },
-        "淘口令分享": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-短直联动": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-04-29",
-      "sales": {
-        "visitors": 16590,
-        "pageviews": 27628,
-        "cart_add_users": 285,
-        "fav_users": 61,
-        "order_buyers": 56,
-        "order_amount": 128336.38,
-        "pay_buyers": 46,
-        "pay_units": 48,
-        "pay_amount": 99107.85,
-        "uv_value": 5.97
-      },
-      "ads": {
-        "cost": 15172.71,
-        "direct_gmv": 72204.54,
-        "indirect_gmv": 35374.04,
-        "total_gmv": 107578.58,
-        "roi": 7.09
-      },
-      "refund": {
-        "sales_amount": 74823.74,
-        "refund_amount": 24284.11,
-        "refund_rate": 24.5,
-        "post_refund_rate": 10.05
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 7956.0,
-          "orders": 24.0,
-          "gmv": 39271.66
-        },
-        "内容广告": {
-          "visitors": 7153.0,
-          "orders": 9.0,
-          "gmv": 14237.42
-        },
-        "内容广告-超级短视频": {
-          "visitors": 7108.0,
-          "orders": 7.0,
-          "gmv": 10281.74
-        },
-        "效果广告-人群推广": {
-          "visitors": 5030.0,
-          "orders": 5.0,
-          "gmv": 8331.84
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2952.0,
-          "orders": 20.0,
-          "gmv": 30939.82
-        },
-        "手淘推荐": {
-          "visitors": 937.0,
-          "orders": 8.0,
-          "gmv": 16356.12
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 765.0,
-          "orders": 3.0,
-          "gmv": 6178.48
-        },
-        "手淘搜索": {
-          "visitors": 562.0,
-          "orders": 25.0,
-          "gmv": 49562.14
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 554.0,
-          "orders": 25.0,
-          "gmv": 49562.14
-        },
-        "淘内待分类": {
-          "visitors": 355.0,
-          "orders": 20.0,
-          "gmv": 36748.54
-        },
-        "淘宝直播": {
-          "visitors": 210.0,
-          "orders": 11.0,
-          "gmv": 18508.14
-        },
-        "站外广告": {
-          "visitors": 203.0,
-          "orders": 1.0,
-          "gmv": 1946.85
-        },
-        "站外广告-淘宝客": {
-          "visitors": 201.0,
-          "orders": 1.0,
-          "gmv": 1946.85
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 177.0,
-          "orders": 7.0,
-          "gmv": 14357.3
-        },
-        "购物车": {
-          "visitors": 172.0,
-          "orders": 23.0,
-          "gmv": 43004.0
-        },
-        "我的淘宝": {
-          "visitors": 121.0,
-          "orders": 5.0,
-          "gmv": 8133.37
-        },
-        "芭芭农场": {
-          "visitors": 88.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 59.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 47.0,
-          "orders": 2.0,
-          "gmv": 3955.68
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 40.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 32.0,
-          "orders": 3.0,
-          "gmv": 4185.93
-        },
-        "淘金币及相关场域": {
-          "visitors": 32.0,
-          "orders": 5.0,
-          "gmv": 12301.28
-        },
-        "手淘旺信": {
-          "visitors": 26.0,
-          "orders": 5.0,
-          "gmv": 10159.81
-        },
-        "淘外网站": {
-          "visitors": 26.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 23.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 19.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘问大家": {
-          "visitors": 14.0,
-          "orders": 3.0,
-          "gmv": 5862.85
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 12.0,
-          "orders": 1.0,
-          "gmv": 2048.82
-        },
-        "效果广告-智能场景": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 9.0,
-          "orders": 2.0,
-          "gmv": 4029.66
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 8.0,
-          "orders": 1.0,
-          "gmv": 1980.84
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 6.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 5.0,
-          "orders": 1.0,
-          "gmv": 3955.68
-        },
-        "日常营销活动": {
-          "visitors": 5.0,
-          "orders": 2.0,
-          "gmv": 4189.9
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特自主访问": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "小黑盒频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-04-30",
-      "sales": {
-        "visitors": 16890,
-        "pageviews": 27475,
-        "cart_add_users": 262,
-        "fav_users": 70,
-        "order_buyers": 45,
-        "order_amount": 97505.79,
-        "pay_buyers": 39,
-        "pay_units": 39,
-        "pay_amount": 80857.95,
-        "uv_value": 4.79
-      },
-      "ads": {
-        "cost": 15206.32,
-        "direct_gmv": 65482.6,
-        "indirect_gmv": 17025.78,
-        "total_gmv": 82508.38,
-        "roi": 5.43
-      },
-      "refund": {
-        "sales_amount": 55795.25,
-        "refund_amount": 25062.7,
-        "refund_rate": 31.0,
-        "post_refund_rate": 5.06
-      },
-      "traffic": {
-        "内容广告": {
-          "visitors": 7874.0,
-          "orders": 5.0,
-          "gmv": 8120.36
-        },
-        "效果广告": {
-          "visitors": 7852.0,
-          "orders": 12.0,
-          "gmv": 20628.21
-        },
-        "内容广告-超级短视频": {
-          "visitors": 7842.0,
-          "orders": 3.0,
-          "gmv": 4124.69
-        },
-        "效果广告-人群推广": {
-          "visitors": 4833.0,
-          "orders": 2.0,
-          "gmv": 2045.82
-        },
-        "效果广告-关键词推广": {
-          "visitors": 3035.0,
-          "orders": 11.0,
-          "gmv": 18582.39
-        },
-        "手淘推荐": {
-          "visitors": 716.0,
-          "orders": 5.0,
-          "gmv": 8122.83
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 531.0,
-          "orders": 1.0,
-          "gmv": 2093.51
-        },
-        "手淘搜索": {
-          "visitors": 494.0,
-          "orders": 24.0,
-          "gmv": 43680.78
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 489.0,
-          "orders": 23.0,
-          "gmv": 43680.78
-        },
-        "淘内待分类": {
-          "visitors": 402.0,
-          "orders": 14.0,
-          "gmv": 22472.79
-        },
-        "站外广告": {
-          "visitors": 212.0,
-          "orders": 3.0,
-          "gmv": 6072.27
-        },
-        "站外广告-淘宝客": {
-          "visitors": 209.0,
-          "orders": 3.0,
-          "gmv": 6072.27
-        },
-        "淘宝直播": {
-          "visitors": 195.0,
-          "orders": 7.0,
-          "gmv": 12369.62
-        },
-        "购物车": {
-          "visitors": 171.0,
-          "orders": 15.0,
-          "gmv": 29040.61
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 157.0,
-          "orders": 5.0,
-          "gmv": 8122.83
-        },
-        "我的淘宝": {
-          "visitors": 107.0,
-          "orders": 1.0,
-          "gmv": 1980.84
-        },
-        "芭芭农场": {
-          "visitors": 68.0,
-          "orders": 1.0,
-          "gmv": 2198.82
-        },
-        "天猫榜单": {
-          "visitors": 66.0,
-          "orders": 4.0,
-          "gmv": 8107.5
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 39.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 38.0,
-          "orders": 2.0,
-          "gmv": 4027.84
-        },
-        "淘金币及相关场域": {
-          "visitors": 35.0,
-          "orders": 3.0,
-          "gmv": 6171.73
-        },
-        "淘外网站": {
-          "visitors": 34.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 31.0,
-          "orders": 2.0,
-          "gmv": 3995.67
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 28.0,
-          "orders": 2.0,
-          "gmv": 4079.66
-        },
-        "手淘问大家": {
-          "visitors": 26.0,
-          "orders": 2.0,
-          "gmv": 2045.82
-        },
-        "手淘旺信": {
-          "visitors": 24.0,
-          "orders": 9.0,
-          "gmv": 16592.86
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 19.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 19.0,
-          "orders": 2.0,
-          "gmv": 4187.36
-        },
-        "手淘拍立淘": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 9.0,
-          "orders": 1.0,
-          "gmv": 2097.41
-        },
-        "88VIP频道": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 5.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-短直联动": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品牌定制": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-01",
-      "sales": {
-        "visitors": 17580,
-        "pageviews": 29779,
-        "cart_add_users": 310,
-        "fav_users": 92,
-        "order_buyers": 40,
-        "order_amount": 80999.28,
-        "pay_buyers": 33,
-        "pay_units": 35,
-        "pay_amount": 65515.34,
-        "uv_value": 3.73
-      },
-      "ads": {
-        "cost": 14886.16,
-        "direct_gmv": 50406.2,
-        "indirect_gmv": 22030.02,
-        "total_gmv": 72436.22,
-        "roi": 4.87
-      },
-      "refund": {
-        "sales_amount": 55138.74,
-        "refund_amount": 12927.6,
-        "refund_rate": 18.99,
-        "post_refund_rate": 10.5
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 8842.0,
-          "orders": 19.0,
-          "gmv": 33570.64
-        },
-        "内容广告": {
-          "visitors": 7033.0,
-          "orders": 1.0,
-          "gmv": 1998.82
-        },
-        "内容广告-超级短视频": {
-          "visitors": 7016.0,
-          "orders": 1.0,
-          "gmv": 1998.82
-        },
-        "效果广告-人群推广": {
-          "visitors": 5775.0,
-          "orders": 7.0,
-          "gmv": 10887.02
-        },
-        "效果广告-关键词推广": {
-          "visitors": 3116.0,
-          "orders": 15.0,
-          "gmv": 28155.1
-        },
-        "手淘推荐": {
-          "visitors": 835.0,
-          "orders": 5.0,
-          "gmv": 9347.72
-        },
-        "淘内待分类": {
-          "visitors": 670.0,
-          "orders": 14.0,
-          "gmv": 22337.82
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 645.0,
-          "orders": 3.0,
-          "gmv": 5721.06
-        },
-        "手淘搜索": {
-          "visitors": 611.0,
-          "orders": 16.0,
-          "gmv": 25935.52
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 608.0,
-          "orders": 16.0,
-          "gmv": 25935.52
-        },
-        "站外广告": {
-          "visitors": 286.0,
-          "orders": 1.0,
-          "gmv": 1746.85
-        },
-        "站外广告-淘宝客": {
-          "visitors": 284.0,
-          "orders": 1.0,
-          "gmv": 1746.85
-        },
-        "淘宝直播": {
-          "visitors": 225.0,
-          "orders": 2.0,
-          "gmv": 1830.84
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 197.0,
-          "orders": 3.0,
-          "gmv": 5625.48
-        },
-        "购物车": {
-          "visitors": 175.0,
-          "orders": 8.0,
-          "gmv": 18501.7
-        },
-        "我的淘宝": {
-          "visitors": 98.0,
-          "orders": 5.0,
-          "gmv": 7224.16
-        },
-        "天猫榜单": {
-          "visitors": 68.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘金币及相关场域": {
-          "visitors": 54.0,
-          "orders": 2.0,
-          "gmv": 3688.25
-        },
-        "淘外网站": {
-          "visitors": 49.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "芭芭农场": {
-          "visitors": 48.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 40.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 34.0,
-          "orders": 1.0,
-          "gmv": 1998.82
-        },
-        "手淘问大家": {
-          "visitors": 30.0,
-          "orders": 4.0,
-          "gmv": 7530.63
-        },
-        "手淘旺信": {
-          "visitors": 28.0,
-          "orders": 3.0,
-          "gmv": 5440.22
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 25.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 21.0,
-          "orders": 4.0,
-          "gmv": 7419.27
-        },
-        "内容广告-超级直播": {
-          "visitors": 17.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 16.0,
-          "orders": 1.0,
-          "gmv": 1780.84
-        },
-        "手淘消息中心": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 6.0,
-          "orders": 1.0,
-          "gmv": 1848.82
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品牌特秀": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-竞争卡位": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-02",
-      "sales": {
-        "visitors": 17676,
-        "pageviews": 30867,
-        "cart_add_users": 329,
-        "fav_users": 109,
-        "order_buyers": 67,
-        "order_amount": 146214.66,
-        "pay_buyers": 60,
-        "pay_units": 63,
-        "pay_amount": 119460.61,
-        "uv_value": 6.76
-      },
-      "ads": {
-        "cost": 14950.31,
-        "direct_gmv": 80805.96,
-        "indirect_gmv": 14709.1,
-        "total_gmv": 95515.06,
-        "roi": 6.39
-      },
-      "refund": {
-        "sales_amount": 95940.4,
-        "refund_amount": 23520.21,
-        "refund_rate": 19.69,
-        "post_refund_rate": 1.53
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 8582.0,
-          "orders": 31.0,
-          "gmv": 55926.22
-        },
-        "内容广告": {
-          "visitors": 7475.0,
-          "orders": 5.0,
-          "gmv": 10726.06
-        },
-        "内容广告-超级短视频": {
-          "visitors": 7448.0,
-          "orders": 3.0,
-          "gmv": 5494.51
-        },
-        "效果广告-人群推广": {
-          "visitors": 6012.0,
-          "orders": 7.0,
-          "gmv": 13004.81
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2603.0,
-          "orders": 26.0,
-          "gmv": 46723.03
-        },
-        "手淘推荐": {
-          "visitors": 923.0,
-          "orders": 12.0,
-          "gmv": 16863.47
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 721.0,
-          "orders": 6.0,
-          "gmv": 7520.88
-        },
-        "淘内待分类": {
-          "visitors": 608.0,
-          "orders": 27.0,
-          "gmv": 50134.05
-        },
-        "手淘搜索": {
-          "visitors": 592.0,
-          "orders": 28.0,
-          "gmv": 57616.87
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 585.0,
-          "orders": 27.0,
-          "gmv": 55836.03
-        },
-        "站外广告": {
-          "visitors": 246.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-淘宝客": {
-          "visitors": 219.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝直播": {
-          "visitors": 203.0,
-          "orders": 15.0,
-          "gmv": 31524.29
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 196.0,
-          "orders": 8.0,
-          "gmv": 13021.47
-        },
-        "购物车": {
-          "visitors": 177.0,
-          "orders": 30.0,
-          "gmv": 57725.55
-        },
-        "我的淘宝": {
-          "visitors": 127.0,
-          "orders": 10.0,
-          "gmv": 19247.57
-        },
-        "天猫榜单": {
-          "visitors": 75.0,
-          "orders": 4.0,
-          "gmv": 7693.52
-        },
-        "淘外网站": {
-          "visitors": 57.0,
-          "orders": 1.0,
-          "gmv": 1969.97
-        },
-        "淘金币及相关场域": {
-          "visitors": 52.0,
-          "orders": 5.0,
-          "gmv": 12581.92
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 41.0,
-          "orders": 2.0,
-          "gmv": 3697.64
-        },
-        "手淘旺信": {
-          "visitors": 36.0,
-          "orders": 12.0,
-          "gmv": 24675.3
-        },
-        "手淘问大家": {
-          "visitors": 32.0,
-          "orders": 3.0,
-          "gmv": 5608.79
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 31.0,
-          "orders": 2.0,
-          "gmv": 3995.88
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 29.0,
-          "orders": 1.0,
-          "gmv": 1893.85
-        },
-        "内容广告-超级直播": {
-          "visitors": 27.0,
-          "orders": 2.0,
-          "gmv": 5231.55
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 26.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 24.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "芭芭农场": {
-          "visitors": 17.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 17.0,
-          "orders": 3.0,
-          "gmv": 5955.44
-        },
-        "一淘": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 12.0,
-          "orders": 1.0,
-          "gmv": 1848.82
-        },
-        "天猫APP": {
-          "visitors": 12.0,
-          "orders": 1.0,
-          "gmv": 1842.64
-        },
-        "淘口令分享": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 6.0,
-          "orders": 1.0,
-          "gmv": 1780.84
-        },
-        "闲鱼": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-03",
-      "sales": {
-        "visitors": 16980,
-        "pageviews": 31592,
-        "cart_add_users": 344,
-        "fav_users": 92,
-        "order_buyers": 52,
-        "order_amount": 107329.06,
-        "pay_buyers": 42,
-        "pay_units": 44,
-        "pay_amount": 82806.55,
-        "uv_value": 4.88
-      },
-      "ads": {
-        "cost": 14631.63,
-        "direct_gmv": 64905.07,
-        "indirect_gmv": 25167.14,
-        "total_gmv": 90072.21,
-        "roi": 6.16
-      },
-      "refund": {
-        "sales_amount": 59900.12,
-        "refund_amount": 22906.43,
-        "refund_rate": 27.66,
-        "post_refund_rate": 2.11
-      },
-      "traffic": {
-        "内容广告": {
-          "visitors": 8285.0,
-          "orders": 3.0,
-          "gmv": 5737.78
-        },
-        "内容广告-超级短视频": {
-          "visitors": 8259.0,
-          "orders": 1.0,
-          "gmv": 1927.84
-        },
-        "效果广告": {
-          "visitors": 7367.0,
-          "orders": 22.0,
-          "gmv": 35700.0
-        },
-        "效果广告-人群推广": {
-          "visitors": 5575.0,
-          "orders": 2.0,
-          "gmv": 3843.71
-        },
-        "效果广告-关键词推广": {
-          "visitors": 1819.0,
-          "orders": 21.0,
-          "gmv": 33701.18
-        },
-        "手淘搜索": {
-          "visitors": 696.0,
-          "orders": 21.0,
-          "gmv": 36226.17
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 690.0,
-          "orders": 21.0,
-          "gmv": 36226.17
-        },
-        "手淘推荐": {
-          "visitors": 644.0,
-          "orders": 6.0,
-          "gmv": 9563.58
-        },
-        "淘内待分类": {
-          "visitors": 536.0,
-          "orders": 11.0,
-          "gmv": 18715.88
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 506.0,
-          "orders": 1.0,
-          "gmv": 1896.85
-        },
-        "站外广告": {
-          "visitors": 280.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "站外广告-淘宝客": {
-          "visitors": 202.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "购物车": {
-          "visitors": 194.0,
-          "orders": 21.0,
-          "gmv": 37653.51
-        },
-        "淘宝直播": {
-          "visitors": 187.0,
-          "orders": 8.0,
-          "gmv": 15196.16
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 147.0,
-          "orders": 5.0,
-          "gmv": 7666.73
-        },
-        "我的淘宝": {
-          "visitors": 111.0,
-          "orders": 4.0,
-          "gmv": 9541.1
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 76.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 73.0,
-          "orders": 5.0,
-          "gmv": 1787.72
-        },
-        "淘金币及相关场域": {
-          "visitors": 46.0,
-          "orders": 5.0,
-          "gmv": 7243.92
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 42.0,
-          "orders": 3.0,
-          "gmv": 1787.72
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 30.0,
-          "orders": 2.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 28.0,
-          "orders": 2.0,
-          "gmv": 3809.94
-        },
-        "一淘": {
-          "visitors": 28.0,
-          "orders": 3.0,
-          "gmv": 5471.55
-        },
-        "手淘问大家": {
-          "visitors": 28.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘外网站": {
-          "visitors": 25.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘旺信": {
-          "visitors": 24.0,
-          "orders": 4.0,
-          "gmv": 7790.13
-        },
-        "效果广告-智能场景": {
-          "visitors": 16.0,
-          "orders": 1.0,
-          "gmv": 1798.02
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "芭芭农场": {
-          "visitors": 14.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 13.0,
-          "orders": 2.0,
-          "gmv": 1998.82
-        },
-        "淘口令分享": {
-          "visitors": 10.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 6.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 3.0,
-          "orders": 1.0,
-          "gmv": 1896.85
-        },
-        "淘宝特价版": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 3.0,
-          "orders": 1.0,
-          "gmv": 1847.74
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 1.0,
-          "orders": 1.0,
-          "gmv": 1817.74
-        }
-      }
-    },
-    {
-      "date": "2026-05-04",
-      "sales": {
-        "visitors": 17009,
-        "pageviews": 30791,
-        "cart_add_users": 345,
-        "fav_users": 100,
-        "order_buyers": 71,
-        "order_amount": 150447.51,
-        "pay_buyers": 62,
-        "pay_units": 63,
-        "pay_amount": 119655.69,
-        "uv_value": 7.03
-      },
-      "ads": {
-        "cost": 14608.28,
-        "direct_gmv": 91035.75,
-        "indirect_gmv": 9743.09,
-        "total_gmv": 100778.84,
-        "roi": 6.9
-      },
-      "refund": {
-        "sales_amount": 104175.07,
-        "refund_amount": 15480.62,
-        "refund_rate": 12.94,
-        "post_refund_rate": 3.22
-      },
-      "traffic": {
-        "内容广告": {
-          "visitors": 8112.0,
-          "orders": 6.0,
-          "gmv": 7600.37
-        },
-        "内容广告-超级短视频": {
-          "visitors": 8092.0,
-          "orders": 5.0,
-          "gmv": 7600.37
-        },
-        "效果广告": {
-          "visitors": 7562.0,
-          "orders": 36.0,
-          "gmv": 62557.51
-        },
-        "效果广告-人群推广": {
-          "visitors": 5689.0,
-          "orders": 2.0,
-          "gmv": 3844.64
-        },
-        "效果广告-关键词推广": {
-          "visitors": 1891.0,
-          "orders": 34.0,
-          "gmv": 58712.87
-        },
-        "手淘搜索": {
-          "visitors": 696.0,
-          "orders": 26.0,
-          "gmv": 47416.97
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 693.0,
-          "orders": 26.0,
-          "gmv": 47416.97
-        },
-        "手淘推荐": {
-          "visitors": 559.0,
-          "orders": 2.0,
-          "gmv": 1893.85
-        },
-        "淘内待分类": {
-          "visitors": 509.0,
-          "orders": 15.0,
-          "gmv": 24621.56
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 433.0,
-          "orders": 2.0,
-          "gmv": 1893.85
-        },
-        "站外广告": {
-          "visitors": 250.0,
-          "orders": 1.0,
-          "gmv": 1780.84
-        },
-        "站外广告-淘宝客": {
-          "visitors": 197.0,
-          "orders": 1.0,
-          "gmv": 1780.84
-        },
-        "购物车": {
-          "visitors": 192.0,
-          "orders": 21.0,
-          "gmv": 39434.76
-        },
-        "淘宝直播": {
-          "visitors": 177.0,
-          "orders": 4.0,
-          "gmv": 5661.98
-        },
-        "我的淘宝": {
-          "visitors": 118.0,
-          "orders": 4.0,
-          "gmv": 7842.28
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 116.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 90.0,
-          "orders": 10.0,
-          "gmv": 17227.47
-        },
-        "淘外网站": {
-          "visitors": 79.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 54.0,
-          "orders": 8.0,
-          "gmv": 13379.83
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 51.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 38.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 36.0,
-          "orders": 2.0,
-          "gmv": 3847.64
-        },
-        "淘金币及相关场域": {
-          "visitors": 35.0,
-          "orders": 3.0,
-          "gmv": 5537.55
-        },
-        "手淘问大家": {
-          "visitors": 29.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘旺信": {
-          "visitors": 26.0,
-          "orders": 5.0,
-          "gmv": 9407.65
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 20.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 19.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 19.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 16.0,
-          "orders": 2.0,
-          "gmv": 3779.66
-        },
-        "淘口令分享": {
-          "visitors": 13.0,
-          "orders": 1.0,
-          "gmv": 1998.82
-        },
-        "手淘消息中心": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 9.0,
-          "orders": 1.0,
-          "gmv": 1830.35
-        },
-        "手淘拍立淘": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "芭芭农场": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 6.0,
-          "orders": 2.0,
-          "gmv": 1795.22
-        },
-        "品牌广告": {
-          "visitors": 5.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-短直联动": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-手淘开屏": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "聚划算频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘确认订单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-05",
-      "sales": {
-        "visitors": 18277,
-        "pageviews": 32152,
-        "cart_add_users": 322,
-        "fav_users": 96,
-        "order_buyers": 58,
-        "order_amount": 122865.58,
-        "pay_buyers": 41,
-        "pay_units": 42,
-        "pay_amount": 82510.61,
-        "uv_value": 4.51
-      },
-      "ads": {
-        "cost": 15013.78,
-        "direct_gmv": 50400.72,
-        "indirect_gmv": 8421.9,
-        "total_gmv": 58822.62,
-        "roi": 3.92
-      },
-      "refund": {
-        "sales_amount": 75041.83,
-        "refund_amount": 9467.6,
-        "refund_rate": 11.2,
-        "post_refund_rate": 2.36
-      },
-      "traffic": {
-        "内容广告": {
-          "visitors": 8698.0,
-          "orders": 3.0,
-          "gmv": 3706.16
-        },
-        "内容广告-超级短视频": {
-          "visitors": 8667.0,
-          "orders": 2.0,
-          "gmv": 1775.32
-        },
-        "效果广告": {
-          "visitors": 8091.0,
-          "orders": 22.0,
-          "gmv": 34014.91
-        },
-        "效果广告-人群推广": {
-          "visitors": 5920.0,
-          "orders": 5.0,
-          "gmv": 7340.3
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2217.0,
-          "orders": 16.0,
-          "gmv": 24840.88
-        },
-        "手淘搜索": {
-          "visitors": 728.0,
-          "orders": 21.0,
-          "gmv": 30274.79
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 723.0,
-          "orders": 21.0,
-          "gmv": 30274.79
-        },
-        "手淘推荐": {
-          "visitors": 549.0,
-          "orders": 10.0,
-          "gmv": 11121.25
-        },
-        "淘内待分类": {
-          "visitors": 487.0,
-          "orders": 17.0,
-          "gmv": 29194.92
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 416.0,
-          "orders": 4.0,
-          "gmv": 3828.38
-        },
-        "站外广告": {
-          "visitors": 304.0,
-          "orders": 1.0,
-          "gmv": 2380.99
-        },
-        "购物车": {
-          "visitors": 235.0,
-          "orders": 16.0,
-          "gmv": 29418.91
-        },
-        "站外广告-淘宝客": {
-          "visitors": 204.0,
-          "orders": 1.0,
-          "gmv": 2380.99
-        },
-        "淘宝直播": {
-          "visitors": 191.0,
-          "orders": 5.0,
-          "gmv": 3674.69
-        },
-        "淘外网站": {
-          "visitors": 142.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 135.0,
-          "orders": 10.0,
-          "gmv": 11121.25
-        },
-        "我的淘宝": {
-          "visitors": 131.0,
-          "orders": 5.0,
-          "gmv": 7389.28
-        },
-        "天猫榜单": {
-          "visitors": 106.0,
-          "orders": 6.0,
-          "gmv": 9385.57
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 97.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 60.0,
-          "orders": 4.0,
-          "gmv": 7488.72
-        },
-        "淘金币及相关场域": {
-          "visitors": 58.0,
-          "orders": 4.0,
-          "gmv": 3490.7
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 45.0,
-          "orders": 1.0,
-          "gmv": 1896.85
-        },
-        "一淘": {
-          "visitors": 41.0,
-          "orders": 1.0,
-          "gmv": 1743.85
-        },
-        "手淘问大家": {
-          "visitors": 39.0,
-          "orders": 3.0,
-          "gmv": 2483.05
-        },
-        "内容广告-超级直播": {
-          "visitors": 34.0,
-          "orders": 1.0,
-          "gmv": 1930.84
-        },
-        "手淘旺信": {
-          "visitors": 30.0,
-          "orders": 3.0,
-          "gmv": 3681.95
-        },
-        "淘口令分享": {
-          "visitors": 21.0,
-          "orders": 3.0,
-          "gmv": 4922.47
-        },
-        "芭芭农场": {
-          "visitors": 18.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 18.0,
-          "orders": 1.0,
-          "gmv": 1995.82
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 17.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 16.0,
-          "orders": 1.0,
-          "gmv": 1775.32
-        },
-        "效果广告-智能场景": {
-          "visitors": 11.0,
-          "orders": 1.0,
-          "gmv": 1833.73
-        },
-        "手淘消息中心": {
-          "visitors": 11.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-短直联动": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 1.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "百亿补贴频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-06",
-      "sales": {
-        "visitors": 28872,
-        "pageviews": 48506,
-        "cart_add_users": 625,
-        "fav_users": 105,
-        "order_buyers": 119,
-        "order_amount": 291684.3,
-        "pay_buyers": 114,
-        "pay_units": 121,
-        "pay_amount": 250225.27,
-        "uv_value": 8.67
-      },
-      "ads": {
-        "cost": 53849.54,
-        "direct_gmv": 267926.31,
-        "indirect_gmv": 108261.62,
-        "total_gmv": 376187.93,
-        "roi": 6.99
-      },
-      "refund": {
-        "sales_amount": 161635.35,
-        "refund_amount": 88589.92,
-        "refund_rate": 35.4,
-        "post_refund_rate": 1.61
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 12618.0,
-          "orders": 48.0,
-          "gmv": 99620.24
-        },
-        "内容广告": {
-          "visitors": 9407.0,
-          "orders": 7.0,
-          "gmv": 18108.55
-        },
-        "内容广告-超级短视频": {
-          "visitors": 9369.0,
-          "orders": 6.0,
-          "gmv": 15977.71
-        },
-        "效果广告-人群推广": {
-          "visitors": 6791.0,
-          "orders": 14.0,
-          "gmv": 24807.06
-        },
-        "效果广告-关键词推广": {
-          "visitors": 5873.0,
-          "orders": 37.0,
-          "gmv": 78646.94
-        },
-        "淘外网站": {
-          "visitors": 4333.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐": {
-          "visitors": 1107.0,
-          "orders": 8.0,
-          "gmv": 20475.38
-        },
-        "手淘搜索": {
-          "visitors": 1070.0,
-          "orders": 23.0,
-          "gmv": 48262.48
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 1062.0,
-          "orders": 22.0,
-          "gmv": 46276.09
-        },
-        "淘内待分类": {
-          "visitors": 1028.0,
-          "orders": 31.0,
-          "gmv": 62244.11
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 885.0,
-          "orders": 3.0,
-          "gmv": 6220.99
-        },
-        "淘宝直播": {
-          "visitors": 435.0,
-          "orders": 23.0,
-          "gmv": 52171.62
-        },
-        "站外广告": {
-          "visitors": 431.0,
-          "orders": 5.0,
-          "gmv": 4295.67
-        },
-        "购物车": {
-          "visitors": 361.0,
-          "orders": 57.0,
-          "gmv": 122239.95
-        },
-        "站外广告-淘宝客": {
-          "visitors": 227.0,
-          "orders": 5.0,
-          "gmv": 4295.67
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 203.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 175.0,
-          "orders": 5.0,
-          "gmv": 14195.87
-        },
-        "天猫榜单": {
-          "visitors": 158.0,
-          "orders": 7.0,
-          "gmv": 14379.92
-        },
-        "我的淘宝": {
-          "visitors": 157.0,
-          "orders": 13.0,
-          "gmv": 26814.97
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 95.0,
-          "orders": 2.0,
-          "gmv": 4087.7
-        },
-        "淘金币及相关场域": {
-          "visitors": 87.0,
-          "orders": 18.0,
-          "gmv": 40686.19
-        },
-        "芭芭农场": {
-          "visitors": 76.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 74.0,
-          "orders": 2.0,
-          "gmv": 4014.2
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 61.0,
-          "orders": 5.0,
-          "gmv": 10292.22
-        },
-        "一淘": {
-          "visitors": 50.0,
-          "orders": 8.0,
-          "gmv": 20278.18
-        },
-        "手淘旺信": {
-          "visitors": 45.0,
-          "orders": 11.0,
-          "gmv": 24867.67
-        },
-        "手淘问大家": {
-          "visitors": 41.0,
-          "orders": 2.0,
-          "gmv": 4037.35
-        },
-        "内容广告-超级直播": {
-          "visitors": 38.0,
-          "orders": 1.0,
-          "gmv": 2130.84
-        },
-        "手淘消息中心": {
-          "visitors": 29.0,
-          "orders": 1.0,
-          "gmv": 1980.84
-        },
-        "88VIP频道": {
-          "visitors": 17.0,
-          "orders": 3.0,
-          "gmv": 8551.28
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 15.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 10.0,
-          "orders": 1.0,
-          "gmv": 4397.64
-        },
-        "手淘拍立淘": {
-          "visitors": 9.0,
-          "orders": 1.0,
-          "gmv": 1993.85
-        },
-        "淘口令分享": {
-          "visitors": 8.0,
-          "orders": 1.0,
-          "gmv": 2045.82
-        },
-        "闲鱼": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 1986.39
-        },
-        "品牌广告": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 2131.48
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 2131.48
-        },
-        "站外广告-流量宝": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-竞争卡位": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘确认订单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-07",
-      "sales": {
-        "visitors": 26304,
-        "pageviews": 46618,
-        "cart_add_users": 554,
-        "fav_users": 119,
-        "order_buyers": 124,
-        "order_amount": 294315.57,
-        "pay_buyers": 98,
-        "pay_units": 104,
-        "pay_amount": 212492.82,
-        "uv_value": 8.08
-      },
-      "ads": {
-        "cost": 48907.98,
-        "direct_gmv": 216861.91,
-        "indirect_gmv": 97137.04,
-        "total_gmv": 313998.95,
-        "roi": 6.42
-      },
-      "refund": {
-        "sales_amount": 136279.94,
-        "refund_amount": 76212.88,
-        "refund_rate": 35.87,
-        "post_refund_rate": 1.92
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 12753.0,
-          "orders": 43.0,
-          "gmv": 84244.33
-        },
-        "内容广告": {
-          "visitors": 10370.0,
-          "orders": 4.0,
-          "gmv": 4369.91
-        },
-        "内容广告-超级短视频": {
-          "visitors": 10356.0,
-          "orders": 3.0,
-          "gmv": 4369.91
-        },
-        "效果广告-人群推广": {
-          "visitors": 7741.0,
-          "orders": 10.0,
-          "gmv": 18228.77
-        },
-        "效果广告-关键词推广": {
-          "visitors": 5078.0,
-          "orders": 35.0,
-          "gmv": 69998.25
-        },
-        "手淘推荐": {
-          "visitors": 1323.0,
-          "orders": 13.0,
-          "gmv": 30233.39
-        },
-        "淘内待分类": {
-          "visitors": 1219.0,
-          "orders": 28.0,
-          "gmv": 48739.07
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 1118.0,
-          "orders": 5.0,
-          "gmv": 14201.69
-        },
-        "手淘搜索": {
-          "visitors": 932.0,
-          "orders": 34.0,
-          "gmv": 67304.56
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 928.0,
-          "orders": 34.0,
-          "gmv": 67304.56
-        },
-        "站外广告": {
-          "visitors": 582.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝直播": {
-          "visitors": 437.0,
-          "orders": 9.0,
-          "gmv": 16581.08
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 325.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "购物车": {
-          "visitors": 315.0,
-          "orders": 40.0,
-          "gmv": 77418.71
-        },
-        "站外广告-淘宝客": {
-          "visitors": 250.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘外网站": {
-          "visitors": 229.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 177.0,
-          "orders": 10.0,
-          "gmv": 25988.85
-        },
-        "我的淘宝": {
-          "visitors": 177.0,
-          "orders": 16.0,
-          "gmv": 30670.13
-        },
-        "天猫榜单": {
-          "visitors": 142.0,
-          "orders": 9.0,
-          "gmv": 12513.88
-        },
-        "芭芭农场": {
-          "visitors": 131.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 71.0,
-          "orders": 4.0,
-          "gmv": 6379.3
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 67.0,
-          "orders": 5.0,
-          "gmv": 6134.58
-        },
-        "淘金币及相关场域": {
-          "visitors": 64.0,
-          "orders": 6.0,
-          "gmv": 14123.99
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 61.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 51.0,
-          "orders": 3.0,
-          "gmv": 8067.19
-        },
-        "手淘旺信": {
-          "visitors": 50.0,
-          "orders": 8.0,
-          "gmv": 16623.64
-        },
-        "手淘问大家": {
-          "visitors": 35.0,
-          "orders": 2.0,
-          "gmv": 4089.54
-        },
-        "手淘消息中心": {
-          "visitors": 19.0,
-          "orders": 1.0,
-          "gmv": 2198.82
-        },
-        "淘口令分享": {
-          "visitors": 16.0,
-          "orders": 5.0,
-          "gmv": 12085.87
-        },
-        "闲鱼": {
-          "visitors": 16.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 16.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 15.0,
-          "orders": 1.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 15.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 13.0,
-          "orders": 1.0,
-          "gmv": 1988.91
-        },
-        "天猫APP": {
-          "visitors": 13.0,
-          "orders": 1.0,
-          "gmv": 1977.84
-        },
-        "效果广告-智能场景": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 8.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "聚划算频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "百亿补贴频道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘确认订单": {
-          "visitors": 1.0,
-          "orders": 1.0,
-          "gmv": 1978.49
-        }
-      }
-    },
-    {
-      "date": "2026-05-08",
-      "sales": {
-        "visitors": 26083,
-        "pageviews": 46887,
-        "cart_add_users": 613,
-        "fav_users": 101,
-        "order_buyers": 111,
-        "order_amount": 253207.16,
-        "pay_buyers": 102,
-        "pay_units": 109,
-        "pay_amount": 225235.87,
-        "uv_value": 8.64
-      },
-      "ads": {
-        "cost": 44481.18,
-        "direct_gmv": 174259.77,
-        "indirect_gmv": 63809.43,
-        "total_gmv": 238069.2,
-        "roi": 5.35
-      },
-      "refund": {
-        "sales_amount": 98800.98,
-        "refund_amount": 126434.89,
-        "refund_rate": 56.13,
-        "post_refund_rate": 0.0
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 12651.0,
-          "orders": 31.0,
-          "gmv": 59756.65
-        },
-        "内容广告": {
-          "visitors": 10795.0,
-          "orders": 5.0,
-          "gmv": 10152.9
-        },
-        "内容广告-超级短视频": {
-          "visitors": 10775.0,
-          "orders": 4.0,
-          "gmv": 6126.59
-        },
-        "效果广告-人群推广": {
-          "visitors": 7609.0,
-          "orders": 9.0,
-          "gmv": 16465.41
-        },
-        "效果广告-关键词推广": {
-          "visitors": 5087.0,
-          "orders": 24.0,
-          "gmv": 45480.74
-        },
-        "手淘推荐": {
-          "visitors": 1283.0,
-          "orders": 11.0,
-          "gmv": 20600.68
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 1049.0,
-          "orders": 6.0,
-          "gmv": 12372.4
-        },
-        "淘内待分类": {
-          "visitors": 990.0,
-          "orders": 17.0,
-          "gmv": 35405.48
-        },
-        "手淘搜索": {
-          "visitors": 759.0,
-          "orders": 25.0,
-          "gmv": 51522.73
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 752.0,
-          "orders": 25.0,
-          "gmv": 51522.73
-        },
-        "站外广告": {
-          "visitors": 649.0,
-          "orders": 5.0,
-          "gmv": 10402.09
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 417.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝直播": {
-          "visitors": 366.0,
-          "orders": 10.0,
-          "gmv": 22719.08
-        },
-        "购物车": {
-          "visitors": 287.0,
-          "orders": 28.0,
-          "gmv": 61998.46
-        },
-        "站外广告-淘宝客": {
-          "visitors": 230.0,
-          "orders": 5.0,
-          "gmv": 10402.09
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 180.0,
-          "orders": 6.0,
-          "gmv": 10412.43
-        },
-        "我的淘宝": {
-          "visitors": 154.0,
-          "orders": 5.0,
-          "gmv": 9992.18
-        },
-        "芭芭农场": {
-          "visitors": 109.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 106.0,
-          "orders": 4.0,
-          "gmv": 6125.72
-        },
-        "淘外网站": {
-          "visitors": 97.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 78.0,
-          "orders": 1.0,
-          "gmv": 1995.82
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 59.0,
-          "orders": 4.0,
-          "gmv": 6125.72
-        },
-        "淘金币及相关场域": {
-          "visitors": 56.0,
-          "orders": 6.0,
-          "gmv": 12318.47
-        },
-        "手淘旺信": {
-          "visitors": 46.0,
-          "orders": 9.0,
-          "gmv": 20443.23
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 45.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 37.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 29.0,
-          "orders": 1.0,
-          "gmv": 2051.82
-        },
-        "手淘问大家": {
-          "visitors": 23.0,
-          "orders": 3.0,
-          "gmv": 5978.48
-        },
-        "天猫APP": {
-          "visitors": 23.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 22.0,
-          "orders": 1.0,
-          "gmv": 4026.31
-        },
-        "手淘拍立淘": {
-          "visitors": 13.0,
-          "orders": 2.0,
-          "gmv": 4166.45
-        },
-        "效果广告-智能场景": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 10.0,
-          "orders": 2.0,
-          "gmv": 4201.43
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 4.0,
-          "orders": 1.0,
-          "gmv": 2128.08
-        },
-        "日常营销活动": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-超级全域通": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "聚划算频道": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-竞争卡位": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "直接访问": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-09",
-      "sales": {
-        "visitors": 26641,
-        "pageviews": 46131,
-        "cart_add_users": 594,
-        "fav_users": 83,
-        "order_buyers": 111,
-        "order_amount": 243443.02,
-        "pay_buyers": 98,
-        "pay_units": 100,
-        "pay_amount": 205876.15,
-        "uv_value": 7.73
-      },
-      "ads": {
-        "cost": 22451.7,
-        "direct_gmv": 86183.39,
-        "indirect_gmv": 47955.62,
-        "total_gmv": 134139.01,
-        "roi": 5.97
-      },
-      "refund": {
-        "sales_amount": 98178.94,
-        "refund_amount": 107697.21,
-        "refund_rate": 52.31,
-        "post_refund_rate": 100.0
-      },
-      "traffic": {
-        "效果广告": {
-          "visitors": 12069.0,
-          "orders": 31.0,
-          "gmv": 61410.44
-        },
-        "内容广告": {
-          "visitors": 9470.0,
-          "orders": 5.0,
-          "gmv": 8424.3
-        },
-        "内容广告-超级短视频": {
-          "visitors": 9460.0,
-          "orders": 5.0,
-          "gmv": 8424.3
-        },
-        "效果广告-人群推广": {
-          "visitors": 9091.0,
-          "orders": 10.0,
-          "gmv": 18697.94
-        },
-        "淘内待分类": {
-          "visitors": 3120.0,
-          "orders": 17.0,
-          "gmv": 32147.02
-        },
-        "效果广告-关键词推广": {
-          "visitors": 3044.0,
-          "orders": 27.0,
-          "gmv": 55094.94
-        },
-        "手淘推荐": {
-          "visitors": 1619.0,
-          "orders": 10.0,
-          "gmv": 16289.2
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 1372.0,
-          "orders": 5.0,
-          "gmv": 8164.87
-        },
-        "手淘搜索": {
-          "visitors": 711.0,
-          "orders": 24.0,
-          "gmv": 44679.75
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 702.0,
-          "orders": 23.0,
-          "gmv": 42641.22
-        },
-        "站外广告": {
-          "visitors": 675.0,
-          "orders": 3.0,
-          "gmv": 5891.52
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 393.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "购物车": {
-          "visitors": 289.0,
-          "orders": 33.0,
-          "gmv": 63140.37
-        },
-        "淘宝直播": {
-          "visitors": 283.0,
-          "orders": 7.0,
-          "gmv": 12155.69
-        },
-        "站外广告-淘宝客": {
-          "visitors": 282.0,
-          "orders": 3.0,
-          "gmv": 5891.52
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 219.0,
-          "orders": 7.0,
-          "gmv": 12308.99
-        },
-        "芭芭农场": {
-          "visitors": 182.0,
-          "orders": 1.0,
-          "gmv": 2195.82
-        },
-        "我的淘宝": {
-          "visitors": 147.0,
-          "orders": 4.0,
-          "gmv": 8419.69
-        },
-        "淘外网站": {
-          "visitors": 124.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 99.0,
-          "orders": 3.0,
-          "gmv": 6233.48
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 74.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "一淘": {
-          "visitors": 60.0,
-          "orders": 3.0,
-          "gmv": 6257.46
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 53.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘金币及相关场域": {
-          "visitors": 52.0,
-          "orders": 5.0,
-          "gmv": 10023.41
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 45.0,
-          "orders": 3.0,
-          "gmv": 6233.48
-        },
-        "手淘旺信": {
-          "visitors": 43.0,
-          "orders": 7.0,
-          "gmv": 14203.51
-        },
-        "手淘问大家": {
-          "visitors": 26.0,
-          "orders": 4.0,
-          "gmv": 8160.94
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 17.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 16.0,
-          "orders": 2.0,
-          "gmv": 4180.66
-        },
-        "淘口令分享": {
-          "visitors": 15.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 12.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "内容广告-超级直播": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫APP": {
-          "visitors": 11.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "闲鱼": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 10.0,
-          "orders": 1.0,
-          "gmv": 1930.84
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 7.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘拍立淘": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 4.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 3.0,
-          "orders": 1.0,
-          "gmv": 2038.53
-        },
-        "品牌广告": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-直播": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-超级全域通": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "日常营销活动": {
-          "visitors": 1.0,
-          "orders": 1.0,
-          "gmv": 2048.82
-        },
-        "手淘确认订单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "电视淘宝": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    },
-    {
-      "date": "2026-05-10",
-      "sales": {
-        "visitors": 43673,
-        "pageviews": 66896,
-        "cart_add_users": 626,
-        "fav_users": 89,
-        "order_buyers": 114,
-        "order_amount": 262972.0,
-        "pay_buyers": 99,
-        "pay_units": 107,
-        "pay_amount": 221424.69,
-        "uv_value": 5.07
-      },
-      "ads": {
-        "cost": 22556.44,
-        "direct_gmv": 80338.85,
-        "indirect_gmv": 17446.85,
-        "total_gmv": 97785.7,
-        "roi": 4.34
-      },
-      "refund": {
-        "sales_amount": 86773.98,
-        "refund_amount": 134650.71,
-        "refund_rate": 60.81,
-        "post_refund_rate": 0.0
-      },
-      "traffic": {
-        "淘内待分类": {
-          "visitors": 19787.0,
-          "orders": 16.0,
-          "gmv": 39211.65
-        },
-        "效果广告": {
-          "visitors": 13650.0,
-          "orders": 23.0,
-          "gmv": 47610.81
-        },
-        "效果广告-人群推广": {
-          "visitors": 10870.0,
-          "orders": 8.0,
-          "gmv": 20875.56
-        },
-        "内容广告": {
-          "visitors": 7823.0,
-          "orders": 5.0,
-          "gmv": 12175.04
-        },
-        "内容广告-超级短视频": {
-          "visitors": 7808.0,
-          "orders": 5.0,
-          "gmv": 12175.04
-        },
-        "效果广告-关键词推广": {
-          "visitors": 2837.0,
-          "orders": 17.0,
-          "gmv": 30927.92
-        },
-        "手淘推荐": {
-          "visitors": 1951.0,
-          "orders": 11.0,
-          "gmv": 30127.38
-        },
-        "手淘推荐-首页推荐-微详情": {
-          "visitors": 1742.0,
-          "orders": 8.0,
-          "gmv": 18068.56
-        },
-        "站外广告": {
-          "visitors": 871.0,
-          "orders": 2.0,
-          "gmv": 3974.69
-        },
-        "手淘搜索": {
-          "visitors": 829.0,
-          "orders": 18.0,
-          "gmv": 43364.79
-        },
-        "手淘搜索-手淘搜索-商品及其他": {
-          "visitors": 819.0,
-          "orders": 18.0,
-          "gmv": 43364.79
-        },
-        "站外广告-淘宝客": {
-          "visitors": 635.0,
-          "orders": 2.0,
-          "gmv": 3974.69
-        },
-        "淘宝直播": {
-          "visitors": 384.0,
-          "orders": 9.0,
-          "gmv": 28402.31
-        },
-        "购物车": {
-          "visitors": 280.0,
-          "orders": 31.0,
-          "gmv": 71791.54
-        },
-        "手淘推荐-其他猜你喜欢": {
-          "visitors": 227.0,
-          "orders": 5.0,
-          "gmv": 16084.64
-        },
-        "站外广告-UD效果投放": {
-          "visitors": 222.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "我的淘宝": {
-          "visitors": 187.0,
-          "orders": 10.0,
-          "gmv": 24894.62
-        },
-        "一淘": {
-          "visitors": 146.0,
-          "orders": 4.0,
-          "gmv": 8167.44
-        },
-        "淘外网站": {
-          "visitors": 142.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单": {
-          "visitors": 129.0,
-          "orders": 2.0,
-          "gmv": 2051.82
-        },
-        "芭芭农场": {
-          "visitors": 114.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-其他入口榜单": {
-          "visitors": 71.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-商品详情页入口榜单": {
-          "visitors": 60.0,
-          "orders": 2.0,
-          "gmv": 2051.82
-        },
-        "淘金币及相关场域": {
-          "visitors": 60.0,
-          "orders": 9.0,
-          "gmv": 28346.73
-        },
-        "手淘推荐-购后推荐": {
-          "visitors": 53.0,
-          "orders": 2.0,
-          "gmv": 4000.67
-        },
-        "手淘旺信": {
-          "visitors": 49.0,
-          "orders": 8.0,
-          "gmv": 22444.46
-        },
-        "天猫APP": {
-          "visitors": 49.0,
-          "orders": 2.0,
-          "gmv": 4089.58
-        },
-        "手淘问大家": {
-          "visitors": 33.0,
-          "orders": 1.0,
-          "gmv": 2098.82
-        },
-        "手淘拍立淘": {
-          "visitors": 27.0,
-          "orders": 1.0,
-          "gmv": 1980.84
-        },
-        "闲鱼": {
-          "visitors": 26.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘推荐-首页推荐-短视频": {
-          "visitors": 25.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "效果广告-智能场景": {
-          "visitors": 18.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "88VIP频道": {
-          "visitors": 17.0,
-          "orders": 2.0,
-          "gmv": 3928.69
-        },
-        "内容广告-超级直播": {
-          "visitors": 15.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "站外广告-流量宝": {
-          "visitors": 14.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘消息中心": {
-          "visitors": 12.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘口令分享": {
-          "visitors": 11.0,
-          "orders": 1.0,
-          "gmv": 1980.84
-        },
-        "手淘推荐-购中推荐": {
-          "visitors": 10.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-短视频": {
-          "visitors": 9.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告": {
-          "visitors": 6.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特搜索": {
-          "visitors": 5.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-品销宝- 品牌专区": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "短视频全屏页上下滑": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘其他店铺-店铺超链": {
-          "visitors": 3.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手淘搜索-手淘搜索-直播": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-竞争卡位": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "淘宝特价版-淘特其他渠道": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "手机浏览器访问淘宝": {
-          "visitors": 2.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "天猫榜单-搜索入口榜单": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "品牌广告-手淘开屏": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "红包省钱卡": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        },
-        "关注": {
-          "visitors": 1.0,
-          "orders": 0.0,
-          "gmv": 0.0
-        }
-      }
-    }
+  "dates": [
+    "2026-04-29",
+    "2026-04-30",
+    "2026-05-01",
+    "2026-05-02",
+    "2026-05-03",
+    "2026-05-04",
+    "2026-05-05",
+    "2026-05-06",
+    "2026-05-07",
+    "2026-05-08",
+    "2026-05-09",
+    "2026-05-10",
+    "2026-05-11",
+    "2026-05-12"
   ],
-  "summary": {
-    "total_gmv": 1997348.24,
-    "total_ad_cost": 332209.82,
-    "overall_roi": 6.01,
-    "days": 14
-  }
+  "skus": {
+    "PET500": {
+      "name": "PET500_873480929689",
+      "gmv": [
+        9.91,
+        8.09,
+        6.55,
+        11.95,
+        8.28,
+        11.97,
+        8.25,
+        25.02,
+        21.25,
+        22.52,
+        20.59,
+        22.14,
+        9.6,
+        0.0
+      ],
+      "net": [
+        9.91,
+        8.09,
+        6.55,
+        11.95,
+        8.28,
+        11.97,
+        8.25,
+        25.02,
+        21.25,
+        22.52,
+        20.59,
+        22.14,
+        9.6,
+        0.0
+      ],
+      "adSpend": [
+        1.52,
+        1.52,
+        1.49,
+        1.5,
+        1.46,
+        1.46,
+        1.5,
+        5.42,
+        4.93,
+        4.48,
+        2.29,
+        2.3,
+        1.62,
+        2.1
+      ],
+      "adRev": [
+        10.76,
+        8.25,
+        7.24,
+        9.55,
+        9.01,
+        10.08,
+        5.88,
+        37.62,
+        31.4,
+        23.81,
+        13.67,
+        9.78,
+        7.45,
+        5.51
+      ],
+      "dir": [
+        7.22,
+        6.55,
+        5.04,
+        8.08,
+        6.49,
+        9.1,
+        5.04,
+        26.79,
+        21.69,
+        17.43,
+        8.83,
+        8.03,
+        6.73,
+        2.56
+      ],
+      "indir": [
+        3.54,
+        1.7,
+        2.2,
+        1.47,
+        2.52,
+        0.97,
+        0.84,
+        10.83,
+        9.71,
+        6.38,
+        4.84,
+        1.74,
+        0.73,
+        2.95
+      ],
+      "roi": [
+        7.09,
+        5.43,
+        4.87,
+        6.39,
+        6.16,
+        6.9,
+        3.92,
+        6.94,
+        6.37,
+        5.31,
+        5.96,
+        4.25,
+        4.61,
+        2.62
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        52289.0,
+        53487.0,
+        55146.0,
+        55755.0,
+        54304.0,
+        54174.0,
+        58347.0,
+        91213.0,
+        83275.0,
+        83147.0,
+        80459.0,
+        105113.0,
+        71527.0,
+        76517.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "PET600": {
+      "name": "PET600_1001231224168",
+      "gmv": [
+        12.15,
+        11.84,
+        15.05,
+        7.03,
+        6.72,
+        2.07,
+        2.16,
+        8.64,
+        8.78,
+        3.92,
+        7.42,
+        6.81,
+        1.7,
+        0.0
+      ],
+      "net": [
+        12.15,
+        11.84,
+        15.05,
+        7.03,
+        6.72,
+        2.07,
+        2.16,
+        8.64,
+        8.78,
+        3.92,
+        7.42,
+        6.81,
+        1.7,
+        0.0
+      ],
+      "adSpend": [
+        0.59,
+        0.59,
+        0.58,
+        0.59,
+        0.57,
+        0.59,
+        0.59,
+        2.2,
+        1.97,
+        1.52,
+        0.78,
+        0.78,
+        0.62,
+        0.8
+      ],
+      "adRev": [
+        4.51,
+        0.87,
+        3.83,
+        2.55,
+        2.53,
+        1.64,
+        2.1,
+        12.21,
+        10.58,
+        14.3,
+        4.73,
+        3.79,
+        1.75,
+        1.1
+      ],
+      "dir": [
+        1.96,
+        0.52,
+        3.41,
+        2.4,
+        1.56,
+        1.14,
+        0.91,
+        8.13,
+        6.82,
+        4.81,
+        2.72,
+        2.94,
+        0.97,
+        0.73
+      ],
+      "indir": [
+        2.55,
+        0.35,
+        0.42,
+        0.16,
+        0.98,
+        0.5,
+        1.19,
+        4.07,
+        3.76,
+        9.49,
+        2.0,
+        0.85,
+        0.79,
+        0.37
+      ],
+      "roi": [
+        7.63,
+        1.47,
+        6.58,
+        4.34,
+        4.47,
+        2.8,
+        3.55,
+        5.54,
+        5.36,
+        9.38,
+        6.05,
+        4.86,
+        2.82,
+        1.37
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        38723.0,
+        37136.0,
+        48595.0,
+        41245.0,
+        37170.0,
+        41333.0,
+        39650.0,
+        63515.0,
+        50525.0,
+        37329.0,
+        35050.0,
+        38053.0,
+        35048.0,
+        39380.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "RX400_Pro": {
+      "name": "RX400_Pro_704193543906",
+      "gmv": [
+        1.77,
+        1.11,
+        0.73,
+        0.64,
+        0.55,
+        0.76,
+        0.33,
+        1.94,
+        0.93,
+        2.13,
+        2.36,
+        1.3,
+        0.94,
+        0.72
+      ],
+      "net": [
+        1.77,
+        1.11,
+        0.73,
+        0.64,
+        0.55,
+        0.76,
+        0.33,
+        1.94,
+        0.93,
+        2.13,
+        2.36,
+        1.3,
+        0.94,
+        0.72
+      ],
+      "adSpend": [
+        0.25,
+        0.25,
+        0.24,
+        0.25,
+        0.24,
+        0.25,
+        0.24,
+        0.83,
+        0.55,
+        0.53,
+        0.27,
+        0.27,
+        0.19,
+        0.29
+      ],
+      "adRev": [
+        3.35,
+        1.59,
+        0.78,
+        0.33,
+        0.44,
+        0.81,
+        0.12,
+        3.92,
+        2.15,
+        3.58,
+        1.15,
+        0.4,
+        0.7,
+        0.59
+      ],
+      "dir": [
+        0.77,
+        0.54,
+        0.73,
+        0.11,
+        0.22,
+        0.43,
+        0.11,
+        2.06,
+        0.94,
+        2.03,
+        0.71,
+        0.12,
+        0.35,
+        0.24
+      ],
+      "indir": [
+        2.58,
+        1.05,
+        0.05,
+        0.22,
+        0.22,
+        0.38,
+        0.01,
+        1.87,
+        1.22,
+        1.55,
+        0.43,
+        0.28,
+        0.35,
+        0.35
+      ],
+      "roi": [
+        13.31,
+        6.27,
+        3.21,
+        1.32,
+        1.83,
+        3.31,
+        0.52,
+        4.75,
+        3.92,
+        6.78,
+        4.2,
+        1.5,
+        3.72,
+        2.03
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        9022.0,
+        8573.0,
+        27352.0,
+        71440.0,
+        7776.0,
+        10603.0,
+        22378.0,
+        37577.0,
+        10925.0,
+        10978.0,
+        8666.0,
+        9377.0,
+        8383.0,
+        9457.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "U8": {
+      "name": "U8_1032758801866",
+      "gmv": [
+        9.41,
+        2.23,
+        2.54,
+        2.54,
+        4.23,
+        13.51,
+        12.69,
+        12.38,
+        9.26,
+        18.84,
+        12.94,
+        15.76,
+        31.81,
+        0.0
+      ],
+      "net": [
+        9.41,
+        2.23,
+        2.54,
+        2.54,
+        4.23,
+        13.51,
+        12.69,
+        12.38,
+        9.26,
+        18.84,
+        12.94,
+        15.76,
+        31.81,
+        0.0
+      ],
+      "adSpend": [
+        1.39,
+        1.32,
+        1.42,
+        1.41,
+        1.5,
+        1.57,
+        1.61,
+        3.93,
+        4.1,
+        3.98,
+        2.0,
+        1.98,
+        1.59,
+        1.29
+      ],
+      "adRev": [
+        5.13,
+        5.45,
+        27.53,
+        4.22,
+        9.12,
+        3.14,
+        1.11,
+        24.77,
+        17.81,
+        16.05,
+        10.77,
+        4.78,
+        7.73,
+        7.85
+      ],
+      "dir": [
+        4.04,
+        2.19,
+        14.82,
+        1.69,
+        0.85,
+        0.85,
+        0.86,
+        13.2,
+        8.38,
+        6.94,
+        2.72,
+        1.58,
+        5.86,
+        3.78
+      ],
+      "indir": [
+        1.09,
+        3.27,
+        12.71,
+        2.53,
+        8.27,
+        2.29,
+        0.25,
+        11.57,
+        9.43,
+        9.11,
+        8.05,
+        3.21,
+        1.87,
+        4.07
+      ],
+      "roi": [
+        3.7,
+        4.14,
+        19.45,
+        3.0,
+        6.1,
+        2.0,
+        0.69,
+        6.31,
+        4.35,
+        4.04,
+        5.38,
+        2.41,
+        4.87,
+        6.1
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        46088.0,
+        54114.0,
+        50425.0,
+        51482.0,
+        44587.0,
+        45499.0,
+        49182.0,
+        54117.0,
+        58488.0,
+        76061.0,
+        51383.0,
+        57773.0,
+        54897.0,
+        69706.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "RX600_PRO": {
+      "name": "RX600_PRO_801617527631",
+      "gmv": [
+        16.4,
+        14.59,
+        6.98,
+        9.12,
+        8.18,
+        4.93,
+        4.79,
+        19.92,
+        15.96,
+        18.81,
+        18.63,
+        20.13,
+        6.82,
+        6.36
+      ],
+      "net": [
+        16.4,
+        14.59,
+        6.98,
+        9.12,
+        8.18,
+        4.93,
+        4.79,
+        19.92,
+        15.96,
+        18.81,
+        18.63,
+        20.13,
+        6.82,
+        6.36
+      ],
+      "adSpend": [
+        1.21,
+        1.24,
+        1.24,
+        1.24,
+        1.22,
+        1.24,
+        1.24,
+        4.65,
+        3.53,
+        3.3,
+        1.82,
+        1.81,
+        1.49,
+        1.51
+      ],
+      "adRev": [
+        4.73,
+        4.94,
+        7.17,
+        7.67,
+        5.75,
+        4.99,
+        3.82,
+        28.82,
+        20.09,
+        19.23,
+        11.19,
+        9.07,
+        5.21,
+        3.77
+      ],
+      "dir": [
+        3.1,
+        3.73,
+        3.79,
+        3.64,
+        2.67,
+        3.4,
+        2.83,
+        15.92,
+        13.84,
+        12.79,
+        8.58,
+        5.86,
+        4.86,
+        2.83
+      ],
+      "indir": [
+        1.64,
+        1.21,
+        3.38,
+        4.03,
+        3.08,
+        1.59,
+        0.99,
+        12.9,
+        6.25,
+        6.44,
+        2.6,
+        3.21,
+        0.34,
+        0.95
+      ],
+      "roi": [
+        3.91,
+        3.98,
+        5.8,
+        6.19,
+        4.71,
+        4.03,
+        3.08,
+        6.19,
+        5.7,
+        5.84,
+        6.16,
+        5.0,
+        3.48,
+        2.49
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        40994.0,
+        36856.0,
+        64383.0,
+        140068.0,
+        42567.0,
+        52403.0,
+        57471.0,
+        118093.0,
+        55102.0,
+        55533.0,
+        56455.0,
+        63827.0,
+        49483.0,
+        42312.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "RX600P": {
+      "name": "RX600P_800794914500",
+      "gmv": [
+        1.54,
+        2.04,
+        2.11,
+        1.86,
+        2.1,
+        2.3,
+        0.97,
+        6.13,
+        2.84,
+        3.95,
+        6.55,
+        5.65,
+        2.26,
+        0.0
+      ],
+      "net": [
+        1.54,
+        2.04,
+        2.11,
+        1.86,
+        2.1,
+        2.3,
+        0.97,
+        6.13,
+        2.84,
+        3.95,
+        6.55,
+        5.65,
+        2.26,
+        0.0
+      ],
+      "adSpend": [
+        0.34,
+        0.34,
+        0.34,
+        0.34,
+        0.34,
+        0.34,
+        0.34,
+        0.96,
+        0.68,
+        0.66,
+        0.39,
+        0.39,
+        0.29,
+        0.5
+      ],
+      "adRev": [
+        1.41,
+        1.69,
+        2.18,
+        1.71,
+        1.78,
+        1.95,
+        0.94,
+        5.47,
+        4.08,
+        4.63,
+        3.31,
+        2.54,
+        2.03,
+        3.83
+      ],
+      "dir": [
+        0.64,
+        1.13,
+        1.6,
+        1.49,
+        1.72,
+        1.35,
+        0.4,
+        3.51,
+        1.49,
+        3.82,
+        2.6,
+        2.44,
+        1.37,
+        1.22
+      ],
+      "indir": [
+        0.77,
+        0.55,
+        0.58,
+        0.22,
+        0.06,
+        0.6,
+        0.55,
+        1.96,
+        2.59,
+        0.81,
+        0.7,
+        0.1,
+        0.66,
+        2.61
+      ],
+      "roi": [
+        4.13,
+        4.9,
+        6.44,
+        4.97,
+        5.26,
+        5.73,
+        2.81,
+        5.7,
+        5.97,
+        6.97,
+        8.51,
+        6.55,
+        6.99,
+        7.62
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        7098.0,
+        6392.0,
+        6298.0,
+        6410.0,
+        7134.0,
+        8013.0,
+        6830.0,
+        0.0,
+        11750.0,
+        12616.0,
+        10836.0,
+        11300.0,
+        10112.0,
+        13608.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "RX600_PROH": {
+      "name": "RX600_PROH_802250146018",
+      "gmv": [
+        1.35,
+        1.68,
+        1.68,
+        1.18,
+        1.89,
+        2.61,
+        1.4,
+        2.44,
+        2.1,
+        4.98,
+        3.0,
+        2.62,
+        1.42,
+        0.46
+      ],
+      "net": [
+        1.35,
+        1.68,
+        1.68,
+        1.18,
+        1.89,
+        2.61,
+        1.4,
+        2.44,
+        2.1,
+        4.98,
+        3.0,
+        2.62,
+        1.42,
+        0.46
+      ],
+      "adSpend": [
+        0.33,
+        0.33,
+        0.3,
+        0.31,
+        0.31,
+        0.32,
+        0.3,
+        0.73,
+        0.7,
+        0.96,
+        0.4,
+        0.39,
+        0.33,
+        0.48
+      ],
+      "adRev": [
+        1.25,
+        0.65,
+        1.34,
+        0.4,
+        0.44,
+        1.22,
+        1.35,
+        5.67,
+        3.62,
+        4.11,
+        1.53,
+        1.82,
+        1.2,
+        6.61
+      ],
+      "dir": [
+        0.96,
+        0.58,
+        0.45,
+        0.34,
+        0.36,
+        1.17,
+        1.05,
+        4.86,
+        1.03,
+        3.78,
+        1.06,
+        1.22,
+        0.69,
+        0.46
+      ],
+      "indir": [
+        0.29,
+        0.07,
+        0.89,
+        0.06,
+        0.08,
+        0.06,
+        0.3,
+        0.81,
+        2.59,
+        0.34,
+        0.47,
+        0.6,
+        0.51,
+        6.15
+      ],
+      "roi": [
+        3.83,
+        1.98,
+        4.43,
+        1.27,
+        1.42,
+        3.81,
+        4.45,
+        7.77,
+        5.17,
+        4.29,
+        3.78,
+        4.65,
+        3.63,
+        13.77
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        117436.0,
+        135874.0,
+        132231.0,
+        128023.0,
+        108125.0,
+        131939.0,
+        130725.0,
+        61417.0,
+        11274.0,
+        12999.0,
+        9901.0,
+        10793.0,
+        10656.0,
+        11261.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "7232Pro": {
+      "name": "7232Pro_898077474925",
+      "gmv": [
+        3.54,
+        11.86,
+        3.94,
+        1.18,
+        9.82,
+        9.43,
+        6.15,
+        5.34,
+        3.36,
+        4.2,
+        5.07,
+        4.18,
+        0.0,
+        1.29
+      ],
+      "net": [
+        3.54,
+        11.86,
+        3.94,
+        1.18,
+        9.82,
+        9.43,
+        6.15,
+        5.34,
+        3.36,
+        4.2,
+        5.07,
+        4.18,
+        0.0,
+        1.29
+      ],
+      "adSpend": [
+        0.35,
+        0.35,
+        0.36,
+        0.37,
+        0.36,
+        0.37,
+        0.37,
+        0.37,
+        0.34,
+        0.28,
+        0.3,
+        0.3,
+        0.29,
+        0.43
+      ],
+      "adRev": [
+        2.67,
+        4.07,
+        3.65,
+        1.39,
+        1.18,
+        0.45,
+        2.28,
+        2.89,
+        1.96,
+        2.52,
+        1.62,
+        2.5,
+        0.4,
+        0.44
+      ],
+      "dir": [
+        1.76,
+        2.87,
+        2.33,
+        1.05,
+        0.84,
+        0.45,
+        1.55,
+        2.46,
+        1.18,
+        2.52,
+        1.26,
+        2.5,
+        0.0,
+        0.44
+      ],
+      "indir": [
+        0.91,
+        1.2,
+        1.32,
+        0.34,
+        0.34,
+        0.0,
+        0.73,
+        0.43,
+        0.77,
+        0.0,
+        0.35,
+        0.0,
+        0.4,
+        0.0
+      ],
+      "roi": [
+        7.68,
+        11.5,
+        10.04,
+        3.75,
+        3.25,
+        1.21,
+        6.14,
+        7.81,
+        5.84,
+        8.92,
+        5.36,
+        8.41,
+        1.36,
+        1.03
+      ],
+      "refund": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "paidTraf": [
+        7228.0,
+        7971.0,
+        8984.0,
+        8626.0,
+        9579.0,
+        8560.0,
+        8338.0,
+        7456.0,
+        7182.0,
+        7200.0,
+        6851.0,
+        5884.0,
+        5034.0,
+        8594.0
+      ],
+      "advTraf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "revisit": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inner": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "updated_at": "2026-05-13 16:11"
 }
