@@ -173,7 +173,9 @@ for sku_name, js_key in SKU_MAP.items():
                                         dt = norm_date(row.get(dc,''))
                                         if dt and dt!='nan':
                                             if ct=='refund':
-                                                all_data[sku_name]['refund'][dt]=row
+                                                # 确保日期格式一致
+                                                norm_dt = norm_date(row.get(dc,''))
+                                                all_data[sku_name]['refund'][norm_dt]=row
                                             else:
                                                 all_data[sku_name]['sales'][dt]=row
                                             all_dates.add(dt)
@@ -228,7 +230,8 @@ for sku_name, js_key in SKU_MAP.items():
         roi.append(round(tgmv/cost,2) if cost>0 else 0)
         
         # 退款数据
-        rr_raw = str(rd.get('退款率','0')).replace('%','')
+        rr_raw = str(rd.get('退款率', rd.get('退款率', '0'))).replace('%','')
+        print(f'      DEBUG: dt={dt}, rr_raw={rr_raw}, rd_keys={list(rd.keys())[:5]}')
         try:
             rv = float(rr_raw)
             rr = rv/100 if rv>1 else rv
