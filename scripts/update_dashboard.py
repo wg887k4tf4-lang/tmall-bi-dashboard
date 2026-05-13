@@ -174,6 +174,13 @@ for sku_name, js_key in SKU_MAP.items():
                                     all_data[sku_name][ct][dt]['直接成交金额'] += pnum(rd.get('直接成交金额', 0))
                                     all_data[sku_name][ct][dt]['间接成交金额'] += pnum(rd.get('间接成交金额', 0))
                                     all_data[sku_name][ct][dt]['总成交金额'] += pnum(rd.get('总成交金额', 0))
+                                elif ct == 'traffic':
+                                    # 流量数据按日期累加访客数
+                                    if dt not in all_data[sku_name][ct]:
+                                        all_data[sku_name][ct][dt] = {'访客数': 0, '支付买家数': 0, '支付金额': 0}
+                                    all_data[sku_name][ct][dt]['访客数'] += pnum(rd.get('访客数', 0))
+                                    all_data[sku_name][ct][dt]['支付买家数'] += pnum(rd.get('支付买家数', 0))
+                                    all_data[sku_name][ct][dt]['支付金额'] += pnum(rd.get('支付金额', 0))
                                 else:
                                     all_data[sku_name][ct][dt] = rd
                                 
@@ -227,7 +234,7 @@ for sku_name, js_key in SKU_MAP.items():
     paidTraf, advTraf = [0.0]*len(recent_14), [0.0]*len(recent_14)
     revisit, inner = [0.0]*len(recent_14), [0.0]*len(recent_14)
     
-    for dt in recent_14:
+    for idx, dt in enumerate(recent_14):
         sd = sku_info.get('sales', {}).get(dt, {})
         ad = sku_info.get('ads', {}).get(dt, {})
         rd = sku_info.get('refund', {}).get(dt, {})
@@ -249,7 +256,11 @@ for sku_name, js_key in SKU_MAP.items():
         indir.append(round(igmv, 2))
         roi.append(round(tgmv / cost, 2) if cost > 0 else 0)
         
-        # 退款数据
+        # 流量数据（从traffic字段读取）
+        td = sku_info.get('traffic', {}).get(dt, {})
+        visitors = pnum(td.get('访客数', 0))
+        if visitors > 0:
+            paidTraf[idx] = visitors
         rr_raw = str(rd.get('退款率', '0')).replace('%','')
         try:
             rv = float(rr_raw)
