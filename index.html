@@ -1134,86 +1134,103 @@ function mapUploadedData(rows){
 // ══════════════════════════════════════════════════════════════════════
 
 function loadDataJSON(json){
-  // 从 data.json 填充 DATES + SKU_DATA
-  if(json.dates && json.dates.length > 0){
+  console.log('🔍 开始加载 data.json, 类型:', typeof json, '有skus?', !!json.skus, '有dates?', !!(json.dates && json.dates.length>0));
+  
+  // ── 格式检测与转换 ────────────────
+  if(json && json.dates && json.dates.length > 0){
     DATES = json.dates;
-  } else if(json.daily_data && json.daily_data.length > 0){
-    DATES = json.daily_data.map(function(d){ return d.date; });
-  }
-
-  // SKU_DATA 格式: json.skus["PET500"] = { name, gmv, net, adSpend, ... }
-  if(json.skus){
-    SKU_DATA = json.skus;
+    console.log('✅ DATES 已设置，长度:', DATES.length);
+  } else {
+    console.error('❌ json.dates 无效');
     return;
   }
-
-  // 兼容旧格式: 单个SKU的 data.json
-  // 旧格式: { sku_name: "KJ500G-PET500", daily_data: [...] }
-  var skuKey = '';
-  if(json.sku_name){
-    var m = json.sku_name.match(/([A-Za-z0-9]+(?:_Pro|_PRO|_PROH|P)?)/);
-    if(m) skuKey = m[1];
+  
+  // 检查是不是新格式（sales/ads 是对象）
+  var isNewFormat = false;
+  if(json.skus){
+    var firstSKU = Object.keys(json.skus)[0];
+    if(firstSKU && json.skus[firstSKU].sales && typeof json.skus[firstSKU].sales === 'object'){
+      isNewFormat = true;
+    }
   }
-  if(!skuKey) skuKey = 'PET500';
-
-  var n = DATES.length || (json.daily_data ? json.daily_data.length : 14);
-  var gmv=[], net=[], adSpend=[], adRev=[], dir_=[], indir=[], roi=[], refund=[];
-  var paidTraf=[], advTraf=[], revisit=[], inner=[];
-
-  if(json.daily_data){
-    json.daily_data.forEach(function(d){
-      var s = d.sales || {};
-      var a = d.ads || {};
-      var r = d.refund || {};
-      var t = d.traffic || {};
-
-      gmv.push((+s.pay_amount || 0) / 10000);
-      var refundAmt = (+s.refund_amount || 0) / 10000;
-      net.push(((+s.pay_amount || 0) / 10000) - refundAmt);
-      adSpend.push((+a.cost || 0) / 10000);
-      adRev.push((+a.total_gmv || 0) / 10000);
-      dir_.push((+a.direct_gmv || 0) / 10000);
-      indir.push((+a.indirect_gmv || 0) / 10000);
-      roi.push((+a.cost > 0) ? (+a.total_gmv / +a.cost).toFixed(2) * 1 : 0);
-      var rr = +r.post_refund_rate || 0;
-      refund.push(rr > 1 ? rr : rr * 100);
-
-      // 流量: 从 traffic 对象汇总
-      var ptot=0, atot=0, rtot=0, itot=0;
-      Object.keys(t).forEach(function(k){
-        var v = (+t[k].visitors || 0) / 1000; // 千人
-        if(k.indexOf('付费')>=0 || k.indexOf('效果')>=0) ptot += v;
-        if(k.indexOf('经营')>=0 || k.indexOf('优势')>=0) atot += v;
-        if(k.indexOf('回访')>=0) rtot += v;
-        if(k.indexOf('店内')>=0 || k.indexOf('流转')>=0) itot += v;
-      });
-      paidTraf.push(+ptot.toFixed(1));
-      advTraf.push(+atot.toFixed(1));
-      revisit.push(+rtot.toFixed(1));
-      inner.push(+itot.toFixed(1));
-    });
-  }
-
-  SKU_DATA[skuKey] = {
-    name: skuKey,
-    gmv: gmv, net: net, adSpend: adSpend, adRev: adRev,
-    dir: dir_, indir: indir, roi: roi, refund: refund,
-    paidTraf: paidTraf, advTraf: advTraf, revisit: revisit, inner: inner
-  };
-
-  // 补零给其他SKU
-  var allSKUs = ['RX600_PRO','PET500','PET600','RX600P','RX600_PROH','RX400_Pro','U8'];
-  allSKUs.forEach(function(k){
-    if(!SKU_DATA[k]){
-      SKU_DATA[k] = {
-        name:k, gmv:Array(n).fill(0), net:Array(n).fill(0), adSpend:Array(n).fill(0),
-        adRev:Array(n).fill(0), dir:Array(n).fill(0), indir:Array(n).fill(0),
-        roi:Array(n).fill(0), refund:Array(n).fill(0),
-        paidTraf:Array(n).fill(0), advTraf:Array(n).fill(0),
-        revisit:Array(n).fill(0), inner:Array(n).fill(0)
+  
+  if(isNewFormat){
+    console.log('🔄 检测到新格式，开始转换...');
+    SKU_DATA = {};
+    var skus = json.skus;
+    
+    for (var skuKey in skus) {
+      var sku = skus[skuKey];
+      var gmv=[], net=[], adSpend=[], adRev=[], dir_=[], indir=[], roi=[];
+      var refund_total=[], refund_after=[], refund_before=[];
+      var paidTraf=[], advTraf=[], revisit=[], inner=[];
+      
+      for (var i=0; i<DATES.length; i++) {
+        var dt = DATES[i];
+        
+        // 销售数据
+        var sd = (sku.sales && sku.sales[dt]) || {};
+        var g = parseFloat(sd['支付金额'] || sd['销售额'] || sd['下单金额'] || 0);
+        var r = parseFloat(sd['退款额'] || sd['退款金额'] || 0);
+        if (g > 0.01) {
+          gmv.push(+(g/10000).toFixed(2));
+          net.push(+((g-r)/10000).toFixed(2));
+        } else {
+          gmv.push(0);
+          net.push(0);
+        }
+        
+        // 广告数据
+        var ad = (sku.ads && sku.ads[dt]) || {};
+        var cost = parseFloat(ad['花费'] || 0) / 10000;
+        var dgmv = parseFloat(ad['直接成交金额'] || 0) / 10000;
+        var igmv = parseFloat(ad['间接成交金额'] || 0) / 10000;
+        var tgmv = parseFloat(ad['总成交金额'] || 0) / 10000;
+        adSpend.push(+cost.toFixed(2));
+        adRev.push(+tgmv.toFixed(2));
+        dir_.push(+dgmv.toFixed(2));
+        indir.push(+igmv.toFixed(2));
+        roi.push(cost > 0 ? +(tgmv/cost).toFixed(2) : 0);
+        
+        // 退款数据（3种退款率）
+        var rd = (sku.refund && sku.refund[dt]) || {};
+        function parseRr(val) {
+          if (!val) return 0;
+          var v = parseFloat(val.toString().replace('%',''));
+          return v > 1 ? v : v*100;
+        }
+        refund_total.push(+parseRr(rd['退款率'] || rd['total'] || 0).toFixed(2));
+        refund_after.push(+parseRr(rd['退款率（发货后）'] || rd['after'] || 0).toFixed(2));
+        refund_before.push(+parseRr(rd['退货率（发货前）'] || rd['before'] || rd['退货率'] || 0).toFixed(2));
+        
+        // 流量数据
+        var td = (sku.traffic && sku.traffic[dt]) || {};
+        var visitors = parseFloat(td['访客数'] || 0);
+        if (visitors > 0) {
+          paidTraf[i] = +(visitors/1000).toFixed(1);
+        }
+      }
+      
+      SKU_DATA[skuKey] = {
+        name: sku.name || skuKey,
+        gmv: gmv, net: net, adSpend: adSpend, adRev: adRev,
+        dir: dir_, indir: indir, roi: roi,
+        refund_total: refund_total, refund_after: refund_after, refund_before: refund_before,
+        paidTraf: paidTraf, advTraf: advTraf, revisit: revisit, inner: inner
       };
     }
-  });
+    console.log('✅ 新格式转换完成，SKU数量:', Object.keys(SKU_DATA).length);
+    return;
+  }
+  
+  // ── 兼容旧格式 ────────────────────
+  if(json.skus){
+    SKU_DATA = json.skus;
+    console.log('✅ 旧格式加载完成，SKU数量:', Object.keys(SKU_DATA).length);
+    return;
+  }
+  
+  console.error('❌ 无法识别 data.json 格式');
 }
 
 // ── 统一页面加载入口 ──────────────────────────────────────────
